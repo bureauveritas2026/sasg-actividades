@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SASG — Seguimiento de Actividades</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy-mid: #1a2f54;
+    --navy-light: #243a66;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f8f6f0;
+    --cream-dark: #ede9df;
+    --white: #ffffff;
+    --text-primary: #0f1f3d;
+    --text-secondary: #4a5a7a;
+    --text-muted: #8a96a8;
+    --border: #ddd8cc;
+    --green: #2a6e4e;
+    --green-bg: #eaf4ef;
+    --green-border: #a8d5be;
+    --amber: #8a5c00;
+    --amber-bg: #fff8e6;
+    --amber-border: #f0d080;
+    --red: #8b2020;
+    --red-bg: #fdf0f0;
+    --red-border: #f0b0b0;
+    --gray: #4a5568;
+    --gray-bg: #f0f0f0;
+    --gray-border: #c8c8c8;
+    --shadow-sm: 0 1px 3px rgba(15,31,61,0.08);
+    --shadow-md: 0 4px 16px rgba(15,31,61,0.10);
+    --shadow-lg: 0 8px 32px rgba(15,31,61,0.13);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--navy);
+    border-bottom: 3px solid var(--gold);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+  }
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+  .brand-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .brand-subtitle {
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sync-btn {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sync-btn:hover { background: rgba(201,168,76,0.25); }
+  .sync-btn svg { width: 13px; height: 13px; }
+  .sync-status {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 300;
+  }
+
+  /* MAIN LAYOUT */
+  .main-wrap { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+  /* KPI STRIP */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 2rem;
+  }
+  .kpi-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .kpi-card.kpi-main {
+    background: var(--navy);
+    border-color: var(--navy-light);
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card.kpi-main::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+  }
+  .kpi-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .kpi-main .kpi-label { color: rgba(255,255,255,0.45); }
+  .kpi-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .kpi-main .kpi-value { color: var(--gold-light); font-size: 42px; }
+  .kpi-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+  .kpi-main .kpi-sub { color: rgba(255,255,255,0.35); }
+  .progress-track {
+    height: 5px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 99px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    border-radius: 99px;
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .kpi-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* TOOLBAR */
+  .toolbar {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+  }
+  .toolbar-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .filter-select, .search-input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-primary);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 7px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+    height: 36px;
+  }
+  .filter-select:focus, .search-input:focus {
+    border-color: var(--navy-light);
+  }
+  .search-input { flex: 1; min-width: 200px; }
+  .toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .results-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* TABLE */
+  .table-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .data-table thead {
+    background: var(--navy);
+  }
+  .data-table thead th {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    padding: 13px 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--gold);
+    white-space: nowrap;
+  }
+  .data-table tbody tr {
+    border-bottom: 1px solid var(--cream-dark);
+    transition: background 0.12s;
+  }
+  .data-table tbody tr:last-child { border-bottom: none; }
+  .data-table tbody tr:hover { background: #f5f3ee; }
+  .data-table td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    color: var(--text-primary);
+    font-weight: 300;
+    line-height: 1.45;
+  }
+  .td-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    width: 48px;
+    text-align: center;
+  }
+  .td-proceso {
+    width: 110px;
+  }
+  .proceso-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 3px;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .p-AYB    { background: #e8f0fb; color: #1a3a7a; }
+  .p-HK     { background: #eaf4ef; color: #1a5c3a; }
+  .p-Mantenimiento { background: #fff4e6; color: #7a4000; }
+  .p-GI     { background: #f4eaff; color: #4a1a7a; }
+  .p-Contraloria   { background: #ffeaea; color: #7a1a1a; }
+  .p-TH     { background: #eafaf4; color: #0a5a4a; }
+  .p-Front  { background: #faf0ea; color: #7a3a0a; }
+  .p-Gerencia      { background: #0f1f3d; color: #c9a84c; }
+  .p-TI     { background: #eaeaf8; color: #2a2a7a; }
+
+  .td-desc { max-width: 480px; }
+  .td-resp {
+    font-size: 12px;
+    color: var(--text-secondary);
+    width: 130px;
+  }
+  .resp-pill {
+    display: inline-block;
+    background: var(--cream-dark);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 7px;
+    margin: 1px 2px 1px 0;
+    color: var(--text-secondary);
+    letter-spacing: 0.03em;
+  }
+  .td-estado { width: 160px; }
+  .status-select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 4px;
+    border: 1px solid;
+    padding: 5px 10px;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.15s;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a96a8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 26px;
+  }
+  .s-Pendiente    { background: var(--gray-bg);  color: var(--gray);   border-color: var(--gray-border); }
+  .s-En-Progreso  { background: var(--amber-bg); color: var(--amber);  border-color: var(--amber-border); }
+  .s-Completado   { background: var(--green-bg); color: var(--green);  border-color: var(--green-border); }
+  .s-Bloqueado    { background: var(--red-bg);   color: var(--red);    border-color: var(--red-border); }
+
+  .save-indicator {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    transition: all 0.3s;
+    opacity: 0;
+  }
+  .save-indicator.show { opacity: 1; }
+  .save-indicator.saving { background: var(--amber-bg); color: var(--amber); }
+  .save-indicator.saved  { background: var(--green-bg); color: var(--green); }
+  .save-indicator.error  { background: var(--red-bg);   color: var(--red); }
+
+  /* SETUP MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,31,61,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.hidden { display: none; }
+  .modal {
+    background: var(--white);
+    border-radius: 8px;
+    border-top: 4px solid var(--gold);
+    padding: 2rem 2.5rem;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .modal-badge {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .modal-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .modal-field { margin-bottom: 1.25rem; }
+  .modal-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .modal-field input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 9px 13px;
+    background: var(--cream);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .modal-field input:focus { border-color: var(--navy-light); }
+  .modal-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+  }
+  .btn-primary {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--gold-light);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    flex: 1;
+  }
+  .btn-primary:hover { background: var(--navy-mid); }
+  .btn-secondary {
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--navy-light); color: var(--text-primary); }
+  .step-list {
+    background: var(--cream);
+    border-radius: 5px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .step-list li {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.7;
+    padding-left: 1rem;
+    position: relative;
+    list-style: none;
+  }
+  .step-list li::before {
+    content: attr(data-n);
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 500;
+    font-size: 11px;
+  }
+
+  /* EMPTY */
+  .empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-muted);
+  }
+  .empty-state p { font-size: 14px; font-weight: 300; }
+
+  /* FOOTER */
+  .site-footer {
+    max-width: 1400px;
+    margin: 2rem auto 0;
+    padding: 1rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  @media (max-width: 900px) {
+    .kpi-strip { grid-template-columns: 1fr 1fr; }
+    .kpi-card.kpi-main { grid-column: 1 / -1; }
+    .main-wrap { padding: 1rem; }
+    .td-desc { max-width: 220px; }
+    .td-resp { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SETUP MODAL -->
+<div class="modal-overlay" id="setupModal">
+  <div class="modal">
+    <div class="modal-logo">
+      <span class="modal-badge">SASG</span>
+      <span style="font-size:12px;color:var(--text-muted);font-weight:300;letter-spacing:0.06em;text-transform:uppercase;">Configuración inicial</span>
+    </div>
+    <div class="modal-title">Conectar Google Sheets</div>
+    <p class="modal-sub">Para guardar los cambios en tiempo real necesitas conectar tu hoja de cálculo. Sigue estos pasos una sola vez:</p>
+    <ol class="step-list">
+      <li data-n="1">Importa el archivo CSV en Google Sheets</li>
+      <li data-n="2">Ve a <strong>Extensiones → Apps Script</strong></li>
+      <li data-n="3">Pega el código del archivo <code>apps-script.gs</code> y guarda</li>
+      <li data-n="4">Haz clic en <strong>Implementar → Nueva implementación</strong> como "Aplicación web", acceso "Cualquier persona"</li>
+      <li data-n="5">Copia la URL que te genera y pégala abajo</li>
+    </ol>
+    <div class="modal-field">
+      <label>URL del Apps Script (Web App URL)</label>
+      <input type="url" id="scriptUrl" placeholder="https://script.google.com/macros/s/ABC.../exec">
+      <p class="modal-hint">Esta URL es la que conecta esta app con tu Google Sheet. Solo tú la tienes.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveConfig()">Guardar y conectar</button>
+      <button class="btn-secondary" onclick="useDemoMode()">Usar modo demo</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <span class="brand-badge">SASG</span>
+      <div>
+        <div class="brand-title">Seguimiento de Actividades</div>
+        <div class="brand-subtitle">Panel de control y cumplimiento</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <span class="sync-status" id="syncStatus">No conectado</span>
+      <button class="sync-btn" onclick="loadData()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M13.5 8A5.5 5.5 0 1 1 8 2.5" stroke-linecap="round"/>
+          <path d="M8 2.5l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sincronizar
+      </button>
+      <button class="sync-btn" onclick="showSetup()" style="margin-left:4px;">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="2.5"/>
+          <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.22 3.22l1.42 1.42M11.36 11.36l1.42 1.42M3.22 12.78l1.42-1.42M11.36 4.64l1.42-1.42" stroke-linecap="round"/>
+        </svg>
+        Config
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main-wrap">
+
+  <!-- KPIs -->
+  <div class="kpi-strip">
+    <div class="kpi-card kpi-main">
+      <div class="kpi-label">Cumplimiento general</div>
+      <div class="kpi-value" id="kpiPct">0%</div>
+      <div class="progress-track"><div class="progress-fill" id="kpiBar" style="width:0%"></div></div>
+      <div class="kpi-sub" id="kpiSub">0 de 0 actividades completadas</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Completadas</div>
+      <div class="kpi-value" id="kpiComp" style="color:var(--green)">0</div>
+      <div class="kpi-sub"><span class="kpi-dot" style="background:var(--green)"></span>Estado final</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">En progreso</div>
+      <div class="kpi-value" id="kpiProg" style="color:var(--amber)">0</div>
+      <div class="kpi-sub"><span class="kpi-dot" style="background:#c9a84c"></span>En avance</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Pendientes</div>
+      <div class="kpi-value" id="kpiPend" style="color:var(--gray)">0</div>
+      <div class="kpi-sub"><span class="kpi-dot" style="background:#8a96a8"></span>Sin iniciar</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Bloqueadas</div>
+      <div class="kpi-value" id="kpiBloq" style="color:var(--red)">0</div>
+      <div class="kpi-sub"><span class="kpi-dot" style="background:var(--red)"></span>Requieren atención</div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <span class="toolbar-label">Filtros</span>
+    <input class="search-input" type="text" id="searchInput" placeholder="Buscar actividad o responsable..." oninput="applyFilters()">
+    <div class="toolbar-divider"></div>
+    <select class="filter-select" id="filterProceso" onchange="applyFilters()">
+      <option value="">Todos los procesos</option>
+    </select>
+    <select class="filter-select" id="filterResponsable" onchange="applyFilters()">
+      <option value="">Todos los responsables</option>
+    </select>
+    <select class="filter-select" id="filterEstado" onchange="applyFilters()">
+      <option value="">Todos los estados</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="En Progreso">En Progreso</option>
+      <option value="Completado">Completado</option>
+      <option value="Bloqueado">Bloqueado</option>
+    </select>
+    <div class="toolbar-divider"></div>
+    <span class="results-count" id="resultsCount">— actividades</span>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="td-num">#</th>
+          <th>Proceso</th>
+          <th>Actividad</th>
+          <th>Responsable(s)</th>
+          <th>Estado</th>
+          <th style="width:80px;text-align:center;">Guardado</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td colspan="6" class="empty-state"><p>Cargando actividades…</p></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <span>SASG — Sistema de Actividades de Seguridad y Gestión</span>
+  <span id="footerCount">Total: 0 actividades</span>
+</footer>
+
+<script>
+// ─── CONFIG ────────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'sasg_script_url';
+const ESTADOS = ['Pendiente','En Progreso','Completado','Bloqueado'];
+
+let allData = [];
+let filteredData = [];
+let scriptUrl = '';
+let demoMode = false;
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  scriptUrl = localStorage.getItem(STORAGE_KEY) || '';
+  if (!scriptUrl) {
+    document.getElementById('setupModal').classList.remove('hidden');
+  } else {
+    document.getElementById('setupModal').classList.add('hidden');
+    loadData();
+  }
+});
+
+function showSetup() {
+  document.getElementById('scriptUrl').value = scriptUrl;
+  document.getElementById('setupModal').classList.remove('hidden');
+}
+
+function saveConfig() {
+  const url = document.getElementById('scriptUrl').value.trim();
+  if (!url.startsWith('https://script.google.com')) {
+    alert('Por favor ingresa una URL válida de Google Apps Script.');
+    return;
+  }
+  scriptUrl = url;
+  localStorage.setItem(STORAGE_KEY, scriptUrl);
+  demoMode = false;
+  document.getElementById('setupModal').classList.add('hidden');
+  loadData();
+}
+
+function useDemoMode() {
+  demoMode = true;
+  document.getElementById('setupModal').classList.add('hidden');
+  loadDemoData();
+}
+
+// ─── DATA LOAD ─────────────────────────────────────────────────────────────
+async function loadData() {
+  if (demoMode) { loadDemoData(); return; }
+  setSync('Sincronizando…');
+  try {
+    const res = await fetch(`${scriptUrl}?action=get`, { mode: 'cors' });
+    const json = await res.json();
+    if (json.data) {
+      allData = json.data;
+      setSync('Sincronizado · ' + timeNow());
+      render();
+    }
+  } catch(e) {
+    setSync('Error de conexión');
+    if (!allData.length) loadDemoData();
+  }
+}
+
+async function updateRow(rowIndex, newEstado, indicator) {
+  if (demoMode) {
+    allData[rowIndex].Estado = newEstado;
+    updateKPIs();
+    flash(indicator, 'saved', 'Guardado');
+    return;
+  }
+  flash(indicator, 'saving', 'Guardando…');
+  try {
+    const body = new FormData();
+    body.append('action', 'update');
+    body.append('row', rowIndex + 2); // +2: header + 1-index
+    body.append('estado', newEstado);
+    const res = await fetch(scriptUrl, { method: 'POST', body, mode: 'cors' });
+    const json = await res.json();
+    if (json.success) {
+      allData[rowIndex].Estado = newEstado;
+      updateKPIs();
+      flash(indicator, 'saved', 'Guardado');
+      setSync('Guardado · ' + timeNow());
+    } else {
+      flash(indicator, 'error', 'Error');
+    }
+  } catch(e) {
+    flash(indicator, 'error', 'Error');
+  }
+}
+
+// ─── RENDER ────────────────────────────────────────────────────────────────
+function render() {
+  populateFilters();
+  applyFilters();
+  updateKPIs();
+}
+
+function applyFilters() {
+  const q   = document.getElementById('searchInput').value.toLowerCase();
+  const proc = document.getElementById('filterProceso').value;
+  const resp = document.getElementById('filterResponsable').value;
+  const est  = document.getElementById('filterEstado').value;
+
+  filteredData = allData.filter((row, i) => {
+    row._origIndex = i;
+    const matchQ    = !q    || (row['Item Observado']||'').toLowerCase().includes(q) || (row['Responsables']||'').toLowerCase().includes(q);
+    const matchProc = !proc || (row['Proceso']||'').trim() === proc;
+    const matchResp = !resp || (row['Responsables']||'').includes(resp);
+    const matchEst  = !est  || (row['Estado']||'Pendiente') === est;
+    return matchQ && matchProc && matchResp && matchEst;
+  });
+
+  document.getElementById('resultsCount').textContent = `${filteredData.length} actividad${filteredData.length!==1?'es':''}`;
+  renderTable();
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  if (!filteredData.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><p>Sin resultados para los filtros seleccionados.</p></td></tr>';
+    return;
+  }
+  tbody.innerHTML = filteredData.map((row, i) => {
+    const orig  = row._origIndex;
+    const proc  = (row['Proceso']||'').trim();
+    const desc  = row['Item Observado']||'';
+    const resps = (row['Responsables']||'').split('/').map(r=>r.trim()).filter(Boolean);
+    const est   = row['Estado']||'Pendiente';
+    const estClass = 's-' + est.replace(' ','-');
+    const respHtml = resps.map(r=>`<span class="resp-pill">${r}</span>`).join('');
+    const procClass = `p-${proc.replace(/\s/g,'')}`;
+    const opts = ESTADOS.map(s => `<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
+    return `<tr>
+      <td class="td-num">${i+1}</td>
+      <td class="td-proceso"><span class="proceso-tag ${procClass}">${proc}</span></td>
+      <td class="td-desc">${desc}</td>
+      <td class="td-resp">${respHtml}</td>
+      <td class="td-estado">
+        <select class="status-select ${estClass}" data-orig="${orig}" onchange="handleChange(this)">
+          ${opts}
+        </select>
+      </td>
+      <td style="text-align:center;">
+        <span class="save-indicator" id="ind-${orig}"></span>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function handleChange(sel) {
+  const orig = parseInt(sel.dataset.orig);
+  const newEst = sel.value;
+  const estClass = 's-' + newEst.replace(' ','-');
+  sel.className = `status-select ${estClass}`;
+  const indicator = document.getElementById(`ind-${orig}`);
+  updateRow(orig, newEst, indicator);
+}
+
+// ─── KPIs ──────────────────────────────────────────────────────────────────
+function updateKPIs() {
+  const total = allData.length;
+  const comp  = allData.filter(r=>(r.Estado||'Pendiente')==='Completado').length;
+  const prog  = allData.filter(r=>(r.Estado||'Pendiente')==='En Progreso').length;
+  const pend  = allData.filter(r=>(r.Estado||'Pendiente')==='Pendiente').length;
+  const bloq  = allData.filter(r=>(r.Estado||'Pendiente')==='Bloqueado').length;
+  const pct   = total ? Math.round(comp/total*100) : 0;
+  document.getElementById('kpiPct').textContent  = pct + '%';
+  document.getElementById('kpiBar').style.width  = pct + '%';
+  document.getElementById('kpiSub').textContent  = `${comp} de ${total} actividades completadas`;
+  document.getElementById('kpiComp').textContent = comp;
+  document.getElementById('kpiProg').textContent = prog;
+  document.getElementById('kpiPend').textContent = pend;
+  document.getElementById('kpiBloq').textContent = bloq;
+  document.getElementById('footerCount').textContent = `Total: ${total} actividades · ${pct}% completado`;
+}
+
+// ─── FILTERS POPULATE ──────────────────────────────────────────────────────
+function populateFilters() {
+  const procesos = [...new Set(allData.map(r=>(r['Proceso']||'').trim()).filter(Boolean))].sort();
+  const sel1 = document.getElementById('filterProceso');
+  sel1.innerHTML = '<option value="">Todos los procesos</option>' + procesos.map(p=>`<option value="${p}">${p}</option>`).join('');
+
+  const resps = [...new Set(allData.flatMap(r=>(r['Responsables']||'').split('/').map(x=>x.trim())).filter(Boolean))].sort();
+  const sel2 = document.getElementById('filterResponsable');
+  sel2.innerHTML = '<option value="">Todos los responsables</option>' + resps.map(r=>`<option value="${r}">${r}</option>`).join('');
+  document.getElementById('footerCount').textContent = `Total: ${allData.length} actividades`;
+}
+
+// ─── HELPERS ───────────────────────────────────────────────────────────────
+function setSync(msg) { document.getElementById('syncStatus').textContent = msg; }
+function timeNow() { return new Date().toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'}); }
+function flash(el, type, msg) {
+  if (!el) return;
+  el.textContent = msg;
+  el.className = `save-indicator ${type} show`;
+  if (type !== 'saving') setTimeout(()=>{ el.className='save-indicator'; }, 2500);
+}
+
+// ─── DEMO DATA ─────────────────────────────────────────────────────────────
+function loadDemoData() {
+  setSync('Modo demo — sin conexión real');
+  allData = [
+{"Proceso":"AYB","Item Observado":"Capacitar al personal en la politica SASG y programas SASG","Responsables":"Kim","Estado":"Pendiente"},
+{"Proceso":"AYB","Item Observado":"Reforzar como deben reportar actos y condiciones inseguras en Zyght","Responsables":"Kim","Estado":"Pendiente"},
+{"Proceso":"AYB","Item Observado":"Socializar comites TH SASG con el equipo","Responsables":"Kim","Estado":"Completado"},
+{"Proceso":"AYB","Item Observado":"Capacitación en BPM, conservación de alimentos, buenas practicas de almacenamiento","Responsables":"Amparo","Estado":"En Progreso"},
+{"Proceso":"AYB","Item Observado":"Registros de entrega de EPP (Zapatos de seguridad, lentes y guantes de steward)","Responsables":"Dante","Estado":"Pendiente"},
+{"Proceso":"AYB","Item Observado":"Diligenciar los formatos de AyB (Servicio y Producción, incluir controles de T°)","Responsables":"Jun / Murilo","Estado":"En Progreso"},
+{"Proceso":"AYB","Item Observado":"Realizar rotulado estricto diario en alimentos camaras, reorganizar alimentos evitando contaminación cruzada","Responsables":"Jun / Murilo","Estado":"Pendiente"},
+{"Proceso":"AYB","Item Observado":"Mejorar limpieza y orden en Bar, organizar la zona administrativa en bar","Responsables":"Jun","Estado":"Bloqueado"},
+{"Proceso":"AYB","Item Observado":"Revisar tablas de colores según especificación, incluir cuchillos de colores","Responsables":"Murilo / Paola","Estado":"Pendiente"},
+{"Proceso":"AYB","Item Observado":"Los químicos deben contar con bandejas de contencion","Responsables":"Murilo","Estado":"Completado"},
+{"Proceso":"HK","Item Observado":"Capacitar al personal en la politica SASG y programas SASG","Responsables":"Kim","Estado":"En Progreso"},
+{"Proceso":"HK","Item Observado":"Reforzar como deben reportar actos y condiciones inseguras en Zyght","Responsables":"Kim","Estado":"Pendiente"},
+{"Proceso":"HK","Item Observado":"Revisar compra zapatos antideslizantes a colaboradores del area","Responsables":"Dante / Paola","Estado":"Pendiente"},
+{"Proceso":"HK","Item Observado":"Los productos quimicos no cuentan con bandejas de contención","Responsables":"Andrea","Estado":"Completado"},
+{"Proceso":"HK","Item Observado":"Las hojas MSDS deben estar al alcance de los usuarios de sust. Quimicas","Responsables":"Andrea","Estado":"En Progreso"},
+{"Proceso":"Mantenimiento","Item Observado":"Capacitar al personal en la politica SASG y programas SASG","Responsables":"Kim","Estado":"Pendiente"},
+{"Proceso":"Mantenimiento","Item Observado":"Evidencias de mantenimiento preventivo, curativo y correctivo de todos los equipos","Responsables":"Juan","Estado":"En Progreso"},
+{"Proceso":"Mantenimiento","Item Observado":"Los productos quimicos deben contar con bandejas de contención","Responsables":"Juan","Estado":"Bloqueado"},
+{"Proceso":"Mantenimiento","Item Observado":"Contar con matriz de necesidades EPP","Responsables":"","Estado":"Pendiente"},
+{"Proceso":"GI","Item Observado":"Contar con matriz IPERC actualizada al año y expuesta en areas","Responsables":"Dante / Kim","Estado":"En Progreso"},
+{"Proceso":"GI","Item Observado":"Contar con matriz ambiental","Responsables":"Kim","Estado":"Pendiente"},
+{"Proceso":"GI","Item Observado":"Contar con registro de simulacros de sismo, incendios y derrame MATPEL","Responsables":"Dante","Estado":"Completado"},
+{"Proceso":"Contraloria","Item Observado":"Contar con area de cuarentena en almacen central de productos","Responsables":"Paola","Estado":"Pendiente"},
+{"Proceso":"Contraloria","Item Observado":"Contar con registros en almacen y recepción de mercaderia","Responsables":"Paola","Estado":"En Progreso"},
+{"Proceso":"TH","Item Observado":"Mantener actualizado Gbook","Responsables":"Amparo","Estado":"Completado"},
+{"Proceso":"Front","Item Observado":"Contar con registro de acompañantes","Responsables":"Ivanova","Estado":"Pendiente"},
+{"Proceso":"Front","Item Observado":"Seguimiento a pausas activas, contar con registro","Responsables":"Kim","Estado":"En Progreso"},
+{"Proceso":"Gerencia","Item Observado":"Evidenciar registros de socialización de Planificación estrategica","Responsables":"Ivan","Estado":"Pendiente"},
+{"Proceso":"TI","Item Observado":"Autorización de datos personales, contar con registros de ADDP firmados","Responsables":"Pedro / Kim","Estado":"Pendiente"}
+  ];
+  render();
+}
+</script>
+</body>
+</html>
