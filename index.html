@@ -7,38 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* ── Paleta principal ── */
     --slate-950: #0d1117;
     --slate-900: #161c24;
     --slate-800: #1e2733;
-    --slate-700: #2c3a4a;
-    --slate-600: #3d4f62;
-    --slate-400: #7a8fa3;
-    --slate-200: #c8d3de;
-    --slate-100: #e4eaf0;
-    --slate-50:  #f4f6f9;
-
-    /* ── Acento terracota/dorado ── */
     --accent:       #b8935a;
     --accent-light: #d4b07d;
-    --accent-dim:   rgba(184,147,90,0.15);
-    --accent-glow:  rgba(184,147,90,0.08);
-
-    /* ── Superficie y texto ── */
     --bg:           #f2f1ed;
     --bg-card:      #fafaf8;
     --bg-card-alt:  #f6f5f1;
     --border:       #e0ddd5;
-    --border-hover: #c8c4b8;
     --text-1:       #1a1f27;
     --text-2:       #4a5568;
     --text-3:       #8a95a5;
-
-    /* ── Semánticos ── */
     --green:        #2d6b4f;
     --green-bg:     #edf5f0;
     --green-border: #b0d4c0;
-    --amber:        #8a5c00;
+    --amber:        #7a5000;
     --amber-bg:     #fdf5e4;
     --amber-border: #e8c96a;
     --red:          #8b2828;
@@ -47,505 +31,158 @@
     --gray:         #4a5568;
     --gray-bg:      #f0f0ee;
     --gray-border:  #cacac4;
-
-    /* ── Sombras ── */
+    --orange:       #8b4010;
+    --orange-bg:    #fff2ea;
+    --orange-border:#f0c090;
     --shadow-xs: 0 1px 2px rgba(13,17,23,0.06);
     --shadow-sm: 0 2px 8px rgba(13,17,23,0.07);
     --shadow-md: 0 4px 20px rgba(13,17,23,0.09);
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Figtree', sans-serif; background: var(--bg); color: var(--text-1); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-  body {
-    font-family: 'Figtree', sans-serif;
-    background: var(--bg);
-    color: var(--text-1);
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ══ HEADER ══════════════════════════════════════════════════════ */
-  .site-header {
-    background: var(--slate-900);
-    border-bottom: 1px solid rgba(184,147,90,0.3);
-    padding: 0 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 62px;
-  }
-  .header-brand {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .brand-badge {
-    background: var(--accent);
-    color: var(--slate-950);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    padding: 5px 13px;
-    border-radius: 2px;
-    text-transform: uppercase;
-  }
-  .brand-title {
-    font-family: 'Cormorant Garamond', serif;
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    line-height: 1.2;
-  }
-  .brand-subtitle {
-    color: rgba(255,255,255,0.35);
-    font-family: 'Figtree', sans-serif;
-    font-size: 10.5px;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .header-meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .sync-btn {
-    background: transparent;
-    border: 1px solid rgba(184,147,90,0.35);
-    color: var(--accent-light);
-    font-family: 'Figtree', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 6px 16px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    letter-spacing: 0.04em;
-  }
-  .sync-btn:hover {
-    background: rgba(184,147,90,0.1);
-    border-color: rgba(184,147,90,0.6);
-  }
+  /* HEADER */
+  .site-header { background: var(--slate-900); border-bottom: 1px solid rgba(184,147,90,0.3); padding: 0 2rem; position: sticky; top: 0; z-index: 100; }
+  .header-inner { max-width: 1700px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .header-brand { display: flex; align-items: center; gap: 16px; }
+  .brand-badge { background: var(--accent); color: var(--slate-950); font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; padding: 5px 13px; border-radius: 2px; text-transform: uppercase; }
+  .brand-title { font-family: 'Cormorant Garamond', serif; color: #fff; font-size: 18px; font-weight: 500; letter-spacing: 0.03em; line-height: 1.2; }
+  .brand-subtitle { color: rgba(255,255,255,0.35); font-size: 10.5px; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; }
+  .header-meta { display: flex; align-items: center; gap: 10px; }
+  .sync-btn { background: transparent; border: 1px solid rgba(184,147,90,0.35); color: var(--accent-light); font-family: 'Figtree', sans-serif; font-size: 12px; font-weight: 500; padding: 6px 16px; border-radius: 3px; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; gap: 6px; }
+  .sync-btn:hover { background: rgba(184,147,90,0.1); }
   .sync-btn svg { width: 12px; height: 12px; }
-  .sync-status {
-    font-size: 11px;
-    color: rgba(255,255,255,0.28);
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
+  .sync-status { font-size: 11px; color: rgba(255,255,255,0.28); font-weight: 300; }
 
-  /* ══ NAV ═════════════════════════════════════════════════════════ */
-  .nav-bar {
-    background: var(--slate-800);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .nav-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    padding: 0 2rem;
-  }
-  .nav-tab {
-    font-family: 'Figtree', sans-serif;
-    font-size: 11.5px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.38);
-    padding: 14px 20px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
+  /* NAV */
+  .nav-bar { background: var(--slate-800); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-inner { max-width: 1700px; margin: 0 auto; display: flex; padding: 0 2rem; }
+  .nav-tab { font-family: 'Figtree', sans-serif; font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.38); padding: 14px 20px; border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; display: flex; align-items: center; gap: 7px; }
   .nav-tab:hover { color: rgba(255,255,255,0.65); }
-  .nav-tab.active {
-    color: var(--accent-light);
-    border-bottom-color: var(--accent);
-  }
+  .nav-tab.active { color: var(--accent-light); border-bottom-color: var(--accent); }
   .nav-tab svg { width: 13px; height: 13px; }
 
-  /* ══ MAIN ════════════════════════════════════════════════════════ */
-  .main-wrap { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-
-  /* ══ PANELS ══════════════════════════════════════════════════════ */
+  /* MAIN */
+  .main-wrap { max-width: 1700px; margin: 0 auto; padding: 1.75rem 2rem; }
   .panel { display: none; }
   .panel.active { display: block; }
 
-  /* ══ KPI STRIP ═══════════════════════════════════════════════════ */
-  .kpi-strip {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    gap: 14px;
-    margin-bottom: 1.75rem;
-  }
-  .kpi-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.2rem 1.4rem;
-    box-shadow: var(--shadow-xs);
-    transition: box-shadow 0.2s;
-  }
-  .kpi-card:hover { box-shadow: var(--shadow-sm); }
-  .kpi-card.kpi-main {
-    background: var(--slate-900);
-    border: 1px solid rgba(184,147,90,0.2);
-    position: relative;
-    overflow: hidden;
-  }
-  .kpi-card.kpi-main::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(184,147,90,0.04) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .kpi-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-3);
-    margin-bottom: 10px;
-  }
+  /* KPI */
+  .kpi-strip { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 14px; margin-bottom: 1.5rem; }
+  .kpi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.15rem 1.35rem; box-shadow: var(--shadow-xs); }
+  .kpi-card.kpi-main { background: var(--slate-900); border: 1px solid rgba(184,147,90,0.2); }
+  .kpi-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 9px; }
   .kpi-main .kpi-label { color: rgba(255,255,255,0.35); }
-  .kpi-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 34px;
-    font-weight: 500;
-    color: var(--text-1);
-    line-height: 1;
-    margin-bottom: 10px;
-    letter-spacing: -0.01em;
-  }
-  .kpi-main .kpi-value {
-    color: var(--accent-light);
-    font-size: 44px;
-  }
-  .kpi-sub {
-    font-size: 11px;
-    color: var(--text-3);
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
+  .kpi-value { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; color: var(--text-1); line-height: 1; margin-bottom: 9px; }
+  .kpi-main .kpi-value { color: var(--accent-light); font-size: 44px; }
+  .kpi-sub { font-size: 11px; color: var(--text-3); font-weight: 300; }
   .kpi-main .kpi-sub { color: rgba(255,255,255,0.28); }
-  .progress-track {
-    height: 3px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 99px;
-    margin-top: 14px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
-    border-radius: 99px;
-    transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
-  }
-  .kpi-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 5px;
-    vertical-align: middle;
-    opacity: 0.75;
-  }
+  .progress-track { height: 3px; background: rgba(255,255,255,0.08); border-radius: 99px; margin-top: 13px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 99px; transition: width 0.7s cubic-bezier(0.4,0,0.2,1); }
+  .kpi-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; opacity: 0.75; }
 
-  /* ══ TOOLBAR ════════════════════════════════════════════════════ */
-  .toolbar {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.9rem 1.2rem;
-    margin-bottom: 1.25rem;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    box-shadow: var(--shadow-xs);
-  }
-  .toolbar-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-3);
-    white-space: nowrap;
-  }
-  .filter-select, .search-input {
-    font-family: 'Figtree', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text-1);
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 7px 11px;
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    height: 34px;
-  }
-  .filter-select:focus, .search-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(184,147,90,0.12);
-  }
-  .search-input { flex: 1; min-width: 200px; }
-  .toolbar-divider {
-    width: 1px;
-    height: 22px;
-    background: var(--border);
-    flex-shrink: 0;
-  }
-  .results-count {
-    font-size: 11.5px;
-    color: var(--text-3);
-    font-weight: 400;
-    margin-left: auto;
-    white-space: nowrap;
-    letter-spacing: 0.02em;
-  }
+  /* TOOLBAR */
+  .toolbar { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 0.85rem 1.2rem; margin-bottom: 1.1rem; display: flex; gap: 9px; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow-xs); }
+  .toolbar-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+  .filter-select, .search-input { font-family: 'Figtree', sans-serif; font-size: 12.5px; color: var(--text-1); background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 6px 10px; outline: none; transition: border-color 0.15s, box-shadow 0.15s; height: 33px; }
+  .filter-select:focus, .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184,147,90,0.12); }
+  .search-input { flex: 1; min-width: 180px; }
+  .toolbar-divider { width: 1px; height: 22px; background: var(--border); flex-shrink: 0; }
+  .results-count { font-size: 11.5px; color: var(--text-3); font-weight: 400; margin-left: auto; white-space: nowrap; }
 
-  /* ══ TABLE ══════════════════════════════════════════════════════ */
-  .table-wrap {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: var(--shadow-xs);
-  }
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  .data-table thead {
-    background: var(--slate-900);
-  }
-  .data-table thead th {
-    font-family: 'Figtree', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.38);
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid rgba(184,147,90,0.25);
-    white-space: nowrap;
-  }
-  .data-table tbody tr {
-    border-bottom: 1px solid var(--bg-card-alt);
-    transition: background 0.1s;
-  }
+  /* TABLE */
+  .table-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow-xs); overflow-x: auto; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .data-table thead { background: var(--slate-900); }
+  .data-table thead th { font-family: 'Figtree', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: rgba(255,255,255,0.38); padding: 11px 12px; text-align: left; border-bottom: 1px solid rgba(184,147,90,0.25); white-space: nowrap; }
+  .data-table tbody tr { border-bottom: 1px solid var(--bg-card-alt); transition: background 0.1s; }
   .data-table tbody tr:last-child { border-bottom: none; }
   .data-table tbody tr:hover { background: #f7f6f2; }
-  .data-table td {
-    padding: 11px 16px;
-    vertical-align: middle;
-    color: var(--text-1);
-    font-weight: 300;
-    line-height: 1.5;
-  }
-  .td-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 12px;
-    color: var(--text-3);
-    font-weight: 500;
-    width: 44px;
-    text-align: center;
-    letter-spacing: 0.04em;
-  }
-  .td-proceso { width: 120px; }
-  .proceso-tag {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 2px;
-    white-space: nowrap;
-    display: inline-block;
-  }
-  /* Proceso colores refinados */
-  .p-AYB         { background: #e8f0f8; color: #1a3970; border: 1px solid #c0d0ea; }
-  .p-HK          { background: #e8f3ec; color: #1a5035; border: 1px solid #b5d8c0; }
-  .p-Mantenimiento { background: #fdf2e4; color: #7a3d00; border: 1px solid #e8c898; }
-  .p-GI          { background: #f0eaf8; color: #45187a; border: 1px solid #ccb0e8; }
-  .p-Contraloria  { background: #fdeaea; color: #7a1818; border: 1px solid #eeaaaa; }
-  .p-TH          { background: #e8f8f2; color: #0a5040; border: 1px solid #a8d8c8; }
-  .p-Front        { background: #faf0e6; color: #7a3010; border: 1px solid #e8c0a0; }
-  .p-Gerencia     { background: var(--slate-900); color: var(--accent-light); border: 1px solid rgba(184,147,90,0.3); }
-  .p-TI          { background: #eaeaf6; color: #2a287a; border: 1px solid #b8b8e4; }
+  .data-table td { padding: 8px 12px; vertical-align: middle; color: var(--text-1); font-weight: 300; line-height: 1.5; }
 
-  .td-desc { max-width: 460px; }
-  .td-resp { font-size: 12px; color: var(--text-2); width: 130px; }
-  .resp-pill {
-    display: inline-block;
-    background: var(--bg-card-alt);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    font-size: 10.5px;
-    font-weight: 500;
-    padding: 2px 7px;
-    margin: 1px 2px 1px 0;
-    color: var(--text-2);
-    letter-spacing: 0.03em;
-  }
-  .td-estado { width: 162px; }
-  .status-select {
-    font-family: 'Figtree', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    border-radius: 3px;
-    border: 1px solid;
-    padding: 5px 26px 5px 10px;
-    width: 100%;
-    cursor: pointer;
-    outline: none;
-    transition: box-shadow 0.15s;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a95a5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    letter-spacing: 0.02em;
-  }
-  .status-select:focus { box-shadow: 0 0 0 3px rgba(184,147,90,0.15); }
-  .s-Pendiente    { background: var(--gray-bg);  color: var(--gray);   border-color: var(--gray-border); }
-  .s-En-Progreso  { background: var(--amber-bg); color: var(--amber);  border-color: var(--amber-border); }
-  .s-Completado   { background: var(--green-bg); color: var(--green);  border-color: var(--green-border); }
-  .s-Bloqueado    { background: var(--red-bg);   color: var(--red);    border-color: var(--red-border); }
+  .td-num { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-3); font-weight: 500; width: 36px; text-align: center; }
+  .td-proceso { width: 105px; }
+  .proceso-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; white-space: nowrap; display: inline-block; }
+  .p-AYB           { background:#e8f0f8; color:#1a3970; border:1px solid #c0d0ea; }
+  .p-HK            { background:#e8f3ec; color:#1a5035; border:1px solid #b5d8c0; }
+  .p-Mantenimiento { background:#fdf2e4; color:#7a3d00; border:1px solid #e8c898; }
+  .p-GI            { background:#f0eaf8; color:#45187a; border:1px solid #ccb0e8; }
+  .p-Contraloria   { background:#fdeaea; color:#7a1818; border:1px solid #eeaaaa; }
+  .p-TH            { background:#e8f8f2; color:#0a5040; border:1px solid #a8d8c8; }
+  .p-Front         { background:#faf0e6; color:#7a3010; border:1px solid #e8c0a0; }
+  .p-Gerencia      { background:var(--slate-900); color:var(--accent-light); border:1px solid rgba(184,147,90,0.3); }
+  .p-TI            { background:#eaeaf6; color:#2a287a; border:1px solid #b8b8e4; }
 
-  .save-indicator {
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 2px;
-    display: inline-block;
-    transition: opacity 0.3s;
-    opacity: 0;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-  }
-  .save-indicator.show { opacity: 1; }
-  .save-indicator.saving { background: var(--amber-bg); color: var(--amber); }
-  .save-indicator.saved  { background: var(--green-bg); color: var(--green); }
-  .save-indicator.error  { background: var(--red-bg);   color: var(--red); }
+  .td-desc { max-width: 260px; }
+  .td-resp { width: 105px; }
+  .resp-pill { display: inline-block; background: var(--bg-card-alt); border: 1px solid var(--border); border-radius: 2px; font-size: 10.5px; font-weight: 500; padding: 2px 6px; margin: 1px 2px 1px 0; color: var(--text-2); }
 
-  /* ══ EMPTY ══════════════════════════════════════════════════════ */
-  .empty-state {
-    text-align: center;
-    padding: 3.5rem 2rem;
-    color: var(--text-3);
-  }
-  .empty-state p {
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
+  /* PRIORIDAD */
+  .td-prio { width: 86px; }
+  .prio-select { font-family:'Figtree',sans-serif; font-size:11.5px; font-weight:600; border-radius:3px; border:1px solid; padding:4px 20px 4px 8px; width:100%; cursor:pointer; outline:none; transition:box-shadow 0.15s; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6'%3E%3Cpath d='M1 1l3.5 3.5L8 1' stroke='%238a95a5' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 6px center; letter-spacing:0.03em; }
+  .prio-select:focus { box-shadow:0 0 0 3px rgba(184,147,90,0.15); }
+  .prio-Alta   { background:#fff0f0; color:#8b2020; border-color:#f0b0b0; }
+  .prio-Media  { background:#fffbe6; color:#7a4e00; border-color:#e8d060; }
+  .prio-Baja   { background:#edf5f0; color:#2a6040; border-color:#a0d4b8; }
+  .prio-empty  { background:var(--bg); color:var(--text-3); border-color:var(--border); }
 
-  /* ══ SETUP MODAL (deshabilitado) ════════════════════════════════ */
-  .modal-overlay { position: fixed; inset: 0; z-index: 999; display: flex; align-items: center; justify-content: center; padding: 1rem; }
-  .modal-overlay.hidden { display: none; }
-  .modal {
-    background: var(--bg-card);
-    border-radius: 8px;
-    border-top: 3px solid var(--accent);
-    padding: 2rem 2.5rem;
-    max-width: 540px;
-    width: 100%;
-    box-shadow: var(--shadow-md);
-  }
-  .modal-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
-  .modal-badge { background: var(--slate-900); color: var(--accent); font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 2px; }
-  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--text-1); margin-bottom: 6px; }
-  .modal-sub { font-size: 13px; color: var(--text-3); font-weight: 300; margin-bottom: 1.5rem; line-height: 1.7; }
-  .modal-field { margin-bottom: 1.25rem; }
-  .modal-field label { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); margin-bottom: 6px; }
-  .modal-field input { font-family: 'Figtree', sans-serif; font-size: 13px; width: 100%; border: 1px solid var(--border); border-radius: 4px; padding: 9px 13px; background: var(--bg); color: var(--text-1); outline: none; transition: border-color 0.15s; }
-  .modal-field input:focus { border-color: var(--accent); }
-  .modal-hint { font-size: 11px; color: var(--text-3); margin-top: 5px; font-weight: 300; line-height: 1.5; }
-  .modal-actions { display: flex; gap: 10px; margin-top: 1.5rem; }
-  .btn-primary { font-family: 'Figtree', sans-serif; background: var(--slate-900); color: var(--accent-light); border: none; border-radius: 4px; padding: 10px 24px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.15s; flex: 1; }
-  .btn-primary:hover { background: var(--slate-800); }
-  .btn-secondary { font-family: 'Figtree', sans-serif; background: transparent; color: var(--text-3); border: 1px solid var(--border); border-radius: 4px; padding: 10px 16px; font-size: 13px; cursor: pointer; transition: all 0.15s; }
-  .btn-secondary:hover { border-color: var(--accent); color: var(--text-1); }
-  .step-list { background: var(--bg); border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
-  .step-list li { font-size: 12px; color: var(--text-2); font-weight: 300; line-height: 1.7; padding-left: 1rem; position: relative; list-style: none; }
-  .step-list li::before { content: attr(data-n); position: absolute; left: 0; color: var(--accent); font-weight: 600; font-size: 11px; }
+  /* FECHAS */
+  .td-fecha { width: 112px; }
+  .date-input { font-family:'Figtree',sans-serif; font-size:12px; color:var(--text-1); background:var(--bg); border:1px solid var(--border); border-radius:3px; padding:4px 6px; width:100%; outline:none; transition:border-color 0.15s, box-shadow 0.15s; cursor:pointer; }
+  .date-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(184,147,90,0.12); }
 
-  /* ══ CAPACITACIONES ════════════════════════════════════════════ */
-  .cap-tag {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 2px;
-    white-space: nowrap;
-    display: inline-block;
-  }
-  .c-AyB         { background: #e8f0f8; color: #1a3970; border: 1px solid #c0d0ea; }
-  .c-HK          { background: #e8f3ec; color: #1a5035; border: 1px solid #b5d8c0; }
-  .c-Mantenimiento { background: #fdf2e4; color: #7a3d00; border: 1px solid #e8c898; }
-  .c-GRP         { background: #f0eaf8; color: #45187a; border: 1px solid #ccb0e8; }
-  .c-Contraloria  { background: #fdeaea; color: #7a1818; border: 1px solid #eeaaaa; }
-  .c-Front        { background: #faf0e6; color: #7a3010; border: 1px solid #e8c0a0; }
-  .c-GG          { background: var(--slate-900); color: var(--accent-light); border: 1px solid rgba(184,147,90,0.3); }
-  .metod-pill {
-    font-size: 10.5px;
-    background: var(--bg-card-alt);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 2px 7px;
-    color: var(--text-2);
-    white-space: nowrap;
-    font-weight: 400;
-  }
-  .obs-text {
-    font-size: 11.5px;
-    color: var(--text-3);
-    font-style: italic;
-    font-weight: 300;
-  }
+  /* DURACIÓN */
+  .td-duracion { width: 80px; text-align:center; }
+  .dur-badge { font-size:11.5px; font-weight:600; border-radius:3px; padding:3px 7px; display:inline-block; white-space:nowrap; border:1px solid; }
+  .dur-green { background:var(--green-bg);  color:var(--green); border-color:var(--green-border); }
+  .dur-amber { background:var(--amber-bg);  color:var(--amber); border-color:var(--amber-border); }
+  .dur-red   { background:var(--red-bg);    color:var(--red);   border-color:var(--red-border); }
+  .dur-gray  { background:var(--gray-bg);   color:var(--gray);  border-color:var(--gray-border); }
 
-  /* ══ FOOTER ══════════════════════════════════════════════════════ */
-  .site-footer {
-    max-width: 1400px;
-    margin: 1.5rem auto 0;
-    padding: 1rem 2rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: var(--text-3);
-    font-weight: 300;
-    letter-spacing: 0.04em;
-  }
+  /* ESTADO */
+  .td-estado { width: 124px; }
+  .status-select { font-family:'Figtree',sans-serif; font-size:11.5px; font-weight:500; border-radius:3px; border:1px solid; padding:4px 20px 4px 8px; width:100%; cursor:pointer; outline:none; transition:box-shadow 0.15s; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6'%3E%3Cpath d='M1 1l3.5 3.5L8 1' stroke='%238a95a5' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 6px center; letter-spacing:0.02em; }
+  .status-select:focus { box-shadow:0 0 0 3px rgba(184,147,90,0.15); }
+  .s-Por-Iniciar  { background:var(--gray-bg);    color:var(--gray);   border-color:var(--gray-border); }
+  .s-En-Proceso   { background:var(--amber-bg);   color:var(--amber);  border-color:var(--amber-border); }
+  .s-Por-Terminar { background:var(--orange-bg);  color:var(--orange); border-color:var(--orange-border); }
+  .s-Completado   { background:var(--green-bg);   color:var(--green);  border-color:var(--green-border); }
 
-  /* ══ RESPONSIVE ═════════════════════════════════════════════════ */
-  @media (max-width: 900px) {
-    .kpi-strip { grid-template-columns: 1fr 1fr; }
-    .kpi-card.kpi-main { grid-column: 1 / -1; }
-    .main-wrap { padding: 1rem; }
-    .td-desc { max-width: 220px; }
-    .td-resp { display: none; }
+  /* OBSERVACIONES */
+  .td-obs { min-width: 150px; max-width: 210px; }
+  .obs-input { font-family:'Figtree',sans-serif; font-size:12px; color:var(--text-1); background:var(--bg); border:1px solid var(--border); border-radius:3px; padding:4px 7px; width:100%; outline:none; resize:none; line-height:1.45; min-height:30px; transition:border-color 0.15s, box-shadow 0.15s; overflow:hidden; }
+  .obs-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(184,147,90,0.12); }
+
+  /* SAVE INDICATOR */
+  .save-indicator { font-size:10px; padding:2px 7px; border-radius:2px; display:inline-block; transition:opacity 0.3s; opacity:0; font-weight:500; white-space:nowrap; }
+  .save-indicator.show { opacity:1; }
+  .save-indicator.saving { background:var(--amber-bg); color:var(--amber); }
+  .save-indicator.saved  { background:var(--green-bg); color:var(--green); }
+  .save-indicator.error  { background:var(--red-bg);   color:var(--red); }
+
+  /* CAPACITACIONES TAGS */
+  .cap-tag { font-size:10px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px; border-radius:2px; white-space:nowrap; display:inline-block; }
+  .c-AyB           { background:#e8f0f8; color:#1a3970; border:1px solid #c0d0ea; }
+  .c-HK            { background:#e8f3ec; color:#1a5035; border:1px solid #b5d8c0; }
+  .c-Mantenimiento { background:#fdf2e4; color:#7a3d00; border:1px solid #e8c898; }
+  .c-GRP           { background:#f0eaf8; color:#45187a; border:1px solid #ccb0e8; }
+  .c-Contraloria   { background:#fdeaea; color:#7a1818; border:1px solid #eeaaaa; }
+  .c-Front         { background:#faf0e6; color:#7a3010; border:1px solid #e8c0a0; }
+  .c-GG            { background:var(--slate-900); color:var(--accent-light); border:1px solid rgba(184,147,90,0.3); }
+  .metod-pill { font-size:10.5px; background:var(--bg-card-alt); border:1px solid var(--border); border-radius:2px; padding:2px 7px; color:var(--text-2); white-space:nowrap; }
+
+  /* EMPTY / FOOTER */
+  .empty-state { text-align:center; padding:3.5rem 2rem; color:var(--text-3); }
+  .empty-state p { font-size:14px; font-weight:300; }
+  .site-footer { max-width:1700px; margin:1.5rem auto 0; padding:1rem 2rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-3); font-weight:300; }
+
+  .modal-overlay { position:fixed; inset:0; z-index:999; display:flex; align-items:center; justify-content:center; padding:1rem; }
+  .modal-overlay.hidden { display:none; }
+
+  @media (max-width:900px) {
+    .kpi-strip { grid-template-columns:1fr 1fr; }
+    .kpi-card.kpi-main { grid-column:1 / -1; }
+    .main-wrap { padding:1rem; }
   }
 </style>
 </head>
@@ -582,8 +219,7 @@
   <div class="nav-inner">
     <button class="nav-tab active" onclick="switchTab('actividades')" id="tab-actividades">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="2" y="2" width="12" height="12" rx="2"/>
-        <path d="M5 8h6M5 5h6M5 11h4" stroke-linecap="round"/>
+        <rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M5 5h6M5 11h4" stroke-linecap="round"/>
       </svg>
       Avance de Actividades
     </button>
@@ -597,12 +233,10 @@
   </div>
 </nav>
 
-<!-- MAIN -->
 <main class="main-wrap">
 
-<!-- ══ PANEL: ACTIVIDADES ══ -->
+<!-- ══ ACTIVIDADES ══ -->
 <div class="panel active" id="panel-actividades">
-
   <div class="kpi-strip">
     <div class="kpi-card kpi-main">
       <div class="kpi-label">Cumplimiento general</div>
@@ -616,38 +250,40 @@
       <div class="kpi-sub"><span class="kpi-dot" style="background:var(--green)"></span>Estado final</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">En progreso</div>
+      <div class="kpi-label">En proceso</div>
       <div class="kpi-value" id="kpiProg" style="color:var(--amber)">0</div>
       <div class="kpi-sub"><span class="kpi-dot" style="background:#c9a84c"></span>En avance</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Pendientes</div>
+      <div class="kpi-label">Por iniciar</div>
       <div class="kpi-value" id="kpiPend" style="color:var(--gray)">0</div>
       <div class="kpi-sub"><span class="kpi-dot" style="background:#8a95a5"></span>Sin iniciar</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Bloqueadas</div>
-      <div class="kpi-value" id="kpiBloq" style="color:var(--red)">0</div>
-      <div class="kpi-sub"><span class="kpi-dot" style="background:var(--red)"></span>Requieren atención</div>
+      <div class="kpi-label">Por terminar</div>
+      <div class="kpi-value" id="kpiBloq" style="color:var(--orange)">0</div>
+      <div class="kpi-sub"><span class="kpi-dot" style="background:#f0a070"></span>Próximo a cerrar</div>
     </div>
   </div>
 
   <div class="toolbar">
     <span class="toolbar-label">Filtros</span>
-    <input class="search-input" type="text" id="searchInput" placeholder="Buscar actividad o responsable..." oninput="applyFilters()">
+    <input class="search-input" type="text" id="searchInput" placeholder="Buscar actividad o responsable…" oninput="applyFilters()">
     <div class="toolbar-divider"></div>
-    <select class="filter-select" id="filterProceso" onchange="applyFilters()">
-      <option value="">Todos los procesos</option>
-    </select>
-    <select class="filter-select" id="filterResponsable" onchange="applyFilters()">
-      <option value="">Todos los responsables</option>
+    <select class="filter-select" id="filterProceso" onchange="applyFilters()"><option value="">Todos los procesos</option></select>
+    <select class="filter-select" id="filterResponsable" onchange="applyFilters()"><option value="">Todos los responsables</option></select>
+    <select class="filter-select" id="filterPrioridad" onchange="applyFilters()">
+      <option value="">Todas las prioridades</option>
+      <option value="Alta">Alta</option>
+      <option value="Media">Media</option>
+      <option value="Baja">Baja</option>
     </select>
     <select class="filter-select" id="filterEstado" onchange="applyFilters()">
       <option value="">Todos los estados</option>
-      <option value="Pendiente">Pendiente</option>
-      <option value="En Progreso">En Progreso</option>
+      <option value="Por Iniciar">Por Iniciar</option>
+      <option value="En Proceso">En Proceso</option>
+      <option value="Por Terminar">Por Terminar</option>
       <option value="Completado">Completado</option>
-      <option value="Bloqueado">Bloqueado</option>
     </select>
     <div class="toolbar-divider"></div>
     <span class="results-count" id="resultsCount">— actividades</span>
@@ -661,21 +297,24 @@
           <th>Proceso</th>
           <th>Actividad</th>
           <th>Responsable(s)</th>
+          <th>Prioridad</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Final</th>
+          <th>Duración</th>
           <th>Estado</th>
-          <th style="width:80px;text-align:center;">Guardado</th>
+          <th>Observaciones</th>
+          <th style="width:68px;text-align:center;">Guard.</th>
         </tr>
       </thead>
       <tbody id="tableBody">
-        <tr><td colspan="6" class="empty-state"><p>Cargando actividades…</p></td></tr>
+        <tr><td colspan="11" class="empty-state"><p>Cargando actividades…</p></td></tr>
       </tbody>
     </table>
   </div>
+</div>
 
-</div><!-- /panel-actividades -->
-
-<!-- ══ PANEL: CAPACITACIONES ══ -->
+<!-- ══ CAPACITACIONES ══ -->
 <div class="panel" id="panel-capacitaciones">
-
   <div class="kpi-strip">
     <div class="kpi-card kpi-main">
       <div class="kpi-label">Cumplimiento capacitaciones</div>
@@ -689,38 +328,40 @@
       <div class="kpi-sub"><span class="kpi-dot" style="background:var(--green)"></span>Ejecutadas</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">En progreso</div>
+      <div class="kpi-label">En proceso</div>
       <div class="kpi-value" id="capKpiProg" style="color:var(--amber)">0</div>
       <div class="kpi-sub"><span class="kpi-dot" style="background:#c9a84c"></span>En avance</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Pendientes</div>
+      <div class="kpi-label">Por iniciar</div>
       <div class="kpi-value" id="capKpiPend" style="color:var(--gray)">0</div>
       <div class="kpi-sub"><span class="kpi-dot" style="background:#8a95a5"></span>Sin iniciar</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Bloqueadas</div>
-      <div class="kpi-value" id="capKpiBloq" style="color:var(--red)">0</div>
-      <div class="kpi-sub"><span class="kpi-dot" style="background:var(--red)"></span>Requieren atención</div>
+      <div class="kpi-label">Por terminar</div>
+      <div class="kpi-value" id="capKpiBloq" style="color:var(--orange)">0</div>
+      <div class="kpi-sub"><span class="kpi-dot" style="background:#f0a070"></span>Próximo a cerrar</div>
     </div>
   </div>
 
   <div class="toolbar">
     <span class="toolbar-label">Filtros</span>
-    <input class="search-input" type="text" id="capSearch" placeholder="Buscar capacitación o responsable..." oninput="applyCapFilters()">
+    <input class="search-input" type="text" id="capSearch" placeholder="Buscar capacitación o responsable…" oninput="applyCapFilters()">
     <div class="toolbar-divider"></div>
-    <select class="filter-select" id="capFilterArea" onchange="applyCapFilters()">
-      <option value="">Todas las áreas</option>
-    </select>
-    <select class="filter-select" id="capFilterResp" onchange="applyCapFilters()">
-      <option value="">Todos los responsables</option>
+    <select class="filter-select" id="capFilterArea" onchange="applyCapFilters()"><option value="">Todas las áreas</option></select>
+    <select class="filter-select" id="capFilterResp" onchange="applyCapFilters()"><option value="">Todos los responsables</option></select>
+    <select class="filter-select" id="capFilterPrio" onchange="applyCapFilters()">
+      <option value="">Todas las prioridades</option>
+      <option value="Alta">Alta</option>
+      <option value="Media">Media</option>
+      <option value="Baja">Baja</option>
     </select>
     <select class="filter-select" id="capFilterEstado" onchange="applyCapFilters()">
       <option value="">Todos los estados</option>
-      <option value="Pendiente">Pendiente</option>
-      <option value="En Progreso">En Progreso</option>
+      <option value="Por Iniciar">Por Iniciar</option>
+      <option value="En Proceso">En Proceso</option>
+      <option value="Por Terminar">Por Terminar</option>
       <option value="Completado">Completado</option>
-      <option value="Bloqueado">Bloqueado</option>
     </select>
     <div class="toolbar-divider"></div>
     <span class="results-count" id="capResultsCount">— capacitaciones</span>
@@ -736,18 +377,21 @@
           <th>Material</th>
           <th>Responsable</th>
           <th>Metodología</th>
-          <th>Observaciones</th>
+          <th>Prioridad</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Final</th>
+          <th>Duración</th>
           <th>Estado</th>
-          <th style="width:80px;text-align:center;">Guardado</th>
+          <th>Observaciones</th>
+          <th style="width:68px;text-align:center;">Guard.</th>
         </tr>
       </thead>
       <tbody id="capTableBody">
-        <tr><td colspan="9" class="empty-state"><p>Cargando capacitaciones…</p></td></tr>
+        <tr><td colspan="13" class="empty-state"><p>Cargando capacitaciones…</p></td></tr>
       </tbody>
     </table>
   </div>
-
-</div><!-- /panel-capacitaciones -->
+</div>
 
 </main>
 
@@ -757,38 +401,28 @@
 </footer>
 
 <script>
-// ─── CONFIG ────────────────────────────────────────────────────────────────
-const ESTADOS = ['Pendiente','En Progreso','Completado','Bloqueado'];
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-EcIFv3v6PdKJFKETHEPZIcpSDn2oTJzXTVE9BS-wD8QvH3_cyaI6qH_yWXzrQ9Jw/exec';
+// ── CONFIG ────────────────────────────────────────────────────────────────
+const ESTADOS     = ['Por Iniciar','En Proceso','Por Terminar','Completado'];
+const PRIORIDADES = ['Alta','Media','Baja'];
+const SCRIPT_URL     = 'https://script.google.com/macros/s/AKfycbx-EcIFv3v6PdKJFKETHEPZIcpSDn2oTJzXTVE9BS-wD8QvH3_cyaI6qH_yWXzrQ9Jw/exec';
 const SCRIPT_URL_CAP = 'https://script.google.com/macros/s/AKfycbytttFCLTmlba2rkhQ9jgRJcfuBtlHcwsWSZJFt_ZpFYhn3sN67OGMk5W-MhMhaafKG/exec';
 
-let allData = [];
-let capData = [];
-let filteredData = [];
-let capFilteredData = [];
-let scriptUrl = SCRIPT_URL;
-let countdownInterval = null;
-let secondsLeft = 15;
+let allData = [], capData = [], filteredData = [], capFilteredData = [];
+let countdownInterval = null, secondsLeft = 15;
 const SYNC_EVERY = 15;
-let currentTab = 'actividades';
 
-// ─── INIT ──────────────────────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-  loadData();
-  loadCapData();
-  startAutoSync();
-});
+// ── INIT ──────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => { loadData(); loadCapData(); startAutoSync(); });
 
-// ─── TAB SWITCHING ─────────────────────────────────────────────────────────
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  document.getElementById('panel-' + tab).classList.add('active');
+// ── TABS ──────────────────────────────────────────────────────────────────
+function switchTab(t) {
+  document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  document.getElementById('panel-'+t).classList.add('active');
 }
 
-// ─── AUTO SYNC ─────────────────────────────────────────────────────────────
+// ── AUTO SYNC ─────────────────────────────────────────────────────────────
 function startAutoSync() {
   if (countdownInterval) clearInterval(countdownInterval);
   secondsLeft = SYNC_EVERY;
@@ -796,142 +430,113 @@ function startAutoSync() {
     secondsLeft--;
     const el = document.getElementById('countdown');
     if (el) el.textContent = `↻ ${secondsLeft}s`;
-    if (secondsLeft <= 0) {
-      secondsLeft = SYNC_EVERY;
-      silentSync();
-      silentCapSync();
-    }
+    if (secondsLeft <= 0) { secondsLeft = SYNC_EVERY; silentSync(); silentCapSync(); }
   }, 1000);
 }
-
 function resetCountdown() { secondsLeft = SYNC_EVERY; }
+function manualSync() { resetCountdown(); loadData(); loadCapData(); }
+function showSetup(){} function saveConfig(){} function useDemoMode(){}
 
-function manualSync() {
-  resetCountdown();
-  loadData();
-  loadCapData();
+// ── DURACIÓN ──────────────────────────────────────────────────────────────
+function durBadge(fIni, fFin) {
+  if (!fIni || !fFin) return '<span class="dur-badge dur-gray" style="opacity:0.4">—</span>';
+  const d1 = new Date(fIni), d2 = new Date(fFin);
+  if (isNaN(d1)||isNaN(d2)) return '<span class="dur-badge dur-gray" style="opacity:0.4">—</span>';
+  const totalDays = Math.round((d2 - d1) / 86400000);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const remaining = Math.round((d2 - today) / 86400000);
+  let cls = 'dur-green';
+  if (remaining <= 0) cls = 'dur-red';
+  else if (remaining <= 15) cls = 'dur-red';
+  else if (remaining <= 30) cls = 'dur-amber';
+  const label = totalDays >= 0 ? `${totalDays} día${totalDays!==1?'s':''}` : `—`;
+  const title = remaining > 0 ? `${remaining} días restantes` : (remaining === 0 ? 'Vence hoy' : 'Vencida');
+  return `<span class="dur-badge ${cls}" title="${title}">${label}</span>`;
 }
 
-function showSetup() {}
-function saveConfig() {}
-function useDemoMode() {}
-
-// ─── ACTIVIDADES: DATA LOAD ────────────────────────────────────────────────
+// ── ACTIVIDADES: LOAD ─────────────────────────────────────────────────────
 async function loadData() {
   setSync('Sincronizando…');
   try {
-    const res = await fetch(`${SCRIPT_URL}?action=get`, { mode: 'cors' });
+    const res = await fetch(`${SCRIPT_URL}?action=get`, { mode:'cors' });
     const json = await res.json();
-    if (json.data) {
-      allData = json.data;
-      setSync('Sincronizado · ' + timeNow());
-      render();
-    }
-  } catch(e) {
-    setSync('Error de conexión — reintentando…');
-    setTimeout(loadData, 5000);
-  }
+    if (json.data) { allData = json.data; setSync('Sincronizado · '+timeNow()); render(); }
+  } catch(e) { setSync('Error de conexión — reintentando…'); setTimeout(loadData, 5000); }
 }
-
 async function silentSync() {
   try {
-    const res = await fetch(`${SCRIPT_URL}?action=get`, { mode: 'cors' });
+    const res = await fetch(`${SCRIPT_URL}?action=get`, { mode:'cors' });
     const json = await res.json();
-    if (json.data) {
-      allData = json.data;
-      setSync('Actualizado · ' + timeNow());
-      updateKPIs();
-      applyFilters();
-    }
+    if (json.data) { allData = json.data; setSync('Actualizado · '+timeNow()); updateKPIs(); applyFilters(); }
   } catch(e) {}
 }
 
-async function updateRow(rowIndex, newEstado, indicator) {
+// ── ACTIVIDADES: SAVE ─────────────────────────────────────────────────────
+async function saveField(scriptUrl, rowIndex, field, value, indicator) {
   flash(indicator, 'saving', 'Guardando…');
   try {
     const body = new FormData();
     body.append('action', 'update');
-    body.append('row', rowIndex + 2);
-    body.append('estado', newEstado);
-    const res = await fetch(SCRIPT_URL, { method: 'POST', body, mode: 'cors' });
+    body.append('row',    rowIndex + 2);
+    body.append('field',  field);
+    body.append('value',  value);
+    if (field === 'Estado') body.append('estado', value);  // compatibilidad backward
+    const res = await fetch(scriptUrl, { method:'POST', body, mode:'cors' });
     const json = await res.json();
-    if (json.success) {
-      allData[rowIndex].Estado = newEstado;
-      updateKPIs();
-      flash(indicator, 'saved', 'Guardado');
-      setSync('Guardado · ' + timeNow());
-    } else { flash(indicator, 'error', 'Error'); }
+    if (json.success) { flash(indicator, 'saved', 'Guardado'); setSync('Guardado · '+timeNow()); }
+    else { flash(indicator, 'error', 'Error'); }
   } catch(e) { flash(indicator, 'error', 'Error'); }
 }
 
-// ─── CAPACITACIONES: DATA LOAD ─────────────────────────────────────────────
-async function loadCapData() {
-  if (SCRIPT_URL_CAP === 'PEGA_AQUI_URL_CAPACITACIONES') return;
-  try {
-    const res = await fetch(`${SCRIPT_URL_CAP}?action=get`, { mode: 'cors' });
-    const json = await res.json();
-    if (json.data) {
-      capData = json.data;
-      renderCap();
-    }
-  } catch(e) {}
-}
+// ── FIELD CHANGE HANDLER ──────────────────────────────────────────────────
+function handleFieldChange(el, panel) {
+  const orig  = parseInt(el.dataset.orig);
+  const field = el.dataset.field;
+  const value = el.value;
+  const url   = panel === 'actividades' ? SCRIPT_URL : SCRIPT_URL_CAP;
+  const data  = panel === 'actividades' ? allData    : capData;
+  const indId = panel === 'actividades' ? `ind-${orig}` : `cap-ind-${orig}`;
+  const indicator = document.getElementById(indId);
 
-async function silentCapSync() {
-  if (SCRIPT_URL_CAP === 'PEGA_AQUI_URL_CAPACITACIONES') return;
-  try {
-    const res = await fetch(`${SCRIPT_URL_CAP}?action=get`, { mode: 'cors' });
-    const json = await res.json();
-    if (json.data) {
-      capData = json.data;
-      updateCapKPIs();
-      applyCapFilters();
-    }
-  } catch(e) {}
-}
+  // visual immediacy
+  if (field === 'Estado')    el.className = `status-select s-${value.replace(/ /g,'-')}`;
+  if (field === 'Prioridad') el.className = `prio-select prio-${value||'empty'}`;
 
-async function updateCapRow(rowIndex, newEstado, indicator) {
-  if (SCRIPT_URL_CAP === 'PEGA_AQUI_URL_CAPACITACIONES') {
-    capData[rowIndex].Estado = newEstado;
-    updateCapKPIs();
-    flash(indicator, 'saved', 'Guardado');
-    return;
+  // recalc duration on date change
+  if (field === 'FechaInicio' || field === 'FechaFinal') {
+    data[orig][field] = value;
+    const fIni = data[orig]['FechaInicio']||'';
+    const fFin = data[orig]['FechaFinal']||'';
+    const durId = panel === 'actividades' ? `dur-act-${orig}` : `dur-cap-${orig}`;
+    const durEl = document.getElementById(durId);
+    if (durEl) durEl.innerHTML = durBadge(fIni, fFin);
+  } else {
+    data[orig][field] = value;
   }
-  flash(indicator, 'saving', 'Guardando…');
-  try {
-    const body = new FormData();
-    body.append('action', 'update');
-    body.append('row', rowIndex + 2);
-    body.append('estado', newEstado);
-    const res = await fetch(SCRIPT_URL_CAP, { method: 'POST', body, mode: 'cors' });
-    const json = await res.json();
-    if (json.success) {
-      capData[rowIndex].Estado = newEstado;
-      updateCapKPIs();
-      flash(indicator, 'saved', 'Guardado');
-    } else { flash(indicator, 'error', 'Error'); }
-  } catch(e) { flash(indicator, 'error', 'Error'); }
+
+  if (field === 'Estado') { updateKPIs(); if (panel==='capacitaciones') updateCapKPIs(); }
+
+  resetCountdown();
+  saveField(url, orig, field, value, indicator);
 }
 
-// ─── ACTIVIDADES: RENDER ───────────────────────────────────────────────────
-function render() {
-  populateFilters();
-  applyFilters();
-  updateKPIs();
-}
+// ── ACTIVIDADES: RENDER ───────────────────────────────────────────────────
+function render() { populateFilters(); applyFilters(); updateKPIs(); }
 
 function applyFilters() {
   const q    = document.getElementById('searchInput').value.toLowerCase();
   const proc = document.getElementById('filterProceso').value;
   const resp = document.getElementById('filterResponsable').value;
+  const prio = document.getElementById('filterPrioridad').value;
   const est  = document.getElementById('filterEstado').value;
   filteredData = allData.filter((row, i) => {
     row._origIndex = i;
-    const matchQ    = !q    || (row['Item Observado']||'').toLowerCase().includes(q) || (row['Responsables']||'').toLowerCase().includes(q);
-    const matchProc = !proc || (row['Proceso']||'').trim() === proc;
-    const matchResp = !resp || (row['Responsables']||'').includes(resp);
-    const matchEst  = !est  || (row['Estado']||'Pendiente') === est;
-    return matchQ && matchProc && matchResp && matchEst;
+    const mQ    = !q    || (row['Item Observado']||'').toLowerCase().includes(q)||(row['Responsables']||'').toLowerCase().includes(q);
+    const mProc = !proc || (row['Proceso']||'').trim()===proc;
+    const mResp = !resp || (row['Responsables']||'').includes(resp);
+    const mPrio = !prio || (row['Prioridad']||'')===prio;
+    const mEst  = !est  || (row['Estado']||'Por Iniciar')===est;
+    return mQ&&mProc&&mResp&&mPrio&&mEst;
   });
   document.getElementById('resultsCount').textContent = `${filteredData.length} actividad${filteredData.length!==1?'es':''}`;
   renderTable();
@@ -940,7 +545,7 @@ function applyFilters() {
 function renderTable() {
   const tbody = document.getElementById('tableBody');
   if (!filteredData.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><p>Sin resultados para los filtros seleccionados.</p></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" class="empty-state"><p>Sin resultados para los filtros seleccionados.</p></td></tr>';
     return;
   }
   tbody.innerHTML = filteredData.map((row, i) => {
@@ -948,80 +553,103 @@ function renderTable() {
     const proc  = (row['Proceso']||'').trim();
     const desc  = row['Item Observado']||'';
     const resps = (row['Responsables']||'').split('/').map(r=>r.trim()).filter(Boolean);
-    const est   = row['Estado']||'Pendiente';
-    const estClass = 's-' + est.replace(' ','-');
-    const respHtml = resps.map(r=>`<span class="resp-pill">${r}</span>`).join('');
-    const procClass = `p-${proc.replace(/\s/g,'')}`;
-    const opts = ESTADOS.map(s => `<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
+    const prio  = row['Prioridad']||'';
+    const fIni  = row['FechaInicio']||'';
+    const fFin  = row['FechaFinal']||'';
+    const est   = row['Estado']||'Por Iniciar';
+    const obs   = row['Observaciones']||'';
+    const pOpts = PRIORIDADES.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p}</option>`).join('');
+    const eOpts = ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
       <td class="td-num">${i+1}</td>
-      <td class="td-proceso"><span class="proceso-tag ${procClass}">${proc}</span></td>
+      <td class="td-proceso"><span class="proceso-tag p-${proc.replace(/\s/g,'')}">${proc}</span></td>
       <td class="td-desc">${desc}</td>
-      <td class="td-resp">${respHtml}</td>
-      <td class="td-estado">
-        <select class="status-select ${estClass}" data-orig="${orig}" onchange="handleChange(this)">
-          ${opts}
+      <td class="td-resp">${resps.map(r=>`<span class="resp-pill">${r}</span>`).join('')}</td>
+      <td class="td-prio">
+        <select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'actividades')">
+          <option value="">—</option>${pOpts}
         </select>
       </td>
-      <td style="text-align:center;"><span class="save-indicator" id="ind-${orig}"></span></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'actividades')"></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'actividades')"></td>
+      <td class="td-duracion" id="dur-act-${orig}">${durBadge(fIni,fFin)}</td>
+      <td class="td-estado">
+        <select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'actividades')">
+          ${eOpts}
+        </select>
+      </td>
+      <td class="td-obs">
+        <textarea class="obs-input" data-orig="${orig}" data-field="Observaciones"
+          onchange="handleFieldChange(this,'actividades')"
+          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
+          placeholder="Notas…">${escHtml(obs)}</textarea>
+      </td>
+      <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="ind-${orig}"></span></td>
     </tr>`;
   }).join('');
 }
 
-function handleChange(sel) {
-  const orig = parseInt(sel.dataset.orig);
-  const newEst = sel.value;
-  sel.className = `status-select s-${newEst.replace(' ','-')}`;
-  const indicator = document.getElementById(`ind-${orig}`);
-  resetCountdown();
-  updateRow(orig, newEst, indicator);
-}
-
 function updateKPIs() {
   const total = allData.length;
-  const comp  = allData.filter(r=>(r.Estado||'Pendiente')==='Completado').length;
-  const prog  = allData.filter(r=>(r.Estado||'Pendiente')==='En Progreso').length;
-  const pend  = allData.filter(r=>(r.Estado||'Pendiente')==='Pendiente').length;
-  const bloq  = allData.filter(r=>(r.Estado||'Pendiente')==='Bloqueado').length;
+  const comp  = allData.filter(r=>(r.Estado||'Por Iniciar')==='Completado').length;
+  const prog  = allData.filter(r=>(r.Estado||'Por Iniciar')==='En Proceso').length;
+  const pend  = allData.filter(r=>(r.Estado||'Por Iniciar')==='Por Iniciar').length;
+  const term  = allData.filter(r=>(r.Estado||'Por Iniciar')==='Por Terminar').length;
   const pct   = total ? Math.round(comp/total*100) : 0;
-  document.getElementById('kpiPct').textContent  = pct + '%';
-  document.getElementById('kpiBar').style.width  = pct + '%';
+  document.getElementById('kpiPct').textContent  = pct+'%';
+  document.getElementById('kpiBar').style.width  = pct+'%';
   document.getElementById('kpiSub').textContent  = `${comp} de ${total} actividades completadas`;
   document.getElementById('kpiComp').textContent = comp;
   document.getElementById('kpiProg').textContent = prog;
   document.getElementById('kpiPend').textContent = pend;
-  document.getElementById('kpiBloq').textContent = bloq;
+  document.getElementById('kpiBloq').textContent = term;
   document.getElementById('footerCount').textContent = `Total: ${total} actividades · ${pct}% completado`;
 }
 
 function populateFilters() {
-  const procesos = [...new Set(allData.map(r=>(r['Proceso']||'').trim()).filter(Boolean))].sort();
-  const sel1 = document.getElementById('filterProceso');
-  sel1.innerHTML = '<option value="">Todos los procesos</option>' + procesos.map(p=>`<option value="${p}">${p}</option>`).join('');
+  const procs = [...new Set(allData.map(r=>(r['Proceso']||'').trim()).filter(Boolean))].sort();
+  document.getElementById('filterProceso').innerHTML =
+    '<option value="">Todos los procesos</option>'+procs.map(p=>`<option value="${p}">${p}</option>`).join('');
   const resps = [...new Set(allData.flatMap(r=>(r['Responsables']||'').split('/').map(x=>x.trim())).filter(Boolean))].sort();
-  const sel2 = document.getElementById('filterResponsable');
-  sel2.innerHTML = '<option value="">Todos los responsables</option>' + resps.map(r=>`<option value="${r}">${r}</option>`).join('');
+  document.getElementById('filterResponsable').innerHTML =
+    '<option value="">Todos los responsables</option>'+resps.map(r=>`<option value="${r}">${r}</option>`).join('');
 }
 
-// ─── CAPACITACIONES: RENDER ────────────────────────────────────────────────
-function renderCap() {
-  populateCapFilters();
-  applyCapFilters();
-  updateCapKPIs();
+// ── CAPACITACIONES: LOAD ──────────────────────────────────────────────────
+async function loadCapData() {
+  if (SCRIPT_URL_CAP==='PEGA_AQUI_URL_CAPACITACIONES') return;
+  try {
+    const res = await fetch(`${SCRIPT_URL_CAP}?action=get`, { mode:'cors' });
+    const json = await res.json();
+    if (json.data) { capData = json.data; renderCap(); }
+  } catch(e) {}
 }
+async function silentCapSync() {
+  if (SCRIPT_URL_CAP==='PEGA_AQUI_URL_CAPACITACIONES') return;
+  try {
+    const res = await fetch(`${SCRIPT_URL_CAP}?action=get`, { mode:'cors' });
+    const json = await res.json();
+    if (json.data) { capData = json.data; updateCapKPIs(); applyCapFilters(); }
+  } catch(e) {}
+}
+
+// ── CAPACITACIONES: RENDER ────────────────────────────────────────────────
+function renderCap() { populateCapFilters(); applyCapFilters(); updateCapKPIs(); }
 
 function applyCapFilters() {
   const q    = document.getElementById('capSearch').value.toLowerCase();
   const area = document.getElementById('capFilterArea').value;
   const resp = document.getElementById('capFilterResp').value;
+  const prio = document.getElementById('capFilterPrio').value;
   const est  = document.getElementById('capFilterEstado').value;
   capFilteredData = capData.filter((row, i) => {
     row._origIndex = i;
-    const matchQ    = !q    || (row['Capacitacion']||'').toLowerCase().includes(q) || (row['Responsable']||'').toLowerCase().includes(q);
-    const matchArea = !area || (row['Area']||'').trim() === area;
-    const matchResp = !resp || (row['Responsable']||'').trim() === resp;
-    const matchEst  = !est  || (row['Estado']||'Pendiente') === est;
-    return matchQ && matchArea && matchResp && matchEst;
+    const mQ    = !q    || (row['Capacitacion']||'').toLowerCase().includes(q)||(row['Responsable']||'').toLowerCase().includes(q);
+    const mArea = !area || (row['Area']||'').trim()===area;
+    const mResp = !resp || (row['Responsable']||'').trim()===resp;
+    const mPrio = !prio || (row['Prioridad']||'')===prio;
+    const mEst  = !est  || (row['Estado']||'Por Iniciar')===est;
+    return mQ&&mArea&&mResp&&mPrio&&mEst;
   });
   document.getElementById('capResultsCount').textContent = `${capFilteredData.length} capacitación${capFilteredData.length!==1?'es':''}`;
   renderCapTable();
@@ -1030,11 +658,11 @@ function applyCapFilters() {
 function renderCapTable() {
   const tbody = document.getElementById('capTableBody');
   if (!capData.length) {
-    tbody.innerHTML = `<tr><td colspan="9" class="empty-state"><p>Configura la URL del Apps Script de capacitaciones para ver los datos.</p></td></tr>`;
+    tbody.innerHTML = '<tr><td colspan="13" class="empty-state"><p>Configura la URL del Apps Script de capacitaciones para ver los datos.</p></td></tr>';
     return;
   }
   if (!capFilteredData.length) {
-    tbody.innerHTML = '<tr><td colspan="9" class="empty-state"><p>Sin resultados para los filtros seleccionados.</p></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="13" class="empty-state"><p>Sin resultados para los filtros seleccionados.</p></td></tr>';
     return;
   }
   tbody.innerHTML = capFilteredData.map((row, i) => {
@@ -1044,69 +672,80 @@ function renderCapTable() {
     const mat   = row['Material']||'';
     const resp  = row['Responsable']||'';
     const metod = row['Metodologia']||'';
+    const prio  = row['Prioridad']||'';
+    const fIni  = row['FechaInicio']||'';
+    const fFin  = row['FechaFinal']||'';
+    const est   = row['Estado']||'Por Iniciar';
     const obs   = row['Observaciones']||'';
-    const est   = row['Estado']||'Pendiente';
-    const estClass = 's-' + est.replace(' ','-');
-    const areaClass = `c-${area.replace(/\s/g,'')}`;
-    const opts = ESTADOS.map(s => `<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
+    const pOpts = PRIORIDADES.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p}</option>`).join('');
+    const eOpts = ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
       <td class="td-num">${i+1}</td>
-      <td><span class="cap-tag ${areaClass}">${area}</span></td>
+      <td><span class="cap-tag c-${area.replace(/\s/g,'')}">${area}</span></td>
       <td class="td-desc">${cap}</td>
       <td style="font-size:12px;color:var(--text-2)">${mat}</td>
       <td><span class="resp-pill">${resp}</span></td>
       <td><span class="metod-pill">${metod}</span></td>
-      <td><span class="obs-text">${obs}</span></td>
-      <td class="td-estado">
-        <select class="status-select ${estClass}" data-orig="${orig}" onchange="handleCapChange(this)">
-          ${opts}
+      <td class="td-prio">
+        <select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'capacitaciones')">
+          <option value="">—</option>${pOpts}
         </select>
       </td>
-      <td style="text-align:center;"><span class="save-indicator" id="cap-ind-${orig}"></span></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'capacitaciones')"></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'capacitaciones')"></td>
+      <td class="td-duracion" id="dur-cap-${orig}">${durBadge(fIni,fFin)}</td>
+      <td class="td-estado">
+        <select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'capacitaciones')">
+          ${eOpts}
+        </select>
+      </td>
+      <td class="td-obs">
+        <textarea class="obs-input" data-orig="${orig}" data-field="Observaciones"
+          onchange="handleFieldChange(this,'capacitaciones')"
+          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
+          placeholder="Notas…">${escHtml(obs)}</textarea>
+      </td>
+      <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="cap-ind-${orig}"></span></td>
     </tr>`;
   }).join('');
 }
 
-function handleCapChange(sel) {
-  const orig = parseInt(sel.dataset.orig);
-  const newEst = sel.value;
-  sel.className = `status-select s-${newEst.replace(' ','-')}`;
-  const indicator = document.getElementById(`cap-ind-${orig}`);
-  resetCountdown();
-  updateCapRow(orig, newEst, indicator);
-}
-
 function updateCapKPIs() {
   const total = capData.length;
-  const comp  = capData.filter(r=>(r.Estado||'Pendiente')==='Completado').length;
-  const prog  = capData.filter(r=>(r.Estado||'Pendiente')==='En Progreso').length;
-  const pend  = capData.filter(r=>(r.Estado||'Pendiente')==='Pendiente').length;
-  const bloq  = capData.filter(r=>(r.Estado||'Pendiente')==='Bloqueado').length;
+  const comp  = capData.filter(r=>(r.Estado||'Por Iniciar')==='Completado').length;
+  const prog  = capData.filter(r=>(r.Estado||'Por Iniciar')==='En Proceso').length;
+  const pend  = capData.filter(r=>(r.Estado||'Por Iniciar')==='Por Iniciar').length;
+  const term  = capData.filter(r=>(r.Estado||'Por Iniciar')==='Por Terminar').length;
   const pct   = total ? Math.round(comp/total*100) : 0;
-  document.getElementById('capKpiPct').textContent  = pct + '%';
-  document.getElementById('capKpiBar').style.width  = pct + '%';
+  document.getElementById('capKpiPct').textContent  = pct+'%';
+  document.getElementById('capKpiBar').style.width  = pct+'%';
   document.getElementById('capKpiSub').textContent  = `${comp} de ${total} capacitaciones completadas`;
   document.getElementById('capKpiComp').textContent = comp;
   document.getElementById('capKpiProg').textContent = prog;
   document.getElementById('capKpiPend').textContent = pend;
-  document.getElementById('capKpiBloq').textContent = bloq;
+  document.getElementById('capKpiBloq').textContent = term;
 }
 
 function populateCapFilters() {
   const areas = [...new Set(capData.map(r=>(r['Area']||'').trim()).filter(Boolean))].sort();
-  document.getElementById('capFilterArea').innerHTML = '<option value="">Todas las áreas</option>' + areas.map(a=>`<option value="${a}">${a}</option>`).join('');
+  document.getElementById('capFilterArea').innerHTML =
+    '<option value="">Todas las áreas</option>'+areas.map(a=>`<option value="${a}">${a}</option>`).join('');
   const resps = [...new Set(capData.map(r=>(r['Responsable']||'').trim()).filter(Boolean))].sort();
-  document.getElementById('capFilterResp').innerHTML = '<option value="">Todos los responsables</option>' + resps.map(r=>`<option value="${r}">${r}</option>`).join('');
+  document.getElementById('capFilterResp').innerHTML =
+    '<option value="">Todos los responsables</option>'+resps.map(r=>`<option value="${r}">${r}</option>`).join('');
 }
 
-// ─── HELPERS ───────────────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────────
 function setSync(msg) { document.getElementById('syncStatus').textContent = msg; }
 function timeNow() { return new Date().toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'}); }
 function flash(el, type, msg) {
   if (!el) return;
   el.textContent = msg;
   el.className = `save-indicator ${type} show`;
-  if (type !== 'saving') setTimeout(()=>{ el.className='save-indicator'; }, 2500);
+  if (type!=='saving') setTimeout(()=>{ el.className='save-indicator'; }, 2500);
+}
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
 </body>
