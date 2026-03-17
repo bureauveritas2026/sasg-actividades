@@ -28,6 +28,70 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;-webkit-font-smoothing:antialiased;}
 
+  /* ══ LOGIN SCREEN ══ */
+  #loginScreen{
+    position:fixed;inset:0;z-index:9999;
+    background:var(--slate-950);
+    display:flex;align-items:center;justify-content:center;
+    padding:1rem;
+  }
+  #loginScreen.hidden{display:none;}
+  .login-card{
+    background:var(--bg-card);
+    border-radius:10px;
+    border-top:3px solid var(--accent);
+    padding:2.5rem 2.75rem;
+    width:100%;max-width:400px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.5);
+  }
+  .login-logo{display:flex;align-items:center;gap:12px;margin-bottom:2rem;}
+  .login-badge{background:var(--accent);color:var(--slate-950);font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:0.12em;padding:6px 14px;border-radius:2px;text-transform:uppercase;}
+  .login-appname{font-family:'Cormorant Garamond',serif;color:var(--text-1);font-size:19px;font-weight:500;letter-spacing:0.02em;}
+  .login-appname span{display:block;font-family:'Figtree',sans-serif;font-size:10.5px;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-top:1px;}
+  .login-field{margin-bottom:1.25rem;}
+  .login-field label{display:block;font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:7px;}
+  .login-input-wrap{position:relative;}
+  .login-input{
+    font-family:'Figtree',sans-serif;font-size:13.5px;width:100%;
+    border:1px solid var(--border);border-radius:5px;
+    padding:10px 40px 10px 13px;
+    background:var(--bg);color:var(--text-1);
+    outline:none;transition:border-color 0.15s,box-shadow 0.15s;
+  }
+  .login-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,147,90,0.15);}
+  .login-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(139,40,40,0.1);}
+  .eye-btn{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-3);padding:2px;display:flex;align-items:center;}
+  .eye-btn:hover{color:var(--text-2);}
+  .eye-btn svg{width:16px;height:16px;}
+  .login-error{
+    font-size:12px;font-weight:500;
+    color:var(--red);background:var(--red-bg);
+    border:1px solid var(--red-border);border-radius:4px;
+    padding:8px 12px;margin-bottom:1.1rem;
+    display:none;
+  }
+  .login-error.show{display:block;}
+  .login-locked{
+    font-size:12px;color:var(--amber);background:var(--amber-bg);
+    border:1px solid var(--amber-border);border-radius:4px;
+    padding:8px 12px;margin-bottom:1.1rem;text-align:center;
+    display:none;
+  }
+  .login-locked.show{display:block;}
+  .login-btn{
+    font-family:'Figtree',sans-serif;
+    width:100%;background:var(--slate-900);color:var(--accent-light);
+    border:none;border-radius:5px;padding:12px;
+    font-size:14px;font-weight:500;cursor:pointer;
+    transition:background 0.2s,opacity 0.2s;letter-spacing:0.04em;
+    margin-top:0.25rem;
+  }
+  .login-btn:hover:not(:disabled){background:var(--slate-800);}
+  .login-btn:disabled{opacity:0.5;cursor:not-allowed;}
+  .login-attempts{font-size:11px;color:var(--text-3);text-align:center;margin-top:10px;min-height:16px;}
+  @keyframes loginShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+  .shake{animation:loginShake 0.4s ease;}
+
   /* ── HEADER ── */
   .site-header{background:var(--slate-900);border-bottom:1px solid rgba(184,147,90,0.3);padding:0 2rem;position:sticky;top:0;z-index:100;}
   .header-inner{max-width:1700px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px;}
@@ -222,6 +286,43 @@
 </style>
 </head>
 <body>
+
+<!-- ══ LOGIN SCREEN ══════════════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card" id="loginCard">
+    <div class="login-logo">
+      <span class="login-badge">SASG</span>
+      <div class="login-appname">Panel de Control<span>Seguimiento y cumplimiento</span></div>
+    </div>
+
+    <div class="login-field">
+      <label for="loginUser">Usuario</label>
+      <div class="login-input-wrap">
+        <input class="login-input" type="text" id="loginUser" placeholder="Ingresa tu usuario"
+          autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()">
+      </div>
+    </div>
+
+    <div class="login-field">
+      <label for="loginPass">Contraseña</label>
+      <div class="login-input-wrap">
+        <input class="login-input" type="password" id="loginPass" placeholder="Ingresa tu contraseña"
+          autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="eye-btn" type="button" onclick="togglePass()" title="Mostrar/ocultar">
+          <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="login-error" id="loginError"></div>
+    <div class="login-locked" id="loginLocked"></div>
+
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Ingresar al sistema</button>
+    <div class="login-attempts" id="loginAttempts"></div>
+  </div>
+</div>
 
 <div class="modal-overlay hidden" id="setupModal"></div>
 
@@ -516,8 +617,8 @@
 // ══ CONFIG ════════════════════════════════════════════════════════════════
 const ESTADOS     = ['Por Iniciar','En Proceso','Por Terminar','Completado'];
 const PRIORIDADES = ['Alta','Media','Baja'];
-const SCRIPT_URL     = 'https://script.google.com/macros/s/AKfycbw5rKdPsMeTfrT4E_rmTc1cZZz4Y3Ih2f-4yhYSymxblGnnIG05rJ6wnBHX-gGZEIHvVQ/exec';
-const SCRIPT_URL_CAP = 'https://script.google.com/macros/s/AKfycbzsyxi4H1jE72sZz_EfnrCOocq4s1IAi9TBRjMt4IbrU4Z69ZuLC5222fQZw4qyyoCo/exec';
+const SCRIPT_URL     = 'https://script.google.com/macros/s/AKfycbx-EcIFv3v6PdKJFKETHEPZIcpSDn2oTJzXTVE9BS-wD8QvH3_cyaI6qH_yWXzrQ9Jw/exec';
+const SCRIPT_URL_CAP = 'https://script.google.com/macros/s/AKfycbytttFCLTmlba2rkhQ9jgRJcfuBtlHcwsWSZJFt_ZpFYhn3sN67OGMk5W-MhMhaafKG/exec';
 
 let allData=[], capData=[], filteredData=[], capFilteredData=[];
 let countdownInterval=null, secondsLeft=15;
@@ -560,10 +661,23 @@ function manualSync(){ resetCountdown(); loadData(); loadCapData(); }
 function showSetup(){} function saveConfig(){} function useDemoMode(){}
 
 // ══ DURATION ══════════════════════════════════════════════════════════════
+// parseLocalDate: interpreta 'YYYY-MM-DD' como fecha LOCAL (no UTC)
+// Esto evita el bug de -1 día que ocurre cuando el browser trata
+// la cadena ISO como medianoche UTC y la convierte a hora local.
+function parseLocalDate(str) {
+  if (!str) return null;
+  // Formato yyyy-MM-dd
+  const m = String(str).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) return new Date(+m[1], +m[2]-1, +m[3]);
+  // Otros formatos (por si acaso)
+  const d = new Date(str);
+  return isNaN(d) ? null : d;
+}
+
 function durBadge(fIni,fFin) {
   if(!fIni||!fFin) return '<span class="dur-badge dur-gray" style="opacity:0.4">—</span>';
-  const d1=new Date(fIni),d2=new Date(fFin);
-  if(isNaN(d1)||isNaN(d2)) return '<span class="dur-badge dur-gray" style="opacity:0.4">—</span>';
+  const d1=parseLocalDate(fIni), d2=parseLocalDate(fFin);
+  if(!d1||!d2) return '<span class="dur-badge dur-gray" style="opacity:0.4">—</span>';
   const totalDays=Math.round((d2-d1)/86400000);
   const today=new Date(); today.setHours(0,0,0,0);
   const remaining=Math.round((d2-today)/86400000);
@@ -1058,6 +1172,114 @@ function flash(el,type,msg){
   if(type!=='saving') setTimeout(()=>{ el.className='save-indicator'; },2500);
 }
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ══ LOGIN ══════════════════════════════════════════════════════════════════
+const AUTH = { user: 'holiday', pass: 'SASG2026$', maxAttempts: 3, lockMs: 60000 };
+let loginAttempts = 0;
+let lockUntil = 0;
+let lockTimer = null;
+
+function doLogin() {
+  const now = Date.now();
+  const errorEl   = document.getElementById('loginError');
+  const lockedEl  = document.getElementById('loginLocked');
+  const attemptsEl= document.getElementById('loginAttempts');
+  const btn       = document.getElementById('loginBtn');
+  const card      = document.getElementById('loginCard');
+  const userEl    = document.getElementById('loginUser');
+  const passEl    = document.getElementById('loginPass');
+
+  // ── Bloqueo activo ──
+  if (now < lockUntil) {
+    const secs = Math.ceil((lockUntil - now) / 1000);
+    lockedEl.textContent = `Acceso bloqueado. Intenta nuevamente en ${secs} segundo${secs!==1?'s':''}.`;
+    lockedEl.classList.add('show');
+    return;
+  }
+
+  const user = (userEl.value || '').trim().toLowerCase();
+  const pass = (passEl.value || '');
+
+  // ── Validar ──
+  const userOk = user === AUTH.user;
+  const passOk = pass === AUTH.pass;   // contraseña sensible a mayúsculas
+
+  if (userOk && passOk) {
+    // ✅ Éxito
+    loginAttempts = 0;
+    errorEl.classList.remove('show');
+    lockedEl.classList.remove('show');
+    attemptsEl.textContent = '';
+    document.getElementById('loginScreen').classList.add('hidden');
+    return;
+  }
+
+  // ── Fallo ──
+  loginAttempts++;
+  userEl.classList.toggle('err', !userOk);
+  passEl.classList.toggle('err', !passOk);
+
+  // Shake animation
+  card.classList.remove('shake');
+  void card.offsetWidth; // reflow
+  card.classList.add('shake');
+  setTimeout(() => card.classList.remove('shake'), 450);
+
+  if (loginAttempts >= AUTH.maxAttempts) {
+    // Bloquear por 1 minuto
+    lockUntil = Date.now() + AUTH.lockMs;
+    loginAttempts = 0;
+    errorEl.classList.remove('show');
+    btn.disabled = true;
+    userEl.disabled = true;
+    passEl.disabled = true;
+
+    const countdown = () => {
+      const secs = Math.ceil((lockUntil - Date.now()) / 1000);
+      if (secs <= 0) {
+        lockedEl.classList.remove('show');
+        lockedEl.textContent = '';
+        attemptsEl.textContent = '';
+        btn.disabled = false;
+        userEl.disabled = false;
+        passEl.disabled = false;
+        passEl.value = '';
+        userEl.classList.remove('err');
+        passEl.classList.remove('err');
+        clearInterval(lockTimer);
+      } else {
+        lockedEl.textContent = `Demasiados intentos fallidos. Bloqueado por ${secs} segundo${secs!==1?'s':''}.`;
+        lockedEl.classList.add('show');
+      }
+    };
+    countdown();
+    lockTimer = setInterval(countdown, 1000);
+  } else {
+    const left = AUTH.maxAttempts - loginAttempts;
+    // Mensaje de error específico
+    if (!userOk && !passOk) {
+      errorEl.textContent = 'Usuario y contraseña incorrectos.';
+    } else if (!userOk) {
+      errorEl.textContent = 'Usuario incorrecto.';
+    } else {
+      errorEl.textContent = 'Contraseña incorrecta. Recuerda que distingue mayúsculas y minúsculas.';
+    }
+    errorEl.classList.add('show');
+    attemptsEl.textContent = `Intento ${loginAttempts} de ${AUTH.maxAttempts} · ${left} intento${left!==1?'s':''} restante${left!==1?'s':''}`;
+  }
+}
+
+function togglePass() {
+  const input = document.getElementById('loginPass');
+  const icon  = document.getElementById('eyeIcon');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  } else {
+    input.type = 'password';
+    icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  }
+}
 </script>
 </body>
 </html>
