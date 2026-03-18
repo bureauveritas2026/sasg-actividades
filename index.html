@@ -20,10 +20,8 @@
     --shadow-xs:0 1px 2px rgba(13,17,23,0.06);
     --shadow-sm:0 2px 8px rgba(13,17,23,0.07);
     --shadow-md:0 4px 20px rgba(13,17,23,0.09);
-
-    /* Chart palette */
     --c-iniciar:#94a3b8; --c-proceso:#f59e0b; --c-terminar:#f97316; --c-completado:#22c55e;
-    --c-alta:#ef4444;    --c-media:#f59e0b;   --c-baja:#22c55e;
+    --c-alta:#ef4444; --c-media:#f59e0b; --c-baja:#22c55e;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;-webkit-font-smoothing:antialiased;}
@@ -63,34 +61,21 @@
   .eye-btn{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-3);padding:2px;display:flex;align-items:center;}
   .eye-btn:hover{color:var(--text-2);}
   .eye-btn svg{width:16px;height:16px;}
-  .login-error{
-    font-size:12px;font-weight:500;
-    color:var(--red);background:var(--red-bg);
-    border:1px solid var(--red-border);border-radius:4px;
-    padding:8px 12px;margin-bottom:1.1rem;
-    display:none;
-  }
+  .login-error{font-size:12px;font-weight:500;color:var(--red);background:var(--red-bg);border:1px solid var(--red-border);border-radius:4px;padding:8px 12px;margin-bottom:1.1rem;display:none;}
   .login-error.show{display:block;}
-  .login-locked{
-    font-size:12px;color:var(--amber);background:var(--amber-bg);
-    border:1px solid var(--amber-border);border-radius:4px;
-    padding:8px 12px;margin-bottom:1.1rem;text-align:center;
-    display:none;
-  }
+  .login-locked{font-size:12px;color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:4px;padding:8px 12px;margin-bottom:1.1rem;text-align:center;display:none;}
   .login-locked.show{display:block;}
-  .login-btn{
-    font-family:'Figtree',sans-serif;
-    width:100%;background:var(--slate-900);color:var(--accent-light);
-    border:none;border-radius:5px;padding:12px;
-    font-size:14px;font-weight:500;cursor:pointer;
-    transition:background 0.2s,opacity 0.2s;letter-spacing:0.04em;
-    margin-top:0.25rem;
-  }
+  .login-btn{font-family:'Figtree',sans-serif;width:100%;background:var(--slate-900);color:var(--accent-light);border:none;border-radius:5px;padding:12px;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.2s,opacity 0.2s;letter-spacing:0.04em;margin-top:0.25rem;}
   .login-btn:hover:not(:disabled){background:var(--slate-800);}
   .login-btn:disabled{opacity:0.5;cursor:not-allowed;}
   .login-attempts{font-size:11px;color:var(--text-3);text-align:center;margin-top:10px;min-height:16px;}
   @keyframes loginShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
   .shake{animation:loginShake 0.4s ease;}
+
+  /* Admin badge in header */
+  .role-badge{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:2px;margin-right:6px;}
+  .role-admin{background:rgba(184,147,90,0.2);color:var(--accent-light);border:1px solid rgba(184,147,90,0.4);}
+  .role-user{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.12);}
 
   /* ── HEADER ── */
   .site-header{background:var(--slate-900);border-bottom:1px solid rgba(184,147,90,0.3);padding:0 2rem;position:sticky;top:0;z-index:100;}
@@ -189,11 +174,53 @@
   .td-obs{min-width:150px;max-width:210px;}
   .obs-input{font-family:'Figtree',sans-serif;font-size:12px;color:var(--text-1);background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:4px 7px;width:100%;outline:none;resize:none;line-height:1.45;min-height:30px;transition:border-color 0.15s,box-shadow 0.15s;overflow:hidden;}
   .obs-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,147,90,0.12);}
+
+  /* ── MATERIAL DE CONSULTA ── */
+  .td-material{min-width:160px;max-width:220px;}
+
+  /* Admin: textarea editable para ingresar link */
+  .material-input{
+    font-family:'Figtree',sans-serif;font-size:12px;color:var(--text-1);
+    background:#fffdf7;border:1px solid #e8c96a;border-radius:3px;
+    padding:4px 7px;width:100%;outline:none;resize:none;
+    line-height:1.45;min-height:30px;
+    transition:border-color 0.15s,box-shadow 0.15s;overflow:hidden;
+  }
+  .material-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,147,90,0.12);}
+  .material-input::placeholder{color:#c5a84a;opacity:0.7;}
+
+  /* User (holiday): solo visualización con enlace clicable */
+  .material-link-cell{
+    display:flex;align-items:center;gap:6px;min-height:30px;
+  }
+  .material-link{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:12px;font-weight:500;
+    color:#1a5035;background:#e8f3ec;
+    border:1px solid #b5d8c0;border-radius:3px;
+    padding:4px 9px;text-decoration:none;
+    transition:background 0.15s,box-shadow 0.15s;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px;
+  }
+  .material-link:hover{background:#d0eadb;box-shadow:0 0 0 2px rgba(45,107,79,0.15);}
+  .material-link svg{width:11px;height:11px;flex-shrink:0;}
+  .material-empty{font-size:11px;color:var(--text-3);font-style:italic;}
+
+  /* Admin badge en columna header */
+  .th-admin-badge{
+    display:inline-block;font-size:8.5px;font-weight:700;
+    letter-spacing:0.08em;text-transform:uppercase;
+    background:rgba(184,147,90,0.18);color:var(--accent-light);
+    border:1px solid rgba(184,147,90,0.3);border-radius:2px;
+    padding:1px 5px;margin-left:5px;vertical-align:middle;
+  }
+
   .save-indicator{font-size:10px;padding:2px 7px;border-radius:2px;display:inline-block;transition:opacity 0.3s;opacity:0;font-weight:500;white-space:nowrap;}
   .save-indicator.show{opacity:1;}
   .save-indicator.saving{background:var(--amber-bg);color:var(--amber);}
   .save-indicator.saved{background:var(--green-bg);color:var(--green);}
   .save-indicator.error{background:var(--red-bg);color:var(--red);}
+
   .cap-tag{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap;display:inline-block;}
   .c-AyB{background:#e8f0f8;color:#1a3970;border:1px solid #c0d0ea;}
   .c-HK{background:#e8f3ec;color:#1a5035;border:1px solid #b5d8c0;}
@@ -209,45 +236,34 @@
   .modal-overlay{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;padding:1rem;}
   .modal-overlay.hidden{display:none;}
 
-  /* ══ DASHBOARD ══════════════════════════════════════════════════ */
+  /* ══ DASHBOARD ══ */
   .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px;}
   .dash-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text-1);letter-spacing:0.01em;}
   .dash-subtitle{font-size:11.5px;color:var(--text-3);font-weight:300;margin-top:2px;}
   .dash-filters{display:flex;gap:9px;align-items:center;flex-wrap:wrap;}
   .dash-filters .filter-label{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);}
-
-  /* Segmented switch */
   .seg-switch{display:flex;background:var(--bg-card-alt);border:1px solid var(--border);border-radius:5px;padding:3px;gap:2px;}
   .seg-btn{font-family:'Figtree',sans-serif;font-size:11.5px;font-weight:500;padding:5px 14px;border:none;border-radius:3px;cursor:pointer;background:transparent;color:var(--text-3);transition:all 0.15s;white-space:nowrap;}
   .seg-btn.active{background:var(--bg-card);color:var(--text-1);box-shadow:var(--shadow-xs);border:1px solid var(--border);}
-
-  /* Summary row */
   .dash-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;}
   .summary-card{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem;box-shadow:var(--shadow-xs);display:flex;align-items:center;gap:14px;}
   .summary-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .summary-icon svg{width:18px;height:18px;}
   .summary-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;line-height:1;}
   .summary-lbl{font-size:10.5px;color:var(--text-3);font-weight:400;margin-top:3px;text-transform:uppercase;letter-spacing:0.08em;}
-
-  /* Chart grid */
   .chart-grid{display:grid;gap:16px;margin-bottom:16px;}
   .chart-grid-2{grid-template-columns:1fr 1fr;}
   .chart-grid-3{grid-template-columns:1fr 1fr 1fr;}
   .chart-grid-12{grid-template-columns:1.3fr 1fr;}
-
   .chart-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1.5rem;box-shadow:var(--shadow-xs);}
   .chart-card-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--text-1);margin-bottom:3px;}
   .chart-card-sub{font-size:11px;color:var(--text-3);font-weight:300;margin-bottom:1.25rem;}
   .chart-canvas-wrap{position:relative;display:flex;justify-content:center;align-items:center;}
   .chart-canvas-wrap canvas{max-height:260px;}
-
-  /* Donut center label */
   .donut-wrap{position:relative;}
   .donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);text-align:center;pointer-events:none;}
   .donut-center-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--text-1);line-height:1;}
   .donut-center-lbl{font-size:10px;color:var(--text-3);font-weight:400;letter-spacing:0.06em;text-transform:uppercase;margin-top:2px;}
-
-  /* Legend */
   .legend-list{display:flex;flex-direction:column;gap:8px;margin-top:1rem;}
   .legend-item{display:flex;align-items:center;justify-content:space-between;gap:8px;}
   .legend-left{display:flex;align-items:center;gap:8px;}
@@ -257,23 +273,18 @@
   .legend-bar-fill{height:100%;border-radius:99px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);}
   .legend-count{font-size:12px;font-weight:600;color:var(--text-1);min-width:28px;text-align:right;}
   .legend-pct{font-size:11px;color:var(--text-3);min-width:36px;text-align:right;}
-
-  /* Bar chart horizontal */
   .hbar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
   .hbar-label{font-size:11.5px;color:var(--text-2);width:110px;text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .hbar-track{flex:1;height:22px;background:var(--bg-card-alt);border-radius:3px;overflow:hidden;position:relative;}
   .hbar-fill{height:100%;border-radius:3px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;padding-left:8px;}
   .hbar-val{font-size:11px;font-weight:600;color:#fff;white-space:nowrap;}
   .hbar-val-out{font-size:11px;font-weight:500;color:var(--text-2);position:absolute;right:6px;top:50%;transform:translateY(-50%);}
-
-  /* Responsable table */
   .resp-table{width:100%;border-collapse:collapse;font-size:12.5px;}
   .resp-table th{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:6px 8px;text-align:left;border-bottom:1px solid var(--border);}
   .resp-table td{padding:7px 8px;border-bottom:1px solid var(--bg-card-alt);color:var(--text-1);font-weight:300;}
   .resp-table tr:last-child td{border-bottom:none;}
   .resp-table tr:hover td{background:var(--bg-card-alt);}
   .mini-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle;}
-
   .dash-divider{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:8px;margin:1.5rem 0 1rem;}
 
   @media(max-width:900px){
@@ -287,14 +298,13 @@
 </head>
 <body>
 
-<!-- ══ LOGIN SCREEN ══════════════════════════════════════════════ -->
+<!-- ══ LOGIN SCREEN ══ -->
 <div id="loginScreen">
   <div class="login-card" id="loginCard">
     <div class="login-logo">
       <span class="login-badge">SASG</span>
       <div class="login-appname">Panel de Control<span>Seguimiento y cumplimiento</span></div>
     </div>
-
     <div class="login-field">
       <label for="loginUser">Usuario</label>
       <div class="login-input-wrap">
@@ -302,7 +312,6 @@
           autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()">
       </div>
     </div>
-
     <div class="login-field">
       <label for="loginPass">Contraseña</label>
       <div class="login-input-wrap">
@@ -315,10 +324,8 @@
         </button>
       </div>
     </div>
-
     <div class="login-error" id="loginError"></div>
     <div class="login-locked" id="loginLocked"></div>
-
     <button class="login-btn" id="loginBtn" onclick="doLogin()">Ingresar al sistema</button>
     <div class="login-attempts" id="loginAttempts"></div>
   </div>
@@ -337,6 +344,7 @@
       </div>
     </div>
     <div class="header-meta">
+      <span class="role-badge" id="roleBadge" style="display:none"></span>
       <span class="sync-status" id="syncStatus">No conectado</span>
       <span class="sync-status" id="countdown" style="margin-right:4px;font-size:10px;opacity:0.6;"></span>
       <button class="sync-btn" onclick="manualSync()">
@@ -377,12 +385,8 @@
 
 <main class="main-wrap">
 
-<!-- ══════════════════════════════════════════════════════════════
-     PANEL: DASHBOARD
-══════════════════════════════════════════════════════════════ -->
+<!-- ══ PANEL: DASHBOARD ══ -->
 <div class="panel" id="panel-dashboard">
-
-  <!-- Header + filtros -->
   <div class="dash-header">
     <div>
       <div class="dash-title">Dashboard de Cumplimiento</div>
@@ -405,15 +409,10 @@
       </select>
     </div>
   </div>
-
-  <!-- Summary cards -->
   <div class="dash-summary" id="dashSummary"></div>
-
-  <!-- ACTIVIDADES charts -->
   <div id="dashActSection">
     <div class="dash-divider" id="dashActTitle">Actividades</div>
     <div class="chart-grid chart-grid-12" style="margin-bottom:16px;">
-      <!-- Donut estado -->
       <div class="chart-card">
         <div class="chart-card-title">Estado de actividades</div>
         <div class="chart-card-sub">Distribución por estado actual</div>
@@ -428,7 +427,6 @@
           <div class="legend-list" id="lg-act-estado" style="flex:1;min-width:160px;"></div>
         </div>
       </div>
-      <!-- Donut prioridad -->
       <div class="chart-card">
         <div class="chart-card-title">Distribución por prioridad</div>
         <div class="chart-card-sub">Alta · Media · Baja</div>
@@ -444,8 +442,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Barras por departamento / responsable -->
     <div class="chart-grid chart-grid-2">
       <div class="chart-card">
         <div class="chart-card-title">Completadas por departamento</div>
@@ -461,8 +457,6 @@
       </div>
     </div>
   </div>
-
-  <!-- CAPACITACIONES charts -->
   <div id="dashCapSection" style="display:none;">
     <div class="dash-divider" id="dashCapTitle" style="margin-top:2rem;">Capacitaciones</div>
     <div class="chart-grid chart-grid-12" style="margin-bottom:16px;">
@@ -510,12 +504,9 @@
       </div>
     </div>
   </div>
+</div>
 
-</div><!-- /panel-dashboard -->
-
-<!-- ══════════════════════════════════════════════════════════════
-     PANEL: ACTIVIDADES
-══════════════════════════════════════════════════════════════ -->
+<!-- ══ PANEL: ACTIVIDADES ══ -->
 <div class="panel active" id="panel-actividades">
   <div class="kpi-strip">
     <div class="kpi-card kpi-main">
@@ -548,20 +539,27 @@
     <span class="results-count" id="resultsCount">— actividades</span>
   </div>
   <div class="table-wrap">
-    <table class="data-table">
+    <table class="data-table" id="actTable">
       <thead><tr>
-        <th class="td-num">#</th><th>Proceso</th><th>Actividad</th><th>Responsable(s)</th>
-        <th>Prioridad</th><th>Fecha Inicio</th><th>Fecha Final</th><th>Duración</th>
-        <th>Estado</th><th>Observaciones</th><th style="width:68px;text-align:center;">Guard.</th>
+        <th class="td-num">#</th>
+        <th>Proceso</th>
+        <th>Actividad</th>
+        <th>Responsable(s)</th>
+        <th>Prioridad</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Final</th>
+        <th>Duración</th>
+        <th>Estado</th>
+        <th id="actMatHeader">Material de Consulta</th>
+        <th>Observaciones</th>
+        <th style="width:68px;text-align:center;">Guard.</th>
       </tr></thead>
-      <tbody id="tableBody"><tr><td colspan="11" class="empty-state"><p>Cargando actividades…</p></td></tr></tbody>
+      <tbody id="tableBody"><tr><td colspan="12" class="empty-state"><p>Cargando actividades…</p></td></tr></tbody>
     </table>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     PANEL: CAPACITACIONES
-══════════════════════════════════════════════════════════════ -->
+<!-- ══ PANEL: CAPACITACIONES ══ -->
 <div class="panel" id="panel-capacitaciones">
   <div class="kpi-strip">
     <div class="kpi-card kpi-main">
@@ -594,14 +592,24 @@
     <span class="results-count" id="capResultsCount">— capacitaciones</span>
   </div>
   <div class="table-wrap">
-    <table class="data-table">
+    <table class="data-table" id="capTable">
       <thead><tr>
-        <th class="td-num">#</th><th>Área</th><th>Capacitación</th><th>Material</th>
-        <th>Responsable</th><th>Metodología</th><th>Prioridad</th>
-        <th>Fecha Inicio</th><th>Fecha Final</th><th>Duración</th>
-        <th>Estado</th><th>Observaciones</th><th style="width:68px;text-align:center;">Guard.</th>
+        <th class="td-num">#</th>
+        <th>Área</th>
+        <th>Capacitación</th>
+        <th>Material</th>
+        <th>Responsable</th>
+        <th>Metodología</th>
+        <th>Prioridad</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Final</th>
+        <th>Duración</th>
+        <th>Estado</th>
+        <th id="capMatHeader">Material de Consulta</th>
+        <th>Observaciones</th>
+        <th style="width:68px;text-align:center;">Guard.</th>
       </tr></thead>
-      <tbody id="capTableBody"><tr><td colspan="13" class="empty-state"><p>Cargando capacitaciones…</p></td></tr></tbody>
+      <tbody id="capTableBody"><tr><td colspan="14" class="empty-state"><p>Cargando capacitaciones…</p></td></tr></tbody>
     </table>
   </div>
 </div>
@@ -624,11 +632,47 @@ let allData=[], capData=[], filteredData=[], capFilteredData=[];
 let countdownInterval=null, secondsLeft=60;
 const SYNC_EVERY=60;
 
+// ── Sesión y roles ────────────────────────────────────────────────────────
+// currentRole: 'admin' | 'user' | null
+let currentRole = null;
+
+const AUTH_USERS = {
+  admin:   { user: 'admin',   pass: 'SASG2026$',  role: 'admin' },
+  holiday: { user: 'holiday', pass: '2026$',       role: 'user'  }
+};
+
+// Helpers de rol
+function isAdmin(){ return currentRole === 'admin'; }
+
+// Actualiza badge de rol en el header
+function showRoleBadge(){
+  const el = document.getElementById('roleBadge');
+  if(!el) return;
+  if(currentRole === 'admin'){
+    el.textContent = 'Admin';
+    el.className = 'role-badge role-admin';
+  } else {
+    el.textContent = 'Colaborador';
+    el.className = 'role-badge role-user';
+  }
+  el.style.display = 'inline-block';
+}
+
+// Actualiza headers de la columna Material de Consulta según rol
+function updateMaterialHeaders(){
+  const badge = isAdmin()
+    ? `<span class="th-admin-badge">editable</span>`
+    : '';
+  const actH = document.getElementById('actMatHeader');
+  const capH = document.getElementById('capMatHeader');
+  if(actH) actH.innerHTML = 'Material de Consulta' + badge;
+  if(capH) capH.innerHTML = 'Material de Consulta' + badge;
+}
+
 // Dashboard state
-let dashView = 'act'; // 'act' | 'cap' | 'both'
+let dashView = 'act';
 let chartInstances = {};
 
-// ── Palette ──────────────────────────────────────────────────────────────
 const ESTADO_COLORS  = { 'Por Iniciar':'#94a3b8','En Proceso':'#f59e0b','Por Terminar':'#f97316','Completado':'#22c55e' };
 const PRIO_COLORS    = { 'Alta':'#ef4444','Media':'#f59e0b','Baja':'#22c55e','':'#cbd5e1' };
 const DPTO_PALETTE   = ['#6366f1','#0ea5e9','#14b8a6','#f59e0b','#f97316','#ec4899','#8b5cf6','#22c55e','#ef4444','#64748b'];
@@ -661,15 +705,10 @@ function manualSync(){ resetCountdown(); loadData(); loadCapData(); }
 function showSetup(){} function saveConfig(){} function useDemoMode(){}
 
 // ══ DURATION ══════════════════════════════════════════════════════════════
-// parseLocalDate: interpreta 'YYYY-MM-DD' como fecha LOCAL (no UTC)
-// Esto evita el bug de -1 día que ocurre cuando el browser trata
-// la cadena ISO como medianoche UTC y la convierte a hora local.
 function parseLocalDate(str) {
   if (!str) return null;
-  // Formato yyyy-MM-dd
   const m = String(str).match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (m) return new Date(+m[1], +m[2]-1, +m[3]);
-  // Otros formatos (por si acaso)
   const d = new Date(str);
   return isNaN(d) ? null : d;
 }
@@ -690,6 +729,52 @@ function durBadge(fIni,fFin) {
   return `<span class="dur-badge ${cls}" title="${title}">${label}</span>`;
 }
 
+// ══ MATERIAL DE CONSULTA — renderizar celda según rol ═════════════════════
+// Admin: textarea editable para escribir/pegar un link
+// User (holiday): enlace clicable que abre en nueva pestaña
+function renderMaterialCell(orig, value, panel) {
+  const val = (value || '').trim();
+
+  if (isAdmin()) {
+    // Admin: textarea editable
+    return `<td class="td-material">
+      <textarea
+        class="material-input"
+        data-orig="${orig}"
+        data-field="MaterialConsulta"
+        placeholder="Pegar enlace aquí…"
+        onchange="handleFieldChange(this,'${panel}')"
+        oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
+      >${escHtml(val)}</textarea>
+    </td>`;
+  } else {
+    // User: solo visualización/clic
+    if (val) {
+      // Intentar detectar si parece URL válida
+      const href = val.startsWith('http') ? val : 'https://' + val;
+      // Texto corto para mostrar en el botón
+      let displayText = val;
+      try {
+        const u = new URL(href);
+        displayText = u.hostname.replace('www.','') + (u.pathname.length > 1 ? '/…' : '');
+      } catch(e) { displayText = val.length > 30 ? val.substring(0,27)+'…' : val; }
+      return `<td class="td-material">
+        <div class="material-link-cell">
+          <a class="material-link" href="${escHtml(href)}" target="_blank" rel="noopener noreferrer" title="${escHtml(val)}">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6.5 3.5H3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-3.5"/>
+              <path d="M9.5 2H14v4.5M14 2l-6.5 6.5"/>
+            </svg>
+            ${escHtml(displayText)}
+          </a>
+        </div>
+      </td>`;
+    } else {
+      return `<td class="td-material"><span class="material-empty">Sin enlace</span></td>`;
+    }
+  }
+}
+
 // ══ LOAD DATA ═════════════════════════════════════════════════════════════
 async function loadData() {
   setSync('Sincronizando…');
@@ -706,37 +791,23 @@ async function silentSync() {
     const json=await res.json();
     if(!json.data) return;
     setSync('Actualizado · '+timeNow());
-
     if(allData.length !== json.data.length){
-      // Cambió número de filas → recarga completa inevitable
       allData=json.data;
       populateFilters(); applyFilters(); updateKPIs();
       if(document.getElementById('panel-dashboard').classList.contains('active')) renderDashboard();
       return;
     }
-
-    // Detectar qué filas cambiaron respecto a lo que tenemos en memoria
-    // y actualizar SOLO esas filas en el DOM sin tocar las demás
     const changedRows=[];
     json.data.forEach((row,i)=>{
       let changed=false;
       Object.keys(row).forEach(k=>{
-        if(String(row[k])!==String(allData[i][k]||'')){
-          allData[i][k]=row[k];
-          changed=true;
-        }
+        if(String(row[k])!==String(allData[i][k]||'')){ allData[i][k]=row[k]; changed=true; }
       });
       if(changed) changedRows.push(i);
     });
-
     updateKPIs();
     if(document.getElementById('panel-dashboard').classList.contains('active')) renderDashboard();
-
-    // Actualizar quirúrgicamente solo las filas que cambiaron en otros dispositivos
-    changedRows.forEach(origIndex=>{
-      patchRowInDOM(origIndex,'actividades');
-    });
-
+    changedRows.forEach(origIndex=>{ patchRowInDOM(origIndex,'actividades'); });
   } catch(e){}
 }
 
@@ -755,93 +826,58 @@ async function silentCapSync() {
     const res=await fetch(`${SCRIPT_URL_CAP}?action=get`,{mode:'cors'});
     const json=await res.json();
     if(!json.data) return;
-
     if(capData.length !== json.data.length){
       capData=json.data;
       populateCapFilters(); applyCapFilters(); updateCapKPIs();
       if(document.getElementById('panel-dashboard').classList.contains('active')) renderDashboard();
       return;
     }
-
     const changedRows=[];
     json.data.forEach((row,i)=>{
       let changed=false;
       Object.keys(row).forEach(k=>{
-        if(String(row[k])!==String(capData[i][k]||'')){
-          capData[i][k]=row[k];
-          changed=true;
-        }
+        if(String(row[k])!==String(capData[i][k]||'')){ capData[i][k]=row[k]; changed=true; }
       });
       if(changed) changedRows.push(i);
     });
-
     updateCapKPIs();
     if(document.getElementById('panel-dashboard').classList.contains('active')) renderDashboard();
-
-    changedRows.forEach(origIndex=>{
-      patchRowInDOM(origIndex,'capacitaciones');
-    });
-
+    changedRows.forEach(origIndex=>{ patchRowInDOM(origIndex,'capacitaciones'); });
   } catch(e){}
 }
 
-// ══ PATCH ROW — actualiza quirúrgicamente solo los campos que cambiaron ════
-// Busca la fila en el DOM por data-orig y actualiza solo los elementos
-// internos, SIN destruir ni recrear el <tr>
+// ══ PATCH ROW ═════════════════════════════════════════════════════════════
 function patchRowInDOM(origIndex, panel){
   const data = panel==='actividades' ? allData : capData;
   const row  = data[origIndex];
   if(!row) return;
-
-  // Selector: busca el <select> de Estado cuyo data-orig coincide
-  // dentro del panel correcto, así no hay colisión entre tablas
   const panelEl = document.getElementById('panel-'+panel);
   if(!panelEl) return;
 
-  // Estado
   const estSel = panelEl.querySelector(`select[data-field="Estado"][data-orig="${origIndex}"]`);
   if(estSel){
     const est = row['Estado']||'Por Iniciar';
-    if(estSel.value !== est){
-      estSel.value = est;
-      estSel.className = `status-select s-${est.replace(/ /g,'-')}`;
-    }
+    if(estSel.value !== est){ estSel.value = est; estSel.className = `status-select s-${est.replace(/ /g,'-')}`; }
   }
-
-  // Prioridad
   const prioSel = panelEl.querySelector(`select[data-field="Prioridad"][data-orig="${origIndex}"]`);
   if(prioSel){
     const prio = row['Prioridad']||'';
-    if(prioSel.value !== prio){
-      prioSel.value = prio;
-      prioSel.className = `prio-select prio-${prio||'empty'}`;
-    }
+    if(prioSel.value !== prio){ prioSel.value = prio; prioSel.className = `prio-select prio-${prio||'empty'}`; }
   }
-
-  // Fecha Inicio
   const fIniInput = panelEl.querySelector(`input[data-field="FechaInicio"][data-orig="${origIndex}"]`);
-  if(fIniInput && fIniInput.value !== (row['FechaInicio']||'')){
-    fIniInput.value = row['FechaInicio']||'';
-  }
-
-  // Fecha Final
+  if(fIniInput && fIniInput.value !== (row['FechaInicio']||'')) fIniInput.value = row['FechaInicio']||'';
   const fFinInput = panelEl.querySelector(`input[data-field="FechaFinal"][data-orig="${origIndex}"]`);
-  if(fFinInput && fFinInput.value !== (row['FechaFinal']||'')){
-    fFinInput.value = row['FechaFinal']||'';
-  }
-
-  // Duración (recalcular si cambió alguna fecha)
+  if(fFinInput && fFinInput.value !== (row['FechaFinal']||'')) fFinInput.value = row['FechaFinal']||'';
   const durId = panel==='actividades' ? `dur-act-${origIndex}` : `dur-cap-${origIndex}`;
   const durEl = document.getElementById(durId);
-  if(durEl){
-    const newBadge = durBadge(row['FechaInicio']||'', row['FechaFinal']||'');
-    if(durEl.innerHTML !== newBadge) durEl.innerHTML = newBadge;
-  }
-
-  // Observaciones
+  if(durEl){ const nb = durBadge(row['FechaInicio']||'', row['FechaFinal']||''); if(durEl.innerHTML !== nb) durEl.innerHTML = nb; }
   const obsTA = panelEl.querySelector(`textarea[data-field="Observaciones"][data-orig="${origIndex}"]`);
-  if(obsTA && obsTA.value !== (row['Observaciones']||'')){
-    obsTA.value = row['Observaciones']||'';
+  if(obsTA && obsTA.value !== (row['Observaciones']||'')) obsTA.value = row['Observaciones']||'';
+
+  // Patch Material de Consulta (solo admin puede editar, pero el patch actualiza en memoria igual)
+  if(isAdmin()){
+    const matTA = panelEl.querySelector(`textarea[data-field="MaterialConsulta"][data-orig="${origIndex}"]`);
+    if(matTA && matTA.value !== (row['MaterialConsulta']||'')) matTA.value = row['MaterialConsulta']||'';
   }
 }
 
@@ -860,8 +896,11 @@ async function saveField(scriptUrl,rowIndex,field,value,indicator) {
   } catch(e){ flash(indicator,'error','Sin conexión'); }
 }
 
-// ══ FIELD CHANGE — cambio inmediato en DOM + memoria + servidor ═══════════
+// ══ FIELD CHANGE ══════════════════════════════════════════════════════════
 function handleFieldChange(el,panel) {
+  // Solo admin puede cambiar MaterialConsulta
+  if(el.dataset.field === 'MaterialConsulta' && !isAdmin()) return;
+
   const orig  = parseInt(el.dataset.orig);
   const field = el.dataset.field;
   const value = el.value;
@@ -870,14 +909,11 @@ function handleFieldChange(el,panel) {
   const indId = panel==='actividades' ? `ind-${orig}` : `cap-ind-${orig}`;
   const indicator = document.getElementById(indId);
 
-  // 1. Actualizar memoria inmediatamente (evita parpadeo en el próximo sync)
   data[orig][field] = value;
 
-  // 2. Actualizar clases visuales del elemento cambiado
   if(field==='Estado')    el.className=`status-select s-${value.replace(/ /g,'-')}`;
   if(field==='Prioridad') el.className=`prio-select prio-${value||'empty'}`;
 
-  // 3. Recalcular duración si cambió fecha
   if(field==='FechaInicio'||field==='FechaFinal'){
     const durId = panel==='actividades' ? `dur-act-${orig}` : `dur-cap-${orig}`;
     const fIni=data[orig]['FechaInicio']||'', fFin=data[orig]['FechaFinal']||'';
@@ -885,20 +921,17 @@ function handleFieldChange(el,panel) {
     if(durEl) durEl.innerHTML=durBadge(fIni,fFin);
   }
 
-  // 4. Actualizar KPIs si cambió el estado
   if(field==='Estado'){
     updateKPIs();
     if(panel==='capacitaciones') updateCapKPIs();
   }
 
-  // 5. Enviar al servidor (asíncrono, no bloquea nada)
   resetCountdown();
   saveField(url,orig,field,value,indicator);
 }
 
-
 // ══ ACTIVIDADES RENDER ════════════════════════════════════════════════════
-function render(){ populateFilters(); applyFilters(); updateKPIs(); }
+function render(){ populateFilters(); applyFilters(); updateKPIs(); updateMaterialHeaders(); }
 
 function applyFilters(){
   const q=document.getElementById('searchInput').value.toLowerCase();
@@ -921,7 +954,7 @@ function applyFilters(){
 
 function renderTable(){
   const tbody=document.getElementById('tableBody');
-  if(!filteredData.length){ tbody.innerHTML='<tr><td colspan="11" class="empty-state"><p>Sin resultados.</p></td></tr>'; return; }
+  if(!filteredData.length){ tbody.innerHTML=`<tr><td colspan="12" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
   tbody.innerHTML=filteredData.map((row,i)=>{
     const orig=row._origIndex;
     const proc=(row['Proceso']||'').trim();
@@ -930,19 +963,26 @@ function renderTable(){
     const fIni=row['FechaInicio']||'',fFin=row['FechaFinal']||'';
     const est=row['Estado']||'Por Iniciar';
     const obs=row['Observaciones']||'';
+    const mat=row['MaterialConsulta']||'';
     const pOpts=PRIORIDADES.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p}</option>`).join('');
     const eOpts=ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
+
+    // Bloquear campos editables si no es admin (prioridad, fecha, estado, obs)
+    // Material de consulta tiene su propio control de acceso
+    const roAttr = isAdmin() ? '' : 'disabled style="pointer-events:none;opacity:0.7;"';
+
     return `<tr>
       <td class="td-num">${i+1}</td>
       <td class="td-proceso"><span class="proceso-tag p-${proc.replace(/\s/g,'')}">${proc}</span></td>
       <td class="td-desc">${row['Item Observado']||''}</td>
       <td class="td-resp">${resps.map(r=>`<span class="resp-pill">${r}</span>`).join('')}</td>
-      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'actividades')"><option value="">—</option>${pOpts}</select></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'actividades')"></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'actividades')"></td>
+      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}><option value="">—</option>${pOpts}</select></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
       <td class="td-duracion" id="dur-act-${orig}">${durBadge(fIni,fFin)}</td>
-      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'actividades')">${eOpts}</select></td>
-      <td class="td-obs"><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'actividades')" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" placeholder="Notas…">${escHtml(obs)}</textarea></td>
+      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}>${eOpts}</select></td>
+      ${renderMaterialCell(orig, mat, 'actividades')}
+      <td class="td-obs"><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'actividades')" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" placeholder="Notas…"${isAdmin()?'':' readonly style="background:var(--bg-card-alt);border-color:transparent;cursor:default;"'}>${escHtml(obs)}</textarea></td>
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -966,25 +1006,19 @@ function updateKPIs(){
 }
 
 function populateFilters(){
-  // Guardar valores actuales antes de reconstruir
   const selProceso     = document.getElementById('filterProceso').value;
   const selResponsable = document.getElementById('filterResponsable').value;
-
   const procs=[...new Set(allData.map(r=>(r['Proceso']||'').trim()).filter(Boolean))].sort();
   document.getElementById('filterProceso').innerHTML='<option value="">Todos los procesos</option>'+procs.map(p=>`<option value="${p}">${p}</option>`).join('');
-
   const resps=[...new Set(allData.flatMap(r=>(r['Responsables']||'').split('/').map(x=>x.trim())).filter(Boolean))].sort();
   document.getElementById('filterResponsable').innerHTML='<option value="">Todos los responsables</option>'+resps.map(r=>`<option value="${r}">${r}</option>`).join('');
-
-  // Restaurar selecciones previas si el valor aún existe en los nuevos datos
   if(selProceso)     document.getElementById('filterProceso').value     = selProceso;
   if(selResponsable) document.getElementById('filterResponsable').value = selResponsable;
-
   populateDashFilters();
 }
 
 // ══ CAPACITACIONES RENDER ═════════════════════════════════════════════════
-function renderCap(){ populateCapFilters(); applyCapFilters(); updateCapKPIs(); }
+function renderCap(){ populateCapFilters(); applyCapFilters(); updateCapKPIs(); updateMaterialHeaders(); }
 
 function applyCapFilters(){
   const q=document.getElementById('capSearch').value.toLowerCase();
@@ -1007,8 +1041,8 @@ function applyCapFilters(){
 
 function renderCapTable(){
   const tbody=document.getElementById('capTableBody');
-  if(!capData.length){ tbody.innerHTML='<tr><td colspan="13" class="empty-state"><p>Configura la URL del Apps Script de capacitaciones para ver los datos.</p></td></tr>'; return; }
-  if(!capFilteredData.length){ tbody.innerHTML='<tr><td colspan="13" class="empty-state"><p>Sin resultados.</p></td></tr>'; return; }
+  if(!capData.length){ tbody.innerHTML=`<tr><td colspan="14" class="empty-state"><p>Configura la URL del Apps Script de capacitaciones para ver los datos.</p></td></tr>`; return; }
+  if(!capFilteredData.length){ tbody.innerHTML=`<tr><td colspan="14" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
   tbody.innerHTML=capFilteredData.map((row,i)=>{
     const orig=row._origIndex;
     const area=(row['Area']||'').trim();
@@ -1016,6 +1050,7 @@ function renderCapTable(){
     const fIni=row['FechaInicio']||'',fFin=row['FechaFinal']||'';
     const est=row['Estado']||'Por Iniciar';
     const obs=row['Observaciones']||'';
+    const mat=row['MaterialConsulta']||'';
     const pOpts=PRIORIDADES.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p}</option>`).join('');
     const eOpts=ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
@@ -1025,12 +1060,13 @@ function renderCapTable(){
       <td style="font-size:12px;color:var(--text-2)">${row['Material']||''}</td>
       <td><span class="resp-pill">${row['Responsable']||''}</span></td>
       <td><span class="metod-pill">${row['Metodologia']||''}</span></td>
-      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'capacitaciones')"><option value="">—</option>${pOpts}</select></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'capacitaciones')"></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'capacitaciones')"></td>
+      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}><option value="">—</option>${pOpts}</select></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
       <td class="td-duracion" id="dur-cap-${orig}">${durBadge(fIni,fFin)}</td>
-      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'capacitaciones')">${eOpts}</select></td>
-      <td class="td-obs"><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'capacitaciones')" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" placeholder="Notas…">${escHtml(obs)}</textarea></td>
+      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}>${eOpts}</select></td>
+      ${renderMaterialCell(orig, mat, 'capacitaciones')}
+      <td class="td-obs"><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'capacitaciones')" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" placeholder="Notas…"${isAdmin()?'':' readonly style="background:var(--bg-card-alt);border-color:transparent;cursor:default;"'}>${escHtml(obs)}</textarea></td>
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="cap-ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -1053,25 +1089,18 @@ function updateCapKPIs(){
 }
 
 function populateCapFilters(){
-  // Guardar valores actuales antes de reconstruir
   const selArea = document.getElementById('capFilterArea').value;
   const selResp = document.getElementById('capFilterResp').value;
-
   const areas=[...new Set(capData.map(r=>(r['Area']||'').trim()).filter(Boolean))].sort();
   document.getElementById('capFilterArea').innerHTML='<option value="">Todas las áreas</option>'+areas.map(a=>`<option value="${a}">${a}</option>`).join('');
-
   const resps=[...new Set(capData.map(r=>(r['Responsable']||'').trim()).filter(Boolean))].sort();
   document.getElementById('capFilterResp').innerHTML='<option value="">Todos los responsables</option>'+resps.map(r=>`<option value="${r}">${r}</option>`).join('');
-
-  // Restaurar selecciones previas si el valor aún existe en los nuevos datos
   if(selArea) document.getElementById('capFilterArea').value = selArea;
   if(selResp) document.getElementById('capFilterResp').value = selResp;
-
   populateDashFilters();
 }
 
 // ══ DASHBOARD ═════════════════════════════════════════════════════════════
-
 function setDashView(v){
   dashView=v;
   document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
@@ -1080,14 +1109,11 @@ function setDashView(v){
 }
 
 function populateDashFilters(){
-  // Departamentos (procesos) from allData + areas from capData
   const dptos=[...new Set([
     ...allData.map(r=>(r['Proceso']||'').trim()),
     ...capData.map(r=>(r['Area']||'').trim())
   ].filter(Boolean))].sort();
   document.getElementById('dashFilterDpto').innerHTML='<option value="">Todos los departamentos</option>'+dptos.map(d=>`<option value="${d}">${d}</option>`).join('');
-
-  // Responsables
   const resps=[...new Set([
     ...allData.flatMap(r=>(r['Responsables']||'').split('/').map(x=>x.trim())),
     ...capData.map(r=>(r['Responsable']||'').trim())
@@ -1114,13 +1140,10 @@ function getDashData(){
 function renderDashboard(){
   const {act,cap}=getDashData();
   renderSummaryCards(act,cap);
-
-  // Show/hide sections
   const showAct=dashView==='act'||dashView==='both';
   const showCap=dashView==='cap'||dashView==='both';
   document.getElementById('dashActSection').style.display=showAct?'block':'none';
   document.getElementById('dashCapSection').style.display=showCap?'block':'none';
-
   if(showAct){
     renderDonutEstado('ch-act-estado','dh-act-total','lg-act-estado',act,'Proceso','Responsables');
     renderDonutPrio('ch-act-prio','dh-act-prio-total','lg-act-prio',act);
@@ -1142,7 +1165,6 @@ function renderSummaryCards(act,cap){
   const pct=total?Math.round(comp/total*100):0;
   const alta=data.filter(r=>(r.Prioridad||'')==='Alta').length;
   const proxTerm=data.filter(r=>(r.Estado||'Por Iniciar')==='Por Terminar').length;
-
   const cards=[
     { icon:'<path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"',
       bg:'#edf5f0', color:'#2d6b4f', val: pct+'%', lbl:'Cumplimiento' },
@@ -1153,7 +1175,6 @@ function renderSummaryCards(act,cap){
     { icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"',
       bg:'#fff2ea', color:'#8b4010', val: proxTerm, lbl:'Por Terminar' },
   ];
-
   document.getElementById('dashSummary').innerHTML=cards.map(c=>`
     <div class="summary-card">
       <div class="summary-icon" style="background:${c.bg};">
@@ -1176,31 +1197,20 @@ function renderDonutEstado(canvasId,centerId,legendId,data,dptoField,respField){
   const values=labels.map(l=>counts[l]);
   const colors=labels.map(l=>ESTADO_COLORS[l]);
   const total=values.reduce((a,b)=>a+b,0);
-
   document.getElementById(centerId).textContent=total;
-
   destroyChart(canvasId);
   const ctx=document.getElementById(canvasId).getContext('2d');
   chartInstances[canvasId]=new Chart(ctx,{
     type:'doughnut',
     data:{ labels, datasets:[{ data:values, backgroundColor:colors, borderWidth:2, borderColor:'#fafaf8', hoverBorderWidth:3 }] },
-    options:{
-      cutout:'70%',
-      plugins:{ legend:{display:false}, tooltip:{
-        callbacks:{ label(ctx){ const v=ctx.parsed; const pct=total?Math.round(v/total*100):0; return ` ${ctx.label}: ${v} (${pct}%)`; } }
-      }},
-      animation:{ animateRotate:true, duration:700 }
-    }
+    options:{ cutout:'70%', plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label(ctx){ const v=ctx.parsed; const pct=total?Math.round(v/total*100):0; return ` ${ctx.label}: ${v} (${pct}%)`; } } }}, animation:{ animateRotate:true, duration:700 } }
   });
-
-  // Legend
   document.getElementById(legendId).innerHTML=labels.map((l,i)=>{
     const v=values[i]; const pct=total?Math.round(v/total*100):0;
     return `<div class="legend-item">
       <div class="legend-left"><span class="legend-dot" style="background:${colors[i]}"></span><span class="legend-name">${l}</span></div>
       <div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
-      <span class="legend-count">${v}</span>
-      <span class="legend-pct">${pct}%</span>
+      <span class="legend-count">${v}</span><span class="legend-pct">${pct}%</span>
     </div>`;
   }).join('');
 }
@@ -1209,61 +1219,38 @@ function renderDonutPrio(canvasId,centerId,legendId,data){
   const labels=['Alta','Media','Baja','Sin asignar'];
   const colors=[PRIO_COLORS['Alta'],PRIO_COLORS['Media'],PRIO_COLORS['Baja'],'#cbd5e1'];
   const counts=[0,0,0,0];
-  data.forEach(r=>{
-    const p=r.Prioridad||'';
-    if(p==='Alta') counts[0]++;
-    else if(p==='Media') counts[1]++;
-    else if(p==='Baja') counts[2]++;
-    else counts[3]++;
-  });
+  data.forEach(r=>{ const p=r.Prioridad||''; if(p==='Alta') counts[0]++; else if(p==='Media') counts[1]++; else if(p==='Baja') counts[2]++; else counts[3]++; });
   const total=counts.reduce((a,b)=>a+b,0);
   document.getElementById(centerId).textContent=total;
-
   destroyChart(canvasId);
   const ctx=document.getElementById(canvasId).getContext('2d');
   chartInstances[canvasId]=new Chart(ctx,{
     type:'doughnut',
     data:{ labels, datasets:[{ data:counts, backgroundColor:colors, borderWidth:2, borderColor:'#fafaf8', hoverBorderWidth:3 }] },
-    options:{
-      cutout:'70%',
-      plugins:{ legend:{display:false}, tooltip:{
-        callbacks:{ label(ctx){ const v=ctx.parsed; const pct=total?Math.round(v/total*100):0; return ` ${ctx.label}: ${v} (${pct}%)`; } }
-      }},
-      animation:{ animateRotate:true, duration:700 }
-    }
+    options:{ cutout:'70%', plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label(ctx){ const v=ctx.parsed; const pct=total?Math.round(v/total*100):0; return ` ${ctx.label}: ${v} (${pct}%)`; } } }}, animation:{ animateRotate:true, duration:700 } }
   });
-
   document.getElementById(legendId).innerHTML=labels.map((l,i)=>{
     const v=counts[i]; const pct=total?Math.round(v/total*100):0;
     return `<div class="legend-item">
       <div class="legend-left"><span class="legend-dot" style="background:${colors[i]}"></span><span class="legend-name">${l}</span></div>
       <div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
-      <span class="legend-count">${v}</span>
-      <span class="legend-pct">${pct}%</span>
+      <span class="legend-count">${v}</span><span class="legend-pct">${pct}%</span>
     </div>`;
   }).join('');
 }
 
 function renderDptoBars(containerId,data,groupField){
   const groups={};
-  data.forEach(r=>{
-    const g=(r[groupField]||'Sin asignar').trim();
-    if(!groups[g]) groups[g]={total:0,comp:0};
-    groups[g].total++;
-    if((r.Estado||'Por Iniciar')==='Completado') groups[g].comp++;
-  });
+  data.forEach(r=>{ const g=(r[groupField]||'Sin asignar').trim(); if(!groups[g]) groups[g]={total:0,comp:0}; groups[g].total++; if((r.Estado||'Por Iniciar')==='Completado') groups[g].comp++; });
   const sorted=Object.entries(groups).sort((a,b)=>b[1].total-a[1].total).slice(0,10);
   if(!sorted.length){ document.getElementById(containerId).innerHTML='<p style="font-size:12px;color:var(--text-3);padding:1rem 0;">Sin datos disponibles.</p>'; return; }
-
   document.getElementById(containerId).innerHTML=sorted.map(([name,{total,comp}],i)=>{
     const pct=total?Math.round(comp/total*100):0;
     const color=DPTO_PALETTE[i%DPTO_PALETTE.length];
     return `<div class="hbar-row">
       <div class="hbar-label" title="${name}">${name}</div>
       <div class="hbar-track">
-        <div class="hbar-fill" style="width:${pct}%;background:${color};">
-          ${pct>=20?`<span class="hbar-val">${pct}%</span>`:''}
-        </div>
+        <div class="hbar-fill" style="width:${pct}%;background:${color};">${pct>=20?`<span class="hbar-val">${pct}%</span>`:''}</div>
         ${pct<20?`<span class="hbar-val-out">${pct}%</span>`:''}
       </div>
       <span style="font-size:11px;color:var(--text-3);min-width:40px;text-align:right;">${comp}/${total}</span>
@@ -1286,7 +1273,6 @@ function renderRespTable(tableId,data,respField,isMulti){
   });
   const sorted=Object.entries(groups).sort((a,b)=>b[1].total-a[1].total).slice(0,12);
   if(!sorted.length){ document.getElementById(tableId).innerHTML='<tr><td colspan="6" style="text-align:center;padding:1.5rem;font-size:12px;color:var(--text-3);">Sin datos.</td></tr>'; return; }
-
   document.getElementById(tableId).innerHTML=`
     <thead><tr>
       <th>Responsable</th>
@@ -1305,10 +1291,7 @@ function renderRespTable(tableId,data,respField,isMulti){
         <td style="text-align:center;color:var(--amber)">${g['En Proceso']||0}</td>
         <td style="text-align:center;color:var(--orange)">${g['Por Terminar']||0}</td>
         <td style="text-align:center;color:var(--green)">${g['Completado']||0}</td>
-        <td style="text-align:center;">
-          <span style="font-weight:600">${g.total}</span>
-          <span style="font-size:10px;color:var(--text-3);margin-left:4px;">${pct}%</span>
-        </td>
+        <td style="text-align:center;"><span style="font-weight:600">${g.total}</span><span style="font-size:10px;color:var(--text-3);margin-left:4px;">${pct}%</span></td>
       </tr>`;
     }).join('')}
     </tbody>`;
@@ -1329,98 +1312,111 @@ function flash(el,type,msg){
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ══ LOGIN ══════════════════════════════════════════════════════════════════
-const AUTH = { user: 'holiday', pass: 'SASG2026$', maxAttempts: 3, lockMs: 60000 };
+// Credenciales:
+//   admin   / SASG2026$   → rol admin  (puede editar Material de Consulta + todo lo demás)
+//   holiday / 2026$       → rol user   (solo lectura + clic en enlace de Material de Consulta)
+
 let loginAttempts = 0;
 let lockUntil = 0;
 let lockTimer = null;
 
 function doLogin() {
   const now = Date.now();
-  const errorEl   = document.getElementById('loginError');
-  const lockedEl  = document.getElementById('loginLocked');
-  const attemptsEl= document.getElementById('loginAttempts');
-  const btn       = document.getElementById('loginBtn');
-  const card      = document.getElementById('loginCard');
-  const userEl    = document.getElementById('loginUser');
-  const passEl    = document.getElementById('loginPass');
+  const errorEl    = document.getElementById('loginError');
+  const lockedEl   = document.getElementById('loginLocked');
+  const attemptsEl = document.getElementById('loginAttempts');
+  const btn        = document.getElementById('loginBtn');
+  const card       = document.getElementById('loginCard');
+  const userEl     = document.getElementById('loginUser');
+  const passEl     = document.getElementById('loginPass');
 
-  // ── Bloqueo activo ──
+  const MAX_ATTEMPTS = 3;
+  const LOCK_MS = 60000;
+
   if (now < lockUntil) {
     const secs = Math.ceil((lockUntil - now) / 1000);
-    lockedEl.textContent = `Acceso bloqueado. Intenta nuevamente en ${secs} segundo${secs!==1?'s':''}.`;
+    lockedEl.textContent = `Acceso bloqueado. Intenta en ${secs}s.`;
     lockedEl.classList.add('show');
     return;
   }
 
-  const user = (userEl.value || '').trim().toLowerCase();
-  const pass = (passEl.value || '');
+  const userInput = (userEl.value || '').trim().toLowerCase();
+  const passInput = (passEl.value || '');
 
-  // ── Validar ──
-  const userOk = user === AUTH.user;
-  const passOk = pass === AUTH.pass;   // contraseña sensible a mayúsculas
+  // Buscar usuario en AUTH_USERS
+  let matchedRole = null;
+  for (const key of Object.keys(AUTH_USERS)) {
+    const u = AUTH_USERS[key];
+    if (userInput === u.user && passInput === u.pass) {
+      matchedRole = u.role;
+      break;
+    }
+  }
 
-  if (userOk && passOk) {
-    // ✅ Éxito
+  if (matchedRole) {
+    // ✅ Login exitoso
+    currentRole = matchedRole;
     loginAttempts = 0;
     errorEl.classList.remove('show');
     lockedEl.classList.remove('show');
     attemptsEl.textContent = '';
     document.getElementById('loginScreen').classList.add('hidden');
+    showRoleBadge();
+    updateMaterialHeaders();
+    // Re-renderizar tablas para aplicar permisos correctos según rol
+    renderTable();
+    renderCapTable();
     return;
   }
 
   // ── Fallo ──
   loginAttempts++;
+
+  // Determinar cuál campo es incorrecto
+  let userOk = false, passOk = false;
+  for (const key of Object.keys(AUTH_USERS)) {
+    if (userInput === AUTH_USERS[key].user) { userOk = true; break; }
+  }
+
   userEl.classList.toggle('err', !userOk);
-  passEl.classList.toggle('err', !passOk);
+  passEl.classList.toggle('err', true); // si llegó aquí, la pass es incorrecta
 
-  // Shake animation
+  // Shake
   card.classList.remove('shake');
-  void card.offsetWidth; // reflow
+  void card.offsetWidth;
   card.classList.add('shake');
-  setTimeout(() => card.classList.remove('shake'), 450);
+  setTimeout(()=>card.classList.remove('shake'), 450);
 
-  if (loginAttempts >= AUTH.maxAttempts) {
-    // Bloquear por 1 minuto
-    lockUntil = Date.now() + AUTH.lockMs;
+  if (loginAttempts >= MAX_ATTEMPTS) {
+    lockUntil = Date.now() + LOCK_MS;
     loginAttempts = 0;
     errorEl.classList.remove('show');
-    btn.disabled = true;
-    userEl.disabled = true;
-    passEl.disabled = true;
-
+    btn.disabled = userEl.disabled = passEl.disabled = true;
     const countdown = () => {
       const secs = Math.ceil((lockUntil - Date.now()) / 1000);
       if (secs <= 0) {
         lockedEl.classList.remove('show');
         lockedEl.textContent = '';
         attemptsEl.textContent = '';
-        btn.disabled = false;
-        userEl.disabled = false;
-        passEl.disabled = false;
+        btn.disabled = userEl.disabled = passEl.disabled = false;
         passEl.value = '';
         userEl.classList.remove('err');
         passEl.classList.remove('err');
         clearInterval(lockTimer);
       } else {
-        lockedEl.textContent = `Demasiados intentos fallidos. Bloqueado por ${secs} segundo${secs!==1?'s':''}.`;
+        lockedEl.textContent = `Demasiados intentos. Bloqueado ${secs}s.`;
         lockedEl.classList.add('show');
       }
     };
     countdown();
     lockTimer = setInterval(countdown, 1000);
   } else {
-    const left = AUTH.maxAttempts - loginAttempts;
-    // Mensaje de error específico
-    if (!userOk && !passOk) {
-      errorEl.textContent = 'Usuario y contraseña incorrectos.';
-    } else if (!userOk) {
-      errorEl.textContent = 'Usuario incorrecto.';
-    } else {
-      errorEl.textContent = 'Contraseña incorrecta. Recuerda que distingue mayúsculas y minúsculas.';
-    }
+    const left = MAX_ATTEMPTS - loginAttempts;
+    errorEl.textContent = !userOk
+      ? 'Usuario incorrecto.'
+      : 'Contraseña incorrecta. Recuerda que distingue mayúsculas y minúsculas.';
     errorEl.classList.add('show');
-    attemptsEl.textContent = `Intento ${loginAttempts} de ${AUTH.maxAttempts} · ${left} intento${left!==1?'s':''} restante${left!==1?'s':''}`;
+    attemptsEl.textContent = `Intento ${loginAttempts} de ${MAX_ATTEMPTS} · ${left} restante${left!==1?'s':''}`;
   }
 }
 
