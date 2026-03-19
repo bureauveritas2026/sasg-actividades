@@ -309,6 +309,47 @@
     .chart-grid-2,.chart-grid-3,.chart-grid-12{grid-template-columns:1fr;}
     .dash-summary{grid-template-columns:1fr 1fr;}
   }
+  /* ══ TOOLTIP & MODAL PARA TEXTO LARGO ══ */
+  /* Tooltip hover */
+  .cell-tooltip{
+    position:fixed;z-index:8000;
+    background:var(--slate-900);color:#e8e4dc;
+    font-family:'Figtree',sans-serif;font-size:12.5px;font-weight:300;line-height:1.6;
+    padding:10px 14px;border-radius:6px;border:1px solid rgba(184,147,90,0.3);
+    max-width:340px;word-break:break-word;white-space:pre-wrap;
+    box-shadow:0 8px 28px rgba(0,0,0,0.35);
+    pointer-events:none;opacity:0;transition:opacity 0.15s;
+  }
+  .cell-tooltip.visible{opacity:1;}
+  .cell-tooltip .tt-label{font-size:9.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-light);margin-bottom:5px;}
+
+  /* Modal texto completo (click derecho) */
+  .text-modal-bg{
+    position:fixed;inset:0;z-index:9000;
+    background:rgba(13,17,23,0.65);backdrop-filter:blur(3px);
+    display:flex;align-items:center;justify-content:center;padding:1.5rem;
+    opacity:0;transition:opacity 0.2s;pointer-events:none;
+  }
+  .text-modal-bg.open{opacity:1;pointer-events:all;}
+  .text-modal-box{
+    background:var(--bg-card);border:1px solid var(--border);
+    border-top:3px solid var(--accent);border-radius:8px;
+    padding:1.5rem 1.75rem;max-width:520px;width:100%;
+    box-shadow:0 24px 60px rgba(0,0,0,0.4);
+    transform:translateY(12px);transition:transform 0.2s;
+  }
+  .text-modal-bg.open .text-modal-box{transform:translateY(0);}
+  .text-modal-label{font-size:9.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+  .text-modal-sublabel{font-size:11px;color:var(--text-3);font-weight:300;margin-bottom:14px;}
+  .text-modal-content{font-size:13.5px;font-weight:300;color:var(--text-1);line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:55vh;overflow-y:auto;}
+  .text-modal-close{margin-top:1.25rem;display:flex;justify-content:flex-end;}
+  .text-modal-close button{font-family:'Figtree',sans-serif;font-size:12px;font-weight:500;background:var(--slate-900);color:var(--accent-light);border:none;border-radius:4px;padding:7px 20px;cursor:pointer;transition:background 0.15s;}
+  .text-modal-close button:hover{background:var(--slate-800);}
+
+  /* Celdas con texto truncado que soportan hover/click */
+  .expandable-cell{cursor:pointer;position:relative;}
+  .expandable-cell:hover{background:rgba(184,147,90,0.05);}
+
 </style>
 </head>
 <body>
@@ -694,6 +735,22 @@
 
 </main>
 
+<!-- ══ TOOLTIP (hover) ══ -->
+<div id="cellTooltip" class="cell-tooltip">
+  <div class="tt-label" id="ttLabel"></div>
+  <div id="ttContent"></div>
+</div>
+
+<!-- ══ MODAL TEXTO COMPLETO (click derecho) ══ -->
+<div id="textModalBg" class="text-modal-bg" onclick="closeTextModal(event)">
+  <div class="text-modal-box" onclick="event.stopPropagation()">
+    <div class="text-modal-label" id="tmLabel"></div>
+    <div class="text-modal-sublabel" id="tmSublabel"></div>
+    <div class="text-modal-content" id="tmContent"></div>
+    <div class="text-modal-close"><button onclick="closeTextModal()">Cerrar</button></div>
+  </div>
+</div>
+
 <footer class="site-footer">
   <span>SASG — Sistema de Actividades de Seguridad y Gestión</span>
   <span id="footerCount">Total: 0 actividades</span>
@@ -919,10 +976,6 @@ async function silentCapSync() {
 
 // ── REQUERIMIENTOS: carga ─────────────────────────────────────────────────
 async function loadReqData() {
-  if(SCRIPT_URL_REQ==='PEGA_AQUI_URL_REQUERIMIENTOS'){
-    renderReq();
-    return;
-  }
   try {
     const res=await fetch(`${SCRIPT_URL_REQ}?action=get`,{mode:'cors'});
     const json=await res.json();
@@ -931,7 +984,6 @@ async function loadReqData() {
 }
 
 async function silentReqSync() {
-  if(SCRIPT_URL_REQ==='PEGA_AQUI_URL_REQUERIMIENTOS') return;
   try {
     const res=await fetch(`${SCRIPT_URL_REQ}?action=get`,{mode:'cors'});
     const json=await res.json();
@@ -1085,15 +1137,25 @@ function renderTable(){
     return `<tr>
       <td class="td-num">${i+1}</td>
       <td class="td-proceso"><span class="proceso-tag p-${proc.replace(/\s/g,'')}">${proc}</span></td>
-      <td class="td-desc">${row['Item Observado']||''}</td>
+      <td class="td-desc expandable-cell"
+        onmouseenter="showTooltip(event,'Actividad','${escHtml(row['Item Observado']||'')}')"
+        onmousemove="moveTooltip(event)"
+        onmouseleave="hideTooltip()"
+        oncontextmenu="event.preventDefault();openTextModal('Actividad','Fila '+(i+1),'${escHtml(row['Item Observado']||'')}')"
+      >${escHtml(row['Item Observado']||'')}</td>
       <td class="td-resp">${resps.map(r=>`<span class="resp-pill">${r}</span>`).join('')}</td>
-      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}><option value="">—</option>${pOpts}</select></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
+      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'actividades')"><option value="">—</option>${pOpts}</select></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'actividades')"></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'actividades')"></td>
       <td class="td-duracion" id="dur-act-${orig}">${durBadge(fIni,fFin)}</td>
-      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'actividades')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}>${eOpts}</select></td>
+      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'actividades')">${eOpts}</select></td>
       ${renderMaterialCell(orig, mat, 'actividades')}
-      <td class="td-obs"><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'actividades')" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" placeholder="Notas…"${isAdmin()?'':' readonly style="background:var(--bg-card-alt);border-color:transparent;cursor:default;"'}>${escHtml(obs)}</textarea></td>
+      <td class="td-obs expandable-cell"
+        data-label="Observaciones" data-sub="Fila ${i+1}"
+        oncontextmenu="event.preventDefault();openTextModalFromTd(this)"
+        onmouseenter="showTooltip(event,'Observaciones','${escHtml(obs)}')"
+        onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
+      ><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'actividades')" oninput="autoGrow(this)" placeholder="Notas…">${escHtml(obs)}</textarea></td>
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -1167,17 +1229,26 @@ function renderCapTable(){
     return `<tr>
       <td class="td-num">${i+1}</td>
       <td><span class="cap-tag c-${area.replace(/\s/g,'')}">${area}</span></td>
-      <td class="td-desc">${row['Capacitacion']||''}</td>
+      <td class="td-desc expandable-cell"
+        onmouseenter="showTooltip(event,'Capacitación','${escHtml(row['Capacitacion']||'')}')"
+        onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
+        oncontextmenu="event.preventDefault();openTextModal('Capacitación','Fila '+(i+1),'${escHtml(row['Capacitacion']||'')}')"
+      >${escHtml(row['Capacitacion']||'')}</td>
       <td style="font-size:12px;color:var(--text-2)">${row['Material']||''}</td>
       <td><span class="resp-pill">${row['Responsable']||''}</span></td>
       <td><span class="metod-pill">${row['Metodologia']||''}</span></td>
-      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}><option value="">—</option>${pOpts}</select></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
-      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}></td>
+      <td class="td-prio"><select class="prio-select prio-${prio||'empty'}" data-orig="${orig}" data-field="Prioridad" onchange="handleFieldChange(this,'capacitaciones')"><option value="">—</option>${pOpts}</select></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fIni}" data-orig="${orig}" data-field="FechaInicio" onchange="handleFieldChange(this,'capacitaciones')"></td>
+      <td class="td-fecha"><input type="date" class="date-input" value="${fFin}" data-orig="${orig}" data-field="FechaFinal" onchange="handleFieldChange(this,'capacitaciones')"></td>
       <td class="td-duracion" id="dur-cap-${orig}">${durBadge(fIni,fFin)}</td>
-      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'capacitaciones')"${isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"'}>${eOpts}</select></td>
+      <td class="td-estado"><select class="status-select s-${est.replace(/ /g,'-')}" data-orig="${orig}" data-field="Estado" onchange="handleFieldChange(this,'capacitaciones')">${eOpts}</select></td>
       ${renderMaterialCell(orig, mat, 'capacitaciones')}
-      <td class="td-obs"><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'capacitaciones')" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" placeholder="Notas…"${isAdmin()?'':' readonly style="background:var(--bg-card-alt);border-color:transparent;cursor:default;"'}>${escHtml(obs)}</textarea></td>
+      <td class="td-obs expandable-cell"
+        data-label="Observaciones" data-sub="Fila ${i+1}"
+        oncontextmenu="event.preventDefault();openTextModalFromTd(this)"
+        onmouseenter="showTooltip(event,'Observaciones','${escHtml(obs)}')"
+        onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
+      ><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'capacitaciones')" oninput="autoGrow(this)" placeholder="Notas…">${escHtml(obs)}</textarea></td>
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="cap-ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -1255,8 +1326,8 @@ function renderReqTable(){
     const prio=(row['PRIORIDAD']||'').toLowerCase();
     const desc=escHtml(row['DESCRIPCIÓN']||'');
     const com=row['COMENTARIOS']||'';
-    const disAttr=isAdmin()?'':' disabled style="pointer-events:none;opacity:0.7;"';
-    const roAttr=isAdmin()?'':' readonly style="background:var(--bg-card-alt);border-color:transparent;cursor:default;"';
+    const disAttr='';
+    const roAttr='';
     const pOpts=PRIOS_REQ.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p.charAt(0).toUpperCase()+p.slice(1)}</option>`).join('');
     const eOpts=REQ_ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
@@ -1616,6 +1687,49 @@ function togglePass() {
     icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
   }
 }
+
+// ══ TOOLTIP & MODAL ══════════════════════════════════════════════════════
+const tooltip = document.getElementById('cellTooltip');
+let ttTimer = null;
+
+function showTooltip(e, label, text) {
+  if (!text || !text.trim()) return;
+  clearTimeout(ttTimer);
+  document.getElementById('ttLabel').textContent = label;
+  document.getElementById('ttContent').textContent = text;
+  positionTooltip(e);
+  tooltip.classList.add('visible');
+}
+function positionTooltip(e) {
+  const margin = 14, tw = 340, th = 130;
+  let x = e.clientX + margin;
+  let y = e.clientY + margin;
+  if (x + tw > window.innerWidth)  x = e.clientX - tw - margin;
+  if (y + th > window.innerHeight) y = e.clientY - th - margin;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top  = y + 'px';
+}
+function moveTooltip(e) {
+  if (tooltip.classList.contains('visible')) positionTooltip(e);
+}
+function hideTooltip() {
+  clearTimeout(ttTimer);
+  ttTimer = setTimeout(() => tooltip.classList.remove('visible'), 80);
+}
+function openTextModal(label, sublabel, text) {
+  if (!text || !text.trim()) return;
+  tooltip.classList.remove('visible');
+  document.getElementById('tmLabel').textContent = label;
+  document.getElementById('tmSublabel').textContent = sublabel;
+  document.getElementById('tmContent').textContent = text;
+  document.getElementById('textModalBg').classList.add('open');
+}
+function closeTextModal(e) {
+  if (!e || e.target === document.getElementById('textModalBg')) {
+    document.getElementById('textModalBg').classList.remove('open');
+  }
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeTextModal(); });
 
 // ══ DATOS LOCALES DE REQUERIMIENTOS (demo hasta conectar Apps Script) ═════
 </script>
