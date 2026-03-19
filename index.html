@@ -875,7 +875,7 @@ function renderMaterialCell(orig, value, panel) {
         data-field="MaterialConsulta"
         placeholder="Pegar enlace aquí…"
         onchange="handleFieldChange(this,'${panel}')"
-        oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
+        oninput="autoGrow(this)"
       >${escHtml(val)}</textarea>
     </td>`;
   } else {
@@ -1332,13 +1332,26 @@ function renderReqTable(){
     const eOpts=REQ_ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
       <td class="td-num">${i+1}</td>
-      <td style="font-size:12.5px;font-weight:400;">${escHtml(row['REQUERIMIENTO']||'')}</td>
+      <td class="expandable-cell" style="font-size:12.5px;font-weight:400;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"
+        onmouseenter="showTooltip(event,'Requerimiento','${escHtml(row['REQUERIMIENTO']||'')}')"
+        onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
+        oncontextmenu="event.preventDefault();openTextModal('Requerimiento','Fila '+(i+1),'${escHtml(row['REQUERIMIENTO']||'')}')"
+      >${escHtml(row['REQUERIMIENTO']||'')}</td>
       <td><span class="zona-tag">${escHtml(row['ZONA']||'—')}</span></td>
       <td style="font-size:12px;color:var(--text-2);text-align:center;">${escHtml(row['CANTIDAD']||'—')}</td>
-      <td class="desc-cell" title="${desc}">${desc}</td>
+      <td class="desc-cell expandable-cell"
+        onmouseenter="showTooltip(event,'Descripción','${escHtml(row['DESCRIPCIÓN']||'')}')"
+        onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
+        oncontextmenu="event.preventDefault();openTextModal('Descripción','Fila '+(i+1),'${escHtml(row['DESCRIPCIÓN']||'')}')"
+      >${desc}</td>
       <td class="td-prio"><select class="prio-select ${reqPrioCls(prio)}" data-orig="${orig}" data-field="PRIORIDAD" onchange="handleFieldChange(this,'requerimientos')"${disAttr}><option value="">—</option>${pOpts}</select></td>
       <td style="width:148px;"><select class="req-status-select ${reqEstadoCls(est)}" data-orig="${orig}" data-field="ESTADO" onchange="handleFieldChange(this,'requerimientos')"${disAttr}>${eOpts}</select></td>
-      <td class="td-obs"><textarea class="obs-input" data-orig="${orig}" data-field="COMENTARIOS" onchange="handleFieldChange(this,'requerimientos')" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" placeholder="Comentario…"${roAttr}>${escHtml(com)}</textarea></td>
+      <td class="td-obs expandable-cell"
+        data-label="Comentarios" data-sub="Fila ${i+1}"
+        oncontextmenu="event.preventDefault();openTextModalFromTd(this)"
+        onmouseenter="showTooltip(event,'Comentarios','${escHtml(com)}')"
+        onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
+      ><textarea class="obs-input" data-orig="${orig}" data-field="COMENTARIOS" onchange="handleFieldChange(this,'requerimientos')" oninput="autoGrow(this)" placeholder="Comentario…"${roAttr}>${escHtml(com)}</textarea></td>
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="req-ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -1574,6 +1587,13 @@ function flash(el,type,msg){
   if(!el) return;
   el.textContent=msg; el.className=`save-indicator ${type} show`;
   if(type!=='saving') setTimeout(()=>{ el.className='save-indicator'; },2500);
+}
+function autoGrow(el){ el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+function openTextModalFromTd(td){
+  const ta = td.querySelector('textarea');
+  const text = ta ? ta.value : (td.dataset.text||'');
+  if(!text||!text.trim()) return;
+  openTextModal(td.dataset.label||'Contenido', td.dataset.sub||'', text);
 }
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
