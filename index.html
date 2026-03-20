@@ -458,7 +458,9 @@
       <div class="seg-switch">
         <button class="seg-btn active" id="dv-act"  onclick="setDashView('act')">Actividades</button>
         <button class="seg-btn"        id="dv-cap"  onclick="setDashView('cap')">Capacitaciones</button>
-        <button class="seg-btn"        id="dv-both" onclick="setDashView('both')">Ambas</button>
+        <button class="seg-btn"        id="dv-req"  onclick="setDashView('req')">Requerimientos</button>
+        <button class="seg-btn"        id="dv-bv"   onclick="setDashView('bv')">Bureau Veritas</button>
+        <button class="seg-btn"        id="dv-both" onclick="setDashView('both')">Todo</button>
       </div>
       <div class="toolbar-divider"></div>
       <span class="dash-filters filter-label">Dpto.</span>
@@ -549,6 +551,71 @@
       </div>
     </div>
   </div>
+
+  <!-- ══ SECCIÓN REQUERIMIENTOS en Dashboard ══ -->
+  <div id="dashReqSection" style="display:none;">
+    <div class="dash-divider" style="margin-top:2rem;">Requerimientos</div>
+    <div class="chart-grid chart-grid-12" style="margin-bottom:16px;">
+      <div class="chart-card">
+        <div class="chart-card-title">Estado de requerimientos</div>
+        <div class="chart-card-sub">Distribución por etapa del proceso de compra</div>
+        <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+          <div class="donut-wrap" style="flex:0 0 200px;width:200px;height:200px;">
+            <canvas id="ch-req-estado"></canvas>
+            <div class="donut-center"><div class="donut-center-val" id="dh-req-total">0</div><div class="donut-center-lbl">total</div></div>
+          </div>
+          <div class="legend-list" id="lg-req-estado" style="flex:1;min-width:160px;"></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Requerimientos por prioridad</div>
+        <div class="chart-card-sub">Alta · Media · Baja</div>
+        <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+          <div class="donut-wrap" style="flex:0 0 200px;width:200px;height:200px;">
+            <canvas id="ch-req-prio"></canvas>
+            <div class="donut-center"><div class="donut-center-val" id="dh-req-prio-total">0</div><div class="donut-center-lbl">total</div></div>
+          </div>
+          <div class="legend-list" id="lg-req-prio" style="flex:1;min-width:140px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-grid chart-grid-2">
+      <div class="chart-card">
+        <div class="chart-card-title">Implementados por zona</div>
+        <div class="chart-card-sub">% de requerimientos implementados por zona</div>
+        <div id="ch-req-zona"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Embudo de compras</div>
+        <div class="chart-card-sub">Conteo por cada etapa del proceso</div>
+        <div id="ch-req-funnel"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECCIÓN BUREAU VERITAS en Dashboard ══ -->
+  <div id="dashBvSection" style="display:none;">
+    <div class="dash-divider" style="margin-top:2rem;">Bureau Veritas — Casos observados</div>
+    <div class="chart-grid chart-grid-12" style="margin-bottom:16px;">
+      <div class="chart-card">
+        <div class="chart-card-title">Estado de casos BV</div>
+        <div class="chart-card-sub">Distribución por estado de cumplimiento</div>
+        <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+          <div class="donut-wrap" style="flex:0 0 200px;width:200px;height:200px;">
+            <canvas id="ch-bv-estado"></canvas>
+            <div class="donut-center"><div class="donut-center-val" id="dh-bv-total">0</div><div class="donut-center-lbl">total</div></div>
+          </div>
+          <div class="legend-list" id="lg-bv-estado" style="flex:1;min-width:160px;"></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Resumen ejecutivo BV</div>
+        <div class="chart-card-sub">Avance consolidado de cumplimiento</div>
+        <div id="ch-bv-resumen"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ══ PANEL: ACTIVIDADES ══ -->
@@ -1410,6 +1477,8 @@ function renderBvTable(){
 
   const eOpts=(currentEst)=>BV_ESTADOS.map(s=>`<option value="${s}" ${s===currentEst?'selected':''}>${s}</option>`).join('');
   const canEdit=isAdmin();
+  // Holiday puede cambiar estado pero NO comentarios ni agregar/eliminar
+  const comDisAttr=canEdit?'':' disabled';
 
   tbody.innerHTML=bvFilteredData.map((row,i)=>{
     const orig=row._origIndex;
@@ -1417,7 +1486,6 @@ function renderBvTable(){
     const caso=row['CASO_OBSERVADO']||'';
     const com=row['COMENTARIOS']||'';
     const fecha=row['FECHA_CREACION']||'';
-    const disAttr=canEdit?'':' disabled';
 
     const deleteCol=canEdit
       ? `<td style="text-align:center;padding:8px 6px;">
@@ -1442,7 +1510,7 @@ function renderBvTable(){
       <td style="width:148px;">
         <select class="bv-status-select ${bvEstadoCls(est)}"
           data-orig="${orig}" data-field="ESTADO"
-          onchange="handleFieldChange(this,'bureauveritas')"${disAttr}>
+          onchange="handleFieldChange(this,'bureauveritas')">
           ${eOpts(est)}
         </select>
       </td>
@@ -1454,7 +1522,7 @@ function renderBvTable(){
       ><textarea class="obs-input" data-orig="${orig}" data-field="COMENTARIOS"
           onchange="handleFieldChange(this,'bureauveritas')"
           oninput="autoGrow(this)"
-          placeholder="Comentarios…"${disAttr}>${escHtml(com)}</textarea></td>
+          placeholder="Comentarios…"${comDisAttr}>${escHtml(com)}</textarea></td>
       <td><span class="bv-fecha-badge">${escHtml(fecha)}</span></td>
       ${deleteCol}
     </tr>`;
@@ -1578,30 +1646,117 @@ function renderDashboard(){
   renderSummaryCards(act,cap);
   const showAct=dashView==='act'||dashView==='both';
   const showCap=dashView==='cap'||dashView==='both';
+  const showReq=dashView==='req'||dashView==='both';
+  const showBv =dashView==='bv' ||dashView==='both';
   document.getElementById('dashActSection').style.display=showAct?'block':'none';
   document.getElementById('dashCapSection').style.display=showCap?'block':'none';
-  if(showAct){ renderDonutEstado('ch-act-estado','dh-act-total','lg-act-estado',act,'Proceso','Responsables'); renderDonutPrio('ch-act-prio','dh-act-prio-total','lg-act-prio',act); renderDptoBars('ch-act-dpto',act,'Proceso'); renderRespTable('ch-act-resp',act,'Responsables',true); }
-  if(showCap){ renderDonutEstado('ch-cap-estado','dh-cap-total','lg-cap-estado',cap,'Area','Responsable'); renderDonutPrio('ch-cap-prio','dh-cap-prio-total','lg-cap-prio',cap); renderDptoBars('ch-cap-area',cap,'Area'); renderRespTable('ch-cap-resp',cap,'Responsable',false); }
+  document.getElementById('dashReqSection').style.display=showReq?'block':'none';
+  document.getElementById('dashBvSection').style.display=showBv?'block':'none';
+  if(showAct){ renderDonutEstado('ch-act-estado','dh-act-total','lg-act-estado',act); renderDonutPrio('ch-act-prio','dh-act-prio-total','lg-act-prio',act); renderDptoBars('ch-act-dpto',act,'Proceso'); renderRespTable('ch-act-resp',act,'Responsables',true); }
+  if(showCap){ renderDonutEstado('ch-cap-estado','dh-cap-total','lg-cap-estado',cap); renderDonutPrio('ch-cap-prio','dh-cap-prio-total','lg-cap-prio',cap); renderDptoBars('ch-cap-area',cap,'Area'); renderRespTable('ch-cap-resp',cap,'Responsable',false); }
+  if(showReq){ renderReqDashboard(); }
+  if(showBv){  renderBvDashboard();  }
 }
 function renderSummaryCards(act,cap){
+  let total,comp,alta,proxTerm,pct;
+  if(dashView==='req'){
+    total=reqData.length; comp=reqData.filter(r=>(r['ESTADO']||'')==='Implementado').length;
+    alta=reqData.filter(r=>(r['PRIORIDAD']||'').toLowerCase()==='alta').length;
+    proxTerm=reqData.filter(r=>['Comprado','En tránsito'].includes(r['ESTADO']||'')).length;
+    pct=total?Math.round(comp/total*100):0;
+    const cards=[
+      {icon:'<path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"',bg:'#edf5f0',color:'#2d6b4f',val:pct+'%',lbl:'Implementados'},
+      {icon:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"',bg:'#f0f0ee',color:'#4a5568',val:total,lbl:'Total requerimientos'},
+      {icon:'<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"',bg:'#fff0f0',color:'#8b2020',val:alta,lbl:'Prioridad Alta'},
+      {icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"',bg:'#fff2ea',color:'#8b4010',val:proxTerm,lbl:'Comprado / En tránsito'},
+    ];
+    document.getElementById('dashSummary').innerHTML=cards.map(c=>`<div class="summary-card"><div class="summary-icon" style="background:${c.bg};"><svg viewBox="0 0 24 24" fill="none" stroke="${c.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${c.icon}/></svg></div><div><div class="summary-val" style="color:${c.color}">${c.val}</div><div class="summary-lbl">${c.lbl}</div></div></div>`).join(''); return;
+  }
+  if(dashView==='bv'){
+    total=bvData.length; comp=bvData.filter(r=>(r['ESTADO']||'')==='Cumplimos').length;
+    alta=bvData.filter(r=>(r['ESTADO']||'')==='No iniciado').length;
+    proxTerm=bvData.filter(r=>(r['ESTADO']||'')==='Implementando').length;
+    pct=total?Math.round(comp/total*100):0;
+    const cards=[
+      {icon:'<path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"',bg:'#edf5f0',color:'#2d6b4f',val:pct+'%',lbl:'Cumplimos'},
+      {icon:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"',bg:'#f0f0ee',color:'#4a5568',val:total,lbl:'Total casos BV'},
+      {icon:'<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"',bg:'#f0f0ee',color:'#64748b',val:alta,lbl:'No iniciados'},
+      {icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"',bg:'#fef3c7',color:'#92400e',val:proxTerm,lbl:'Implementando'},
+    ];
+    document.getElementById('dashSummary').innerHTML=cards.map(c=>`<div class="summary-card"><div class="summary-icon" style="background:${c.bg};"><svg viewBox="0 0 24 24" fill="none" stroke="${c.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${c.icon}/></svg></div><div><div class="summary-val" style="color:${c.color}">${c.val}</div><div class="summary-lbl">${c.lbl}</div></div></div>`).join(''); return;
+  }
   const data=dashView==='act'?act:dashView==='cap'?cap:[...act,...cap];
-  const total=data.length, comp=data.filter(r=>(r.Estado||'Por Iniciar')==='Completado').length;
-  const pct=total?Math.round(comp/total*100):0;
-  const alta=data.filter(r=>(r.Prioridad||'')==='Alta').length;
-  const proxTerm=data.filter(r=>(r.Estado||'Por Iniciar')==='Por Terminar').length;
+  total=data.length; comp=data.filter(r=>(r.Estado||'Por Iniciar')==='Completado').length;
+  alta=data.filter(r=>(r.Prioridad||'')==='Alta').length;
+  proxTerm=data.filter(r=>(r.Estado||'Por Iniciar')==='Por Terminar').length;
+  pct=total?Math.round(comp/total*100):0;
   const cards=[
-    { icon:'<path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"', bg:'#edf5f0',color:'#2d6b4f',val:pct+'%',lbl:'Cumplimiento'},
-    { icon:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"', bg:'#f0f0ee',color:'#4a5568',val:total,lbl:'Total registros'},
-    { icon:'<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"', bg:'#fff0f0',color:'#8b2020',val:alta,lbl:'Prioridad Alta'},
-    { icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"', bg:'#fff2ea',color:'#8b4010',val:proxTerm,lbl:'Por Terminar'},
+    {icon:'<path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"',bg:'#edf5f0',color:'#2d6b4f',val:pct+'%',lbl:'Cumplimiento'},
+    {icon:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"',bg:'#f0f0ee',color:'#4a5568',val:total,lbl:'Total registros'},
+    {icon:'<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"',bg:'#fff0f0',color:'#8b2020',val:alta,lbl:'Prioridad Alta'},
+    {icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"',bg:'#fff2ea',color:'#8b4010',val:proxTerm,lbl:'Por Terminar'},
   ];
-  document.getElementById('dashSummary').innerHTML=cards.map(c=>`
-    <div class="summary-card">
-      <div class="summary-icon" style="background:${c.bg};">
-        <svg viewBox="0 0 24 24" fill="none" stroke="${c.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${c.icon} stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div><div class="summary-val" style="color:${c.color}">${c.val}</div><div class="summary-lbl">${c.lbl}</div></div>
-    </div>`).join('');
+  document.getElementById('dashSummary').innerHTML=cards.map(c=>`<div class="summary-card"><div class="summary-icon" style="background:${c.bg};"><svg viewBox="0 0 24 24" fill="none" stroke="${c.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${c.icon}/></svg></div><div><div class="summary-val" style="color:${c.color}">${c.val}</div><div class="summary-lbl">${c.lbl}</div></div></div>`).join('');
+}
+// ── Dashboard Requerimientos ───────────────────────────────────
+const REQ_ESTADO_COLORS={'No iniciado':'#94a3b8','Cotizando':'#f59e0b','Aprobado':'#3b82f6','Comprado':'#8b5cf6','En tránsito':'#f97316','Recibido':'#14b8a6','Implementado':'#22c55e'};
+function renderReqDashboard(){
+  const labels=REQ_ESTADOS;
+  const counts=labels.map(s=>reqData.filter(r=>(r['ESTADO']||'No iniciado')===s).length);
+  const colors=labels.map(s=>REQ_ESTADO_COLORS[s]);
+  const total=counts.reduce((a,b)=>a+b,0);
+  document.getElementById('dh-req-total').textContent=total;
+  destroyChart('ch-req-estado');
+  const ctx=document.getElementById('ch-req-estado').getContext('2d');
+  chartInstances['ch-req-estado']=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data:counts,backgroundColor:colors,borderWidth:2,borderColor:'#fafaf8',hoverBorderWidth:3}]},options:{cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label(c){const v=c.parsed;const p=total?Math.round(v/total*100):0;return ` ${c.label}: ${v} (${p}%)`;}}},animation:{animateRotate:true,duration:700}}}});
+  document.getElementById('lg-req-estado').innerHTML=labels.map((l,i)=>{ const v=counts[i];const p=total?Math.round(v/total*100):0; return `<div class="legend-item"><div class="legend-left"><span class="legend-dot" style="background:${colors[i]}"></span><span class="legend-name">${l}</span></div><div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:${p}%;background:${colors[i]}"></div></div><span class="legend-count">${v}</span><span class="legend-pct">${p}%</span></div>`; }).join('');
+  const prioLabels=['Alta','Media','Baja','Sin asignar'],prioColors=['#ef4444','#f59e0b','#22c55e','#cbd5e1'],prioCounts=[0,0,0,0];
+  reqData.forEach(r=>{ const p=(r['PRIORIDAD']||'').toLowerCase(); if(p==='alta') prioCounts[0]++; else if(p==='media') prioCounts[1]++; else if(p==='baja') prioCounts[2]++; else prioCounts[3]++; });
+  const prioTotal=prioCounts.reduce((a,b)=>a+b,0);
+  document.getElementById('dh-req-prio-total').textContent=prioTotal;
+  destroyChart('ch-req-prio');
+  const ctx2=document.getElementById('ch-req-prio').getContext('2d');
+  chartInstances['ch-req-prio']=new Chart(ctx2,{type:'doughnut',data:{labels:prioLabels,datasets:[{data:prioCounts,backgroundColor:prioColors,borderWidth:2,borderColor:'#fafaf8',hoverBorderWidth:3}]},options:{cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label(c){const v=c.parsed;const p=prioTotal?Math.round(v/prioTotal*100):0;return ` ${c.label}: ${v} (${p}%)`;}}},animation:{animateRotate:true,duration:700}}}});
+  document.getElementById('lg-req-prio').innerHTML=prioLabels.map((l,i)=>{ const v=prioCounts[i];const p=prioTotal?Math.round(v/prioTotal*100):0; return `<div class="legend-item"><div class="legend-left"><span class="legend-dot" style="background:${prioColors[i]}"></span><span class="legend-name">${l}</span></div><div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:${p}%;background:${prioColors[i]}"></div></div><span class="legend-count">${v}</span><span class="legend-pct">${p}%</span></div>`; }).join('');
+  const zones={};
+  reqData.forEach(r=>{ const z=(r['ZONA']||'Sin zona').trim(); if(!zones[z]) zones[z]={total:0,impl:0}; zones[z].total++; if((r['ESTADO']||'')==='Implementado') zones[z].impl++; });
+  const sortedZ=Object.entries(zones).sort((a,b)=>b[1].total-a[1].total).slice(0,10);
+  document.getElementById('ch-req-zona').innerHTML=sortedZ.length?sortedZ.map(([name,{total:t,impl}],i)=>{ const pct=t?Math.round(impl/t*100):0;const color=DPTO_PALETTE[i%DPTO_PALETTE.length]; return `<div class="hbar-row"><div class="hbar-label" title="${name}">${name}</div><div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:${color};">${pct>=20?`<span class="hbar-val">${pct}%</span>`:''}</div>${pct<20?`<span class="hbar-val-out">${pct}%</span>`:''}</div><span style="font-size:11px;color:var(--text-3);min-width:40px;text-align:right;">${impl}/${t}</span></div>`; }).join(''):'<p style="font-size:12px;color:var(--text-3);padding:1rem 0;">Sin datos.</p>';
+  const funnelSteps=REQ_ESTADOS.map(s=>({label:s,count:reqData.filter(r=>(r['ESTADO']||'No iniciado')===s).length,color:REQ_ESTADO_COLORS[s]}));
+  const maxF=Math.max(...funnelSteps.map(s=>s.count),1);
+  document.getElementById('ch-req-funnel').innerHTML=funnelSteps.map(({label,count,color})=>{ const pct=Math.round(count/maxF*100); return `<div class="hbar-row"><div class="hbar-label" title="${label}">${label}</div><div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:${color};">${pct>=20?`<span class="hbar-val">${count}</span>`:''}</div>${pct<20?`<span class="hbar-val-out">${count}</span>`:''}</div></div>`; }).join('');
+}
+// ── Dashboard Bureau Veritas ───────────────────────────────────
+const BV_ESTADO_COLORS={'No iniciado':'#94a3b8','Revisado':'#3b82f6','Implementando':'#f59e0b','Cumplimos':'#22c55e'};
+function renderBvDashboard(){
+  const labels=BV_ESTADOS;
+  const counts=labels.map(s=>bvData.filter(r=>(r['ESTADO']||'No iniciado')===s).length);
+  const colors=labels.map(s=>BV_ESTADO_COLORS[s]);
+  const total=counts.reduce((a,b)=>a+b,0);
+  document.getElementById('dh-bv-total').textContent=total;
+  destroyChart('ch-bv-estado');
+  const ctx=document.getElementById('ch-bv-estado').getContext('2d');
+  chartInstances['ch-bv-estado']=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data:counts,backgroundColor:colors,borderWidth:2,borderColor:'#fafaf8',hoverBorderWidth:3}]},options:{cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label(c){const v=c.parsed;const p=total?Math.round(v/total*100):0;return ` ${c.label}: ${v} (${p}%)`;}}},animation:{animateRotate:true,duration:700}}}});
+  document.getElementById('lg-bv-estado').innerHTML=labels.map((l,i)=>{ const v=counts[i];const p=total?Math.round(v/total*100):0; return `<div class="legend-item"><div class="legend-left"><span class="legend-dot" style="background:${colors[i]}"></span><span class="legend-name">${l}</span></div><div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:${p}%;background:${colors[i]}"></div></div><span class="legend-count">${v}</span><span class="legend-pct">${p}%</span></div>`; }).join('');
+  const cumpl=bvData.filter(r=>(r['ESTADO']||'')==='Cumplimos').length;
+  const pct=total?Math.round(cumpl/total*100):0;
+  const resCards=[
+    {label:'Total de casos',val:total,color:'#4a5568',bg:'#f0f0ee'},
+    {label:'No iniciados',val:counts[0],color:'#64748b',bg:'#f0f0ee'},
+    {label:'Revisados',val:counts[1],color:'#1d4ed8',bg:'#eff6ff'},
+    {label:'Implementando',val:counts[2],color:'#92400e',bg:'#fef3c7'},
+    {label:'Cumplimos ✓',val:counts[3],color:'#2d6b4f',bg:'#edf5f0'},
+    {label:'% Cumplimiento',val:pct+'%',color:'#2d6b4f',bg:'#d1fae5'},
+  ];
+  document.getElementById('ch-bv-resumen').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px;">
+      ${resCards.map(c=>`<div style="background:${c.bg};border-radius:6px;padding:14px 16px;border:1px solid ${c.color}33;"><div style="font-size:22px;font-family:'Cormorant Garamond',serif;font-weight:500;color:${c.color};line-height:1;">${c.val}</div><div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:${c.color};margin-top:4px;font-weight:600;">${c.label}</div></div>`).join('')}
+    </div>
+    <div style="margin-top:16px;">
+      <div style="font-size:10.5px;color:var(--text-3);margin-bottom:6px;font-weight:500;">AVANCE GENERAL</div>
+      <div style="height:10px;background:var(--bg-card-alt);border-radius:99px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#2d6b4f,#4ade80);border-radius:99px;transition:width 0.7s;"></div></div>
+      <div style="font-size:11px;color:var(--text-3);margin-top:5px;">${cumpl} de ${total} casos marcados como <strong>Cumplimos</strong></div>
+    </div>`;
 }
 function renderDonutEstado(canvasId,centerId,legendId,data){
   const counts={};ESTADOS.forEach(s=>counts[s]=0);
