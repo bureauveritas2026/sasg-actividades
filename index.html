@@ -891,7 +891,6 @@ const BV_ESTADOS  = ['No iniciado','Revisado','Implementando','Cumplimos'];
 const SCRIPT_URL     = 'https://script.google.com/macros/s/AKfycbx0cbp7aVzmSuL_eJt2glO3xyb9Zk7owOEMS2Yxsozb1jM5A25zxs3pUgWEV1rKSqp1UQ/exec';
 const SCRIPT_URL_CAP = 'https://script.google.com/macros/s/AKfycbwg2qPolmywwdvPZzxhWvuX4jDEXN--XFOCmkSppgEeMBJPk1-29aeb7FrBVsl8MND9/exec';
 const SCRIPT_URL_REQ = 'https://script.google.com/macros/s/AKfycbxF6rVAp-4WPtzQorTeRs0YwqFFklbM6fvg7P7i4cRx-EE81FQyJPJAaZngIDzx3ft9/exec';
-// 🔧 PEGA AQUÍ LA URL DEL APPS SCRIPT DE BUREAU VERITAS:
 const SCRIPT_URL_BV  = 'https://script.google.com/macros/s/AKfycbwndDkADbIUYKjqjBqzxg80bfF9sOblNVP4nWe4BU-DHCVQzyjrqQPBT56oxiYlilkNJw/exec';
 
 let allData=[], capData=[], reqData=[], bvData=[];
@@ -1478,7 +1477,6 @@ function renderBvTable(){
 
   const eOpts=(currentEst)=>BV_ESTADOS.map(s=>`<option value="${s}" ${s===currentEst?'selected':''}>${s}</option>`).join('');
   const canEdit=isAdmin();
-  // Holiday puede cambiar estado pero NO comentarios ni agregar/eliminar
   const comDisAttr=canEdit?'':' disabled';
 
   tbody.innerHTML=bvFilteredData.map((row,i)=>{
@@ -1582,10 +1580,7 @@ async function saveBvNewRow(){
     const json=await res.json();
     if(json.success){
       statusEl.textContent='✓ Caso guardado'; statusEl.style.color='var(--green)';
-      setTimeout(()=>{
-        closeBvModal();
-        loadBvData();
-      },800);
+      setTimeout(()=>{ closeBvModal(); loadBvData(); },800);
     } else {
       statusEl.textContent='Error: '+(json.error||'Desconocido'); statusEl.style.color='var(--red)';
       saveBtn.disabled=false;
@@ -1805,6 +1800,12 @@ function openTextModalFromTd(td){ const ta=td.querySelector('textarea'); const t
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ══ LOGIN ══
+// ─────────────────────────────────────────────────────────────────────────────
+// CAMBIO APLICADO: la comparación del usuario ahora es case-insensitive.
+// Se añade .toLowerCase() al valor de u.user al comparar, de modo que
+// "holiday", "HOLIDAY", "Holiday", "HoLiDaY", etc. sean equivalentes.
+// La contraseña SIGUE siendo sensible a mayúsculas/minúsculas (intencional).
+// ─────────────────────────────────────────────────────────────────────────────
 let loginAttempts=0, lockUntil=0, lockTimer=null;
 function doLogin(){
   const now=Date.now();
@@ -1813,7 +1814,11 @@ function doLogin(){
   if(now<lockUntil){ const secs=Math.ceil((lockUntil-now)/1000); lockedEl.textContent=`Acceso bloqueado. Intenta en ${secs}s.`; lockedEl.classList.add('show'); return; }
   const userInput=(userEl.value||'').trim().toLowerCase(), passInput=(passEl.value||'');
   let matchedRole=null;
-  for(const key of Object.keys(AUTH_USERS)){ const u=AUTH_USERS[key]; if(userInput===u.user&&passInput===u.pass){ matchedRole=u.role; break; } }
+  // ── MODIFICACIÓN: comparar u.user en minúsculas para que el usuario sea case-insensitive ──
+  for(const key of Object.keys(AUTH_USERS)){
+    const u=AUTH_USERS[key];
+    if(userInput===u.user.toLowerCase()&&passInput===u.pass){ matchedRole=u.role; break; }
+  }
   if(matchedRole){
     currentRole=matchedRole; loginAttempts=0;
     errorEl.classList.remove('show'); lockedEl.classList.remove('show'); attemptsEl.textContent='';
@@ -1823,8 +1828,9 @@ function doLogin(){
     return;
   }
   loginAttempts++;
+  // ── Para el mensaje de error también comparamos en minúsculas ──
   let userOk=false;
-  for(const key of Object.keys(AUTH_USERS)){ if(userInput===AUTH_USERS[key].user){ userOk=true; break; } }
+  for(const key of Object.keys(AUTH_USERS)){ if(userInput===AUTH_USERS[key].user.toLowerCase()){ userOk=true; break; } }
   userEl.classList.toggle('err',!userOk); passEl.classList.toggle('err',true);
   card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
   setTimeout(()=>card.classList.remove('shake'),450);
