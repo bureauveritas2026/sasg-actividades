@@ -247,44 +247,19 @@
   .bvs-Revisado{background:#e8f0f8;color:#1a3970;border-color:#90b8e0;}
   .bvs-Implementando{background:#fdf5e4;color:#7a5000;border-color:#e8c96a;}
   .bvs-Cumplimos{background:#edf5f0;color:#2d6b4f;border-color:#b0d4c0;}
-  /* Botón agregar */
-  .bv-add-btn{
-    font-family:'Figtree',sans-serif;font-size:12px;font-weight:600;
-    background:var(--slate-900);color:var(--accent-light);
-    border:1px solid rgba(184,147,90,0.35);border-radius:4px;
-    padding:6px 16px;cursor:pointer;transition:background 0.2s;
-    display:flex;align-items:center;gap:6px;letter-spacing:0.04em;
-    white-space:nowrap;
-  }
+  .bv-add-btn{font-family:'Figtree',sans-serif;font-size:12px;font-weight:600;background:var(--slate-900);color:var(--accent-light);border:1px solid rgba(184,147,90,0.35);border-radius:4px;padding:6px 16px;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:6px;letter-spacing:0.04em;white-space:nowrap;}
   .bv-add-btn:hover{background:var(--slate-800);}
   .bv-add-btn svg{width:13px;height:13px;}
   .bv-add-btn:disabled{opacity:0.5;cursor:not-allowed;}
-  /* Modal agregar caso */
-  .bv-modal-bg{
-    position:fixed;inset:0;z-index:9000;
-    background:rgba(13,17,23,0.65);backdrop-filter:blur(3px);
-    display:flex;align-items:center;justify-content:center;padding:1.5rem;
-    opacity:0;transition:opacity 0.2s;pointer-events:none;
-  }
+  .bv-modal-bg{position:fixed;inset:0;z-index:9000;background:rgba(13,17,23,0.65);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;transition:opacity 0.2s;pointer-events:none;}
   .bv-modal-bg.open{opacity:1;pointer-events:all;}
-  .bv-modal-box{
-    background:var(--bg-card);border:1px solid var(--border);
-    border-top:3px solid var(--bv-blue);border-radius:8px;
-    padding:1.75rem 2rem;max-width:520px;width:100%;
-    box-shadow:0 24px 60px rgba(0,0,0,0.4);
-    transform:translateY(14px);transition:transform 0.2s;
-  }
+  .bv-modal-box{background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--bv-blue);border-radius:8px;padding:1.75rem 2rem;max-width:520px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.4);transform:translateY(14px);transition:transform 0.2s;}
   .bv-modal-bg.open .bv-modal-box{transform:translateY(0);}
   .bv-modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text-1);margin-bottom:4px;}
   .bv-modal-sub{font-size:11.5px;color:var(--text-3);font-weight:300;margin-bottom:1.5rem;}
   .bv-field{margin-bottom:1.1rem;}
   .bv-field label{display:block;font-size:10.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px;}
-  .bv-textarea,.bv-select-modal{
-    font-family:'Figtree',sans-serif;font-size:13px;color:var(--text-1);
-    background:var(--bg);border:1px solid var(--border);border-radius:5px;
-    padding:9px 12px;width:100%;outline:none;
-    transition:border-color 0.15s,box-shadow 0.15s;
-  }
+  .bv-textarea,.bv-select-modal{font-family:'Figtree',sans-serif;font-size:13px;color:var(--text-1);background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:9px 12px;width:100%;outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
   .bv-textarea{resize:vertical;min-height:80px;line-height:1.5;}
   .bv-select-modal{height:38px;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6'%3E%3Cpath d='M1 1l3.5 3.5L8 1' stroke='%238a95a5' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
   .bv-textarea:focus,.bv-select-modal:focus{border-color:var(--bv-blue);box-shadow:0 0 0 3px rgba(26,58,92,0.12);}
@@ -295,12 +270,123 @@
   .bv-btn-save:hover:not(:disabled){background:#254d7a;}
   .bv-btn-save:disabled{opacity:0.5;cursor:not-allowed;}
   .bv-add-status{font-size:11.5px;font-weight:500;margin-right:auto;align-self:center;}
-  /* Fecha creación */
   .bv-fecha-badge{font-size:10.5px;color:var(--text-3);font-weight:300;white-space:nowrap;}
-  /* Columna delete (solo admin) */
   .bv-delete-btn{background:none;border:none;cursor:pointer;color:var(--text-3);padding:4px;border-radius:3px;transition:color 0.15s,background 0.15s;display:flex;align-items:center;}
   .bv-delete-btn:hover{color:var(--red);background:var(--red-bg);}
   .bv-delete-btn svg{width:14px;height:14px;}
+
+  /* ══ EVIDENCIAS ══ */
+  .ev-btn {
+    width:32px;height:32px;border-radius:5px;border:1.5px solid;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:all 0.18s cubic-bezier(0.4,0,0.2,1);
+    position:relative;outline:none;background:none;margin:0 auto;
+  }
+  .ev-btn.ev-empty{border-color:var(--border);background:var(--bg);color:var(--text-3);}
+  .ev-btn.ev-empty:hover{border-color:var(--accent);background:rgba(184,147,90,0.07);color:var(--accent);transform:scale(1.08);}
+  .ev-btn.ev-has{border-color:var(--green-border);background:var(--green-bg);color:var(--green);}
+  .ev-btn.ev-has:hover{border-color:var(--green);background:#d4ede1;transform:scale(1.08);box-shadow:0 0 0 3px rgba(45,107,79,0.15);}
+  .ev-btn svg{width:14px;height:14px;flex-shrink:0;}
+  .ev-btn.ev-loading{opacity:0.6;cursor:wait;pointer-events:none;}
+  .ev-btn .ev-dot{position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:var(--green);border:1.5px solid var(--bg-card);}
+  .td-evidencia{width:52px;text-align:center;padding:6px 8px !important;}
+
+  /* ══ MODAL EVIDENCIA ══ */
+  .ev-modal-bg{
+    position:fixed;inset:0;z-index:9500;
+    background:rgba(13,17,23,0.82);backdrop-filter:blur(8px);
+    display:flex;align-items:center;justify-content:center;padding:1.5rem;
+    opacity:0;transition:opacity 0.22s;pointer-events:none;
+  }
+  .ev-modal-bg.open{opacity:1;pointer-events:all;}
+  .ev-modal-box{
+    background:var(--slate-900);
+    border:1px solid rgba(184,147,90,0.2);
+    border-top:3px solid var(--green);
+    border-radius:10px;padding:0;
+    max-width:900px;width:100%;max-height:92vh;
+    display:flex;flex-direction:column;
+    box-shadow:0 32px 80px rgba(0,0,0,0.65);
+    transform:translateY(20px) scale(0.97);
+    transition:transform 0.24s cubic-bezier(0.34,1.56,0.64,1);
+    overflow:hidden;position:relative;
+  }
+  .ev-modal-bg.open .ev-modal-box{transform:translateY(0) scale(1);}
+  .ev-modal-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;
+  }
+  .ev-modal-title-wrap .ev-modal-title{
+    font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;
+    color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:10px;
+  }
+  .ev-modal-title .ev-badge{
+    font-family:'Figtree',sans-serif;font-size:9px;font-weight:700;
+    letter-spacing:0.12em;text-transform:uppercase;
+    background:var(--green-bg);color:var(--green);
+    border:1px solid var(--green-border);padding:2px 7px;border-radius:2px;
+  }
+  .ev-modal-meta{font-size:10.5px;color:rgba(255,255,255,0.25);font-weight:300;margin-top:3px;}
+  .ev-modal-close-btn{
+    background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+    border-radius:5px;color:rgba(255,255,255,0.4);
+    width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:all 0.15s;flex-shrink:0;
+  }
+  .ev-modal-close-btn:hover{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);}
+  .ev-modal-close-btn svg{width:14px;height:14px;}
+  .ev-modal-img-wrap{
+    flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;
+    padding:2rem;min-height:220px;
+    background:repeating-linear-gradient(45deg,rgba(255,255,255,0.015) 0px,rgba(255,255,255,0.015) 1px,transparent 1px,transparent 10px);
+  }
+  .ev-modal-img{
+    max-width:100%;max-height:62vh;border-radius:6px;
+    box-shadow:0 8px 40px rgba(0,0,0,0.55);object-fit:contain;display:block;
+  }
+  .ev-upload-zone{
+    border:2px dashed rgba(184,147,90,0.25);border-radius:8px;
+    padding:3rem 2rem;text-align:center;cursor:pointer;
+    transition:all 0.2s;background:rgba(255,255,255,0.01);
+    width:100%;max-width:480px;
+  }
+  .ev-upload-zone:hover,.ev-upload-zone.drag-over{border-color:var(--accent);background:rgba(184,147,90,0.04);}
+  .ev-upload-zone .ev-upload-icon{width:40px;height:40px;color:rgba(255,255,255,0.18);margin:0 auto 14px;display:block;}
+  .ev-upload-zone p{font-size:13px;color:rgba(255,255,255,0.3);font-weight:300;margin-bottom:5px;}
+  .ev-upload-zone span{font-size:10.5px;color:rgba(255,255,255,0.18);}
+  .ev-modal-footer{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 20px;border-top:1px solid rgba(255,255,255,0.07);
+    flex-shrink:0;gap:10px;flex-wrap:wrap;
+  }
+  .ev-modal-filename{font-size:10.5px;color:rgba(255,255,255,0.25);font-weight:300;font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+  .ev-footer-btns{display:flex;gap:8px;flex-shrink:0;}
+  .ev-btn-del{
+    font-family:'Figtree',sans-serif;font-size:12px;font-weight:500;
+    background:rgba(139,40,40,0.12);color:#ef9090;border:1px solid rgba(139,40,40,0.3);
+    border-radius:4px;padding:6px 14px;cursor:pointer;transition:all 0.15s;
+    display:flex;align-items:center;gap:5px;
+  }
+  .ev-btn-del:hover{background:rgba(139,40,40,0.25);color:#fca5a5;}
+  .ev-btn-del svg{width:12px;height:12px;}
+  .ev-btn-close-modal{
+    font-family:'Figtree',sans-serif;font-size:12px;font-weight:500;
+    background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);
+    border:1px solid rgba(255,255,255,0.1);border-radius:4px;
+    padding:6px 16px;cursor:pointer;transition:all 0.15s;
+  }
+  .ev-btn-close-modal:hover{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);}
+  .ev-saving-overlay{
+    position:absolute;inset:0;background:rgba(13,17,23,0.85);
+    border-radius:10px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:14px;
+    opacity:0;transition:opacity 0.2s;pointer-events:none;
+  }
+  .ev-saving-overlay.show{opacity:1;pointer-events:all;}
+  .ev-saving-overlay p{font-size:13px;color:rgba(255,255,255,0.55);font-weight:300;}
+  @keyframes ev-spin{to{transform:rotate(360deg);}}
+  .ev-spinner{width:30px;height:30px;border:2px solid rgba(255,255,255,0.08);border-top-color:var(--accent-light);border-radius:50%;animation:ev-spin 0.8s linear infinite;}
+
   @media(max-width:900px){
     .kpi-strip,.req-kpi-strip,.bv-kpi-strip{grid-template-columns:1fr 1fr;}
     .kpi-card.kpi-main{grid-column:1/-1;}
@@ -309,32 +395,13 @@
     .dash-summary{grid-template-columns:1fr 1fr;}
   }
   /* ══ TOOLTIP ══ */
-  .cell-tooltip{
-    position:fixed;z-index:8000;
-    background:var(--slate-900);color:#e8e4dc;
-    font-family:'Figtree',sans-serif;font-size:12.5px;font-weight:300;line-height:1.6;
-    padding:10px 14px;border-radius:6px;border:1px solid rgba(184,147,90,0.3);
-    max-width:340px;word-break:break-word;white-space:pre-wrap;
-    box-shadow:0 8px 28px rgba(0,0,0,0.35);
-    pointer-events:none;opacity:0;transition:opacity 0.15s;
-  }
+  .cell-tooltip{position:fixed;z-index:8000;background:var(--slate-900);color:#e8e4dc;font-family:'Figtree',sans-serif;font-size:12.5px;font-weight:300;line-height:1.6;padding:10px 14px;border-radius:6px;border:1px solid rgba(184,147,90,0.3);max-width:340px;word-break:break-word;white-space:pre-wrap;box-shadow:0 8px 28px rgba(0,0,0,0.35);pointer-events:none;opacity:0;transition:opacity 0.15s;}
   .cell-tooltip.visible{opacity:1;}
   .cell-tooltip .tt-label{font-size:9.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-light);margin-bottom:5px;}
   /* ══ MODAL TEXTO COMPLETO ══ */
-  .text-modal-bg{
-    position:fixed;inset:0;z-index:9000;
-    background:rgba(13,17,23,0.65);backdrop-filter:blur(3px);
-    display:flex;align-items:center;justify-content:center;padding:1.5rem;
-    opacity:0;transition:opacity 0.2s;pointer-events:none;
-  }
+  .text-modal-bg{position:fixed;inset:0;z-index:9000;background:rgba(13,17,23,0.65);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;transition:opacity 0.2s;pointer-events:none;}
   .text-modal-bg.open{opacity:1;pointer-events:all;}
-  .text-modal-box{
-    background:var(--bg-card);border:1px solid var(--border);
-    border-top:3px solid var(--accent);border-radius:8px;
-    padding:1.5rem 1.75rem;max-width:520px;width:100%;
-    box-shadow:0 24px 60px rgba(0,0,0,0.4);
-    transform:translateY(12px);transition:transform 0.2s;
-  }
+  .text-modal-box{background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:8px;padding:1.5rem 1.75rem;max-width:520px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.4);transform:translateY(12px);transition:transform 0.2s;}
   .text-modal-bg.open .text-modal-box{transform:translateY(0);}
   .text-modal-label{font-size:9.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
   .text-modal-sublabel{font-size:11px;color:var(--text-3);font-weight:300;margin-bottom:14px;}
@@ -552,8 +619,6 @@
       </div>
     </div>
   </div>
-
-  <!-- ══ SECCIÓN REQUERIMIENTOS en Dashboard ══ -->
   <div id="dashReqSection" style="display:none;">
     <div class="dash-divider" style="margin-top:2rem;">Requerimientos</div>
     <div class="chart-grid chart-grid-12" style="margin-bottom:16px;">
@@ -593,8 +658,6 @@
       </div>
     </div>
   </div>
-
-  <!-- ══ SECCIÓN BUREAU VERITAS en Dashboard ══ -->
   <div id="dashBvSection" style="display:none;">
     <div class="dash-divider" style="margin-top:2rem;">Bureau Veritas — Casos observados</div>
     <div class="chart-grid chart-grid-12" style="margin-bottom:16px;">
@@ -616,7 +679,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- ══ PANEL: ACTIVIDADES ══ -->
@@ -660,9 +722,10 @@
         <th>Estado</th>
         <th id="actMatHeader">Material de Consulta</th>
         <th>Observaciones</th>
+        <th style="width:52px;text-align:center;" title="Evidencia fotográfica">Evid.</th>
         <th style="width:68px;text-align:center;">Guard.</th>
       </tr></thead>
-      <tbody id="tableBody"><tr><td colspan="12" class="empty-state"><p>Cargando actividades…</p></td></tr></tbody>
+      <tbody id="tableBody"><tr><td colspan="13" class="empty-state"><p>Cargando actividades…</p></td></tr></tbody>
     </table>
   </div>
 </div>
@@ -708,9 +771,10 @@
         <th>Duración</th><th>Estado</th>
         <th id="capMatHeader">Material de Consulta</th>
         <th>Observaciones</th>
+        <th style="width:52px;text-align:center;" title="Evidencia fotográfica">Evid.</th>
         <th style="width:68px;text-align:center;">Guard.</th>
       </tr></thead>
-      <tbody id="capTableBody"><tr><td colspan="14" class="empty-state"><p>Cargando capacitaciones…</p></td></tr></tbody>
+      <tbody id="capTableBody"><tr><td colspan="15" class="empty-state"><p>Cargando capacitaciones…</p></td></tr></tbody>
     </table>
   </div>
 </div>
@@ -764,16 +828,16 @@
         <th class="td-duracion">Duración</th>
         <th style="width:148px;">Estado</th>
         <th style="min-width:160px;">Comentarios</th>
+        <th style="width:52px;text-align:center;" title="Evidencia fotográfica">Evid.</th>
         <th style="width:68px;text-align:center;">Guard.</th>
       </tr></thead>
-      <tbody id="reqTableBody"><tr><td colspan="12" class="empty-state"><p>Cargando requerimientos…</p></td></tr></tbody>
+      <tbody id="reqTableBody"><tr><td colspan="13" class="empty-state"><p>Cargando requerimientos…</p></td></tr></tbody>
     </table>
   </div>
 </div>
 
 <!-- ══ PANEL: BUREAU VERITAS ══ -->
 <div class="panel" id="panel-bureauveritas">
-  <!-- KPIs -->
   <div class="bv-kpi-strip">
     <div class="kpi-card kpi-main">
       <div class="kpi-label">Casos Bureau Veritas</div>
@@ -786,7 +850,6 @@
     <div class="kpi-card"><div class="kpi-label">Implementando</div><div class="kpi-value" id="bvKpi2" style="color:var(--amber)">0</div><div class="kpi-sub"><span class="kpi-dot" style="background:#e8c96a"></span>En curso</div></div>
     <div class="kpi-card"><div class="kpi-label">Cumplimos</div><div class="kpi-value" id="bvKpi3" style="color:var(--green)">0</div><div class="kpi-sub"><span class="kpi-dot" style="background:var(--green)"></span>Completado</div></div>
   </div>
-  <!-- Toolbar -->
   <div class="toolbar">
     <span class="toolbar-label">Filtros</span>
     <input class="search-input" type="text" id="bvSearch" placeholder="Buscar caso observado…" oninput="applyBvFilters()">
@@ -799,7 +862,6 @@
       <option value="Cumplimos">Cumplimos</option>
     </select>
     <div class="toolbar-divider"></div>
-    <!-- Botón agregar solo visible para admin -->
     <button class="bv-add-btn" id="bvAddBtn" onclick="openBvModal()" style="display:none;">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
         <path d="M8 3v10M3 8h10"/>
@@ -808,7 +870,6 @@
     </button>
     <span class="results-count" id="bvResultsCount">— casos</span>
   </div>
-  <!-- Tabla -->
   <div class="table-wrap">
     <table class="data-table" id="bvTable">
       <thead>
@@ -818,11 +879,12 @@
           <th style="width:148px;">Estado</th>
           <th style="min-width:220px;">Comentarios</th>
           <th style="width:130px;color:rgba(255,255,255,0.25);">Fecha Creación</th>
+          <th style="width:52px;text-align:center;" title="Evidencia fotográfica">Evid.</th>
           <th id="bvActionsHeader" style="width:68px;text-align:center;">Guard.</th>
         </tr>
       </thead>
       <tbody id="bvTableBody">
-        <tr><td colspan="6" class="empty-state"><p>Cargando casos…</p></td></tr>
+        <tr><td colspan="7" class="empty-state"><p>Cargando casos…</p></td></tr>
       </tbody>
     </table>
   </div>
@@ -860,13 +922,45 @@
   </div>
 </div>
 
-<!-- ══ TOOLTIP (hover) ══ -->
+<!-- ══ MODAL EVIDENCIA ══ -->
+<div id="evModalBg" class="ev-modal-bg" onclick="closeEvModalOutside(event)">
+  <div class="ev-modal-box" id="evModalBox" onclick="event.stopPropagation()">
+    <div class="ev-modal-header">
+      <div class="ev-modal-title-wrap">
+        <div class="ev-modal-title">
+          Evidencia fotográfica
+          <span class="ev-badge" id="evBadge">CON EVIDENCIA</span>
+        </div>
+        <div class="ev-modal-meta" id="evMeta"></div>
+      </div>
+      <button class="ev-modal-close-btn" onclick="closeEvModal()" title="Cerrar (ESC)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M3 3l10 10M13 3L3 13"/>
+        </svg>
+      </button>
+    </div>
+    <div class="ev-modal-img-wrap" id="evImgWrap">
+      <!-- imagen o zona de upload se inserta aquí -->
+    </div>
+    <div class="ev-modal-footer">
+      <span class="ev-modal-filename" id="evFilename"></span>
+      <div class="ev-footer-btns" id="evFooterBtns"></div>
+    </div>
+    <!-- Overlay de guardado -->
+    <div class="ev-saving-overlay" id="evSavingOverlay">
+      <div class="ev-spinner"></div>
+      <p id="evSavingMsg">Guardando evidencia…</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOOLTIP ══ -->
 <div id="cellTooltip" class="cell-tooltip">
   <div class="tt-label" id="ttLabel"></div>
   <div id="ttContent"></div>
 </div>
 
-<!-- ══ MODAL TEXTO COMPLETO (click derecho) ══ -->
+<!-- ══ MODAL TEXTO COMPLETO ══ -->
 <div id="textModalBg" class="text-modal-bg" onclick="closeTextModal(event)">
   <div class="text-modal-box" onclick="event.stopPropagation()">
     <div class="text-modal-label" id="tmLabel"></div>
@@ -876,13 +970,16 @@
   </div>
 </div>
 
+<!-- Input oculto para subir imagen -->
+<input type="file" id="evFileInput" accept="image/*" style="display:none" onchange="handleEvFileSelect(event)">
+
 <footer class="site-footer">
   <span>SASG — Sistema de Actividades de Seguridad y Gestión</span>
   <span id="footerCount">Total: 0 actividades</span>
 </footer>
 
 <script>
-// ══ CONFIG ════════════════════════════════════════════════════════════════
+// ══ CONFIG ══
 const ESTADOS     = ['Por Iniciar','En Proceso','Por Terminar','Completado'];
 const PRIORIDADES = ['Alta','Media','Baja'];
 const REQ_ESTADOS = ['No iniciado','Cotizando','Aprobado','Comprado','En tránsito','Recibido','Implementado'];
@@ -923,6 +1020,274 @@ function updateBvUI(){
   if(addBtn) addBtn.style.display = isAdmin() ? 'flex' : 'none';
 }
 
+// ══ EVIDENCIAS — estado del modal ══════════════════════════════
+let evState = {
+  origIndex: null,
+  panel: null,
+  scriptUrl: null,
+  dataArr: null,
+  fieldName: 'Evidencia'
+};
+
+// ── Botón de evidencia en la tabla ────────────────────────────
+function renderEvidenciaCell(orig, value, panel) {
+  const hasEv = !!(value && value.trim() && value.startsWith('data:image'));
+  const cls   = hasEv ? 'ev-has' : 'ev-empty';
+  const dot   = hasEv ? '<span class="ev-dot"></span>' : '';
+  const title = hasEv ? 'Ver evidencia' : 'Agregar evidencia';
+  const icon  = hasEv
+    ? `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+         <rect x="1" y="3" width="14" height="10" rx="1.5"/>
+         <circle cx="5.5" cy="7" r="1.5"/>
+         <path d="M1 11l4-4 3 3 2-2 5 5"/>
+       </svg>`
+    : `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+         <rect x="1" y="3" width="14" height="10" rx="1.5"/>
+         <path d="M8 6v4M6 8h4"/>
+       </svg>`;
+  return `<td class="td-evidencia">
+    <button class="ev-btn ${cls}" data-orig="${orig}" data-panel="${panel}"
+      title="${title}" onclick="openEvModal(${orig},'${panel}')">
+      ${icon}${dot}
+    </button>
+  </td>`;
+}
+
+// ── Abrir modal de evidencia ──────────────────────────────────
+function openEvModal(origIndex, panel) {
+  evState.origIndex = origIndex;
+  evState.panel = panel;
+  const urlMap   = { actividades: SCRIPT_URL, capacitaciones: SCRIPT_URL_CAP, requerimientos: SCRIPT_URL_REQ, bureauveritas: SCRIPT_URL_BV };
+  const dataMap  = { actividades: allData,    capacitaciones: capData,         requerimientos: reqData,        bureauveritas: bvData };
+  evState.scriptUrl = urlMap[panel];
+  evState.dataArr   = dataMap[panel];
+  evState.fieldName = 'Evidencia';
+
+  const row   = evState.dataArr[origIndex] || {};
+  const evVal = row['Evidencia'] || '';
+  const hasEv = !!(evVal && evVal.startsWith('data:image'));
+
+  // Meta info
+  const metaField = panel === 'actividades' ? 'Item Observado'
+                  : panel === 'capacitaciones' ? 'Capacitacion'
+                  : panel === 'requerimientos' ? 'REQUERIMIENTO'
+                  : 'CASO_OBSERVADO';
+  const metaText  = (row[metaField] || '').substring(0, 70) + ((row[metaField]||'').length > 70 ? '…' : '');
+
+  document.getElementById('evMeta').textContent = metaText;
+  document.getElementById('evBadge').textContent   = hasEv ? 'CON EVIDENCIA' : 'SIN EVIDENCIA';
+  document.getElementById('evBadge').style.background = hasEv ? 'var(--green-bg)' : 'var(--amber-bg)';
+  document.getElementById('evBadge').style.color       = hasEv ? 'var(--green)'    : 'var(--amber)';
+  document.getElementById('evBadge').style.borderColor = hasEv ? 'var(--green-border)' : 'var(--amber-border)';
+  document.getElementById('evSavingOverlay').classList.remove('show');
+
+  const imgWrap = document.getElementById('evImgWrap');
+  const footer  = document.getElementById('evFooterBtns');
+
+  if (hasEv) {
+    // Mostrar imagen existente
+    imgWrap.innerHTML = `<img class="ev-modal-img" src="${evVal}" alt="Evidencia" id="evModalImg">`;
+    document.getElementById('evFilename').textContent = 'Imagen almacenada en Google Sheets';
+    footer.innerHTML = `
+      ${isAdmin() ? `<button class="ev-btn-del" onclick="deleteEvidencia()" title="Eliminar evidencia">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 4h10M6 4V2.5h4V4M5 4l.7 9h4.6L11 4"/>
+        </svg>
+        Eliminar
+      </button>` : ''}
+      <button class="ev-btn-close-modal" onclick="closeEvModal()">Cerrar</button>`;
+  } else {
+    // Zona de upload
+    imgWrap.innerHTML = `
+      <div class="ev-upload-zone" id="evUploadZone"
+        onclick="triggerEvFileInput()"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="handleEvDrop(event)">
+        <svg class="ev-upload-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="8" width="34" height="24" rx="3"/>
+          <circle cx="14" cy="18" r="3"/>
+          <path d="M3 26l10-10 7 7 5-5 12 12"/>
+          <path d="M27 12l4-4 4 4M31 8v10"/>
+        </svg>
+        <p>Haz clic o arrastra una imagen aquí</p>
+        <span>JPG, PNG, WEBP · máx. recomendado 1.5 MB</span>
+      </div>`;
+    document.getElementById('evFilename').textContent = 'Sin imagen adjunta';
+    footer.innerHTML = `<button class="ev-btn-close-modal" onclick="closeEvModal()">Cancelar</button>`;
+  }
+
+  document.getElementById('evModalBg').classList.add('open');
+}
+
+function closeEvModal() {
+  document.getElementById('evModalBg').classList.remove('open');
+}
+function closeEvModalOutside(e) {
+  if (e.target === document.getElementById('evModalBg')) closeEvModal();
+}
+
+// ── Seleccionar archivo ───────────────────────────────────────
+function triggerEvFileInput() {
+  document.getElementById('evFileInput').value = '';
+  document.getElementById('evFileInput').click();
+}
+function handleEvFileSelect(event) {
+  const file = event.target.files[0];
+  if (file) processEvFile(file);
+}
+function handleEvDrop(event) {
+  event.preventDefault();
+  document.getElementById('evUploadZone').classList.remove('drag-over');
+  const file = event.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) processEvFile(file);
+}
+
+// ── Procesar y comprimir imagen ───────────────────────────────
+function processEvFile(file) {
+  const MAX_DIM = 1200;   // px máx por lado
+  const QUALITY = 0.82;   // calidad JPEG
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      // Calcular dimensiones proporcionales
+      let w = img.width, h = img.height;
+      if (w > MAX_DIM || h > MAX_DIM) {
+        if (w > h) { h = Math.round(h * MAX_DIM / w); w = MAX_DIM; }
+        else       { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      const base64 = canvas.toDataURL('image/jpeg', QUALITY);
+      previewAndConfirmEv(base64, file.name, w, h);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Preview antes de guardar ──────────────────────────────────
+function previewAndConfirmEv(base64, filename, w, h) {
+  const imgWrap = document.getElementById('evImgWrap');
+  const footer  = document.getElementById('evFooterBtns');
+  const sizeKB  = Math.round(base64.length * 0.75 / 1024);
+
+  imgWrap.innerHTML = `<img class="ev-modal-img" src="${base64}" alt="Vista previa">`;
+  document.getElementById('evFilename').textContent = `${filename} · ${w}×${h}px · ~${sizeKB} KB`;
+  document.getElementById('evBadge').textContent    = 'VISTA PREVIA';
+  document.getElementById('evBadge').style.background   = 'rgba(184,147,90,0.15)';
+  document.getElementById('evBadge').style.color         = 'var(--accent-light)';
+  document.getElementById('evBadge').style.borderColor   = 'rgba(184,147,90,0.3)';
+
+  footer.innerHTML = `
+    <button class="ev-btn-close-modal" style="background:rgba(139,40,40,0.1);color:#ef9090;border-color:rgba(139,40,40,0.25);"
+      onclick="openEvModal(${evState.origIndex},'${evState.panel}')">Cancelar</button>
+    <button class="ev-btn-close-modal" style="background:rgba(45,107,79,0.25);color:#6ee7b7;border-color:rgba(45,107,79,0.4);font-weight:600;"
+      onclick="saveEvidencia('${base64.replace(/'/g,"\\'").substring(0,20)}','${filename}','${base64}')">
+      ✓ Guardar evidencia
+    </button>`;
+
+  // Pasamos la base64 real por cierre, no por string truncada
+  // Reemplazamos el botón con función directa
+  footer.querySelector('button:last-child').onclick = function() {
+    saveEvidencia(base64, filename);
+  };
+}
+
+// ── Guardar evidencia en Sheets ──────────────────────────────
+async function saveEvidencia(base64, filename) {
+  const { origIndex, panel, scriptUrl, dataArr, fieldName } = evState;
+  showEvSaving('Guardando evidencia en Google Sheets…');
+
+  try {
+    const body = new FormData();
+    body.append('action', 'update');
+    body.append('row', origIndex + 2);
+    body.append('field', fieldName);
+    body.append('value', base64);
+    const res  = await fetch(scriptUrl, { method: 'POST', body, mode: 'cors' });
+    const json = await res.json();
+    if (json.success) {
+      dataArr[origIndex][fieldName] = base64;
+      patchEvBtn(origIndex, panel, base64);
+      setSync('Evidencia guardada · ' + timeNow());
+      hideEvSaving();
+      // Refrescar modal mostrando la imagen
+      openEvModal(origIndex, panel);
+    } else {
+      hideEvSaving();
+      alert('Error al guardar: ' + (json.error || 'desconocido'));
+    }
+  } catch(e) {
+    hideEvSaving();
+    alert('Sin conexión al servidor. Intenta de nuevo.');
+  }
+}
+
+// ── Eliminar evidencia ─────────────────────────────────────────
+async function deleteEvidencia() {
+  if (!confirm('¿Eliminar la evidencia fotográfica de este registro?\nEsta acción no se puede deshacer.')) return;
+  const { origIndex, panel, scriptUrl, dataArr, fieldName } = evState;
+  showEvSaving('Eliminando evidencia…');
+  try {
+    const body = new FormData();
+    body.append('action', 'update');
+    body.append('row', origIndex + 2);
+    body.append('field', fieldName);
+    body.append('value', '');
+    const res  = await fetch(scriptUrl, { method: 'POST', body, mode: 'cors' });
+    const json = await res.json();
+    if (json.success) {
+      dataArr[origIndex][fieldName] = '';
+      patchEvBtn(origIndex, panel, '');
+      setSync('Evidencia eliminada · ' + timeNow());
+      hideEvSaving();
+      closeEvModal();
+    } else {
+      hideEvSaving();
+      alert('Error al eliminar: ' + (json.error || 'desconocido'));
+    }
+  } catch(e) {
+    hideEvSaving();
+    alert('Sin conexión al servidor.');
+  }
+}
+
+// ── Actualizar botón en tabla sin re-render ───────────────────
+function patchEvBtn(origIndex, panel, value) {
+  const panelEl = document.getElementById('panel-' + panel);
+  if (!panelEl) return;
+  const btn = panelEl.querySelector(`.ev-btn[data-orig="${origIndex}"][data-panel="${panel}"]`);
+  if (!btn) return;
+  const hasEv = !!(value && value.startsWith('data:image'));
+  btn.className = 'ev-btn ' + (hasEv ? 'ev-has' : 'ev-empty');
+  btn.title     = hasEv ? 'Ver evidencia' : 'Agregar evidencia';
+  btn.innerHTML = hasEv
+    ? `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+         <rect x="1" y="3" width="14" height="10" rx="1.5"/>
+         <circle cx="5.5" cy="7" r="1.5"/>
+         <path d="M1 11l4-4 3 3 2-2 5 5"/>
+       </svg><span class="ev-dot"></span>`
+    : `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+         <rect x="1" y="3" width="14" height="10" rx="1.5"/>
+         <path d="M8 6v4M6 8h4"/>
+       </svg>`;
+}
+
+function showEvSaving(msg) {
+  const el = document.getElementById('evSavingOverlay');
+  document.getElementById('evSavingMsg').textContent = msg;
+  el.classList.add('show');
+}
+function hideEvSaving() {
+  document.getElementById('evSavingOverlay').classList.remove('show');
+}
+
+// ══ TABS ══
 let dashView = 'act';
 let chartInstances = {};
 const ESTADO_COLORS  = { 'Por Iniciar':'#94a3b8','En Proceso':'#f59e0b','Por Terminar':'#f97316','Completado':'#22c55e' };
@@ -931,7 +1296,6 @@ const DPTO_PALETTE   = ['#6366f1','#0ea5e9','#14b8a6','#f59e0b','#f97316','#ec48
 
 window.addEventListener('DOMContentLoaded', () => { loadData(); loadCapData(); loadReqData(); loadBvData(); startAutoSync(); });
 
-// ══ TABS ══
 function switchTab(t) {
   document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
@@ -940,7 +1304,6 @@ function switchTab(t) {
   if(t==='dashboard') renderDashboard();
 }
 
-// ══ AUTO SYNC ══
 function startAutoSync() {
   if(countdownInterval) clearInterval(countdownInterval);
   secondsLeft=SYNC_EVERY;
@@ -955,7 +1318,6 @@ function resetCountdown(){ secondsLeft=SYNC_EVERY; }
 function manualSync(){ resetCountdown(); loadData(); loadCapData(); loadReqData(); loadBvData(); }
 function showSetup(){} function saveConfig(){} function useDemoMode(){}
 
-// ══ DURATION ══
 function parseLocalDate(str) {
   if(!str) return null;
   const m=String(str).match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -976,7 +1338,6 @@ function durBadge(fIni,fFin) {
   return `<span class="dur-badge ${cls}" title="${title}">${label}</span>`;
 }
 
-// ══ MATERIAL CELDA ══
 function renderMaterialCell(orig, value, panel) {
   const val=(value||'').trim();
   if(isAdmin()){
@@ -993,7 +1354,6 @@ function renderMaterialCell(orig, value, panel) {
   }
 }
 
-// ══ LOAD DATA ══
 async function loadData() {
   setSync('Sincronizando…');
   try {
@@ -1055,8 +1415,6 @@ async function silentReqSync() {
     changedRows.forEach(i=>patchReqRowInDOM(i));
   } catch(e){}
 }
-
-// ── BUREAU VERITAS: carga ──────────────────────────────────────
 async function loadBvData() {
   if(SCRIPT_URL_BV==='PEGA_AQUI_URL_BUREAUVERITAS'){ renderBv(); return; }
   try {
@@ -1079,7 +1437,6 @@ async function silentBvSync() {
   } catch(e){}
 }
 
-// ══ PATCH ROW ══
 function patchRowInDOM(origIndex, panel){
   const data=panel==='actividades'?allData:capData;
   const row=data[origIndex]; if(!row) return;
@@ -1101,6 +1458,8 @@ function patchRowInDOM(origIndex, panel){
     const matTA=panelEl.querySelector(`textarea[data-field="MaterialConsulta"][data-orig="${origIndex}"]`);
     if(matTA&&matTA.value!==(row['MaterialConsulta']||'')) matTA.value=row['MaterialConsulta']||'';
   }
+  // Patch evidencia
+  patchEvBtn(origIndex, panel, row['Evidencia']||'');
 }
 function patchReqRowInDOM(origIndex){
   const row=reqData[origIndex]; if(!row) return;
@@ -1117,6 +1476,7 @@ function patchReqRowInDOM(origIndex){
   if(durReqEl){ const nb=durBadge(row['FECHA_INICIO']||'',row['FECHA_FINAL']||''); if(durReqEl.innerHTML!==nb) durReqEl.innerHTML=nb; }
   const comTA=panelEl.querySelector(`textarea[data-field="COMENTARIOS"][data-orig="${origIndex}"]`);
   if(comTA&&comTA.value!==(row['COMENTARIOS']||'')) comTA.value=row['COMENTARIOS']||'';
+  patchEvBtn(origIndex, 'requerimientos', row['Evidencia']||'');
 }
 function patchBvRowInDOM(origIndex){
   const row=bvData[origIndex]; if(!row) return;
@@ -1127,9 +1487,9 @@ function patchBvRowInDOM(origIndex){
     const comTA=panelEl.querySelector(`textarea[data-field="COMENTARIOS"][data-orig="${origIndex}"]`);
     if(comTA&&comTA.value!==(row['COMENTARIOS']||'')) comTA.value=row['COMENTARIOS']||'';
   }
+  patchEvBtn(origIndex, 'bureauveritas', row['Evidencia']||'');
 }
 
-// ══ SAVE ══
 async function saveField(scriptUrl, rowIndex, field, value, indicator) {
   flash(indicator,'saving','Guardando…');
   try {
@@ -1144,7 +1504,6 @@ async function saveField(scriptUrl, rowIndex, field, value, indicator) {
   } catch(e){ flash(indicator,'error','Sin conexión'); }
 }
 
-// ══ FIELD CHANGE ══
 function handleFieldChange(el, panel) {
   if(el.dataset.field==='MaterialConsulta'&&!isAdmin()) return;
   const orig=parseInt(el.dataset.orig);
@@ -1169,8 +1528,6 @@ function handleFieldChange(el, panel) {
   if(field==='FECHA_INICIO'||field==='FECHA_FINAL'){
     const prefix=panel==='requerimientos'?'req':'bv';
     const durEl=document.getElementById(`dur-${prefix}-${orig}`);
-    const fIni=data[orig][field==='FECHA_INICIO'?'FECHA_INICIO':'FECHA_INICIO']||'';
-    const fFin=data[orig]['FECHA_FINAL']||'';
     if(durEl) durEl.innerHTML=durBadge(data[orig]['FECHA_INICIO']||'',data[orig]['FECHA_FINAL']||'');
   }
   if(field==='Estado') updateKPIs();
@@ -1201,7 +1558,7 @@ function applyFilters(){
 }
 function renderTable(){
   const tbody=document.getElementById('tableBody');
-  if(!filteredData.length){ tbody.innerHTML=`<tr><td colspan="12" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
+  if(!filteredData.length){ tbody.innerHTML=`<tr><td colspan="13" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
   tbody.innerHTML=filteredData.map((row,i)=>{
     const orig=row._origIndex;
     const proc=(row['Proceso']||'').trim();
@@ -1211,6 +1568,7 @@ function renderTable(){
     const est=row['Estado']||'Por Iniciar';
     const obs=row['Observaciones']||'';
     const mat=row['MaterialConsulta']||'';
+    const ev=row['Evidencia']||'';
     const pOpts=PRIORIDADES.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p}</option>`).join('');
     const eOpts=ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
@@ -1234,6 +1592,7 @@ function renderTable(){
         onmouseenter="showTooltip(event,'Observaciones','${escHtml(obs)}')"
         onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
       ><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'actividades')" oninput="autoGrow(this)" placeholder="Notas…">${escHtml(obs)}</textarea></td>
+      ${renderEvidenciaCell(orig, ev, 'actividades')}
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -1288,8 +1647,8 @@ function applyCapFilters(){
 }
 function renderCapTable(){
   const tbody=document.getElementById('capTableBody');
-  if(!capData.length){ tbody.innerHTML=`<tr><td colspan="14" class="empty-state"><p>Configura la URL del Apps Script de capacitaciones para ver los datos.</p></td></tr>`; return; }
-  if(!capFilteredData.length){ tbody.innerHTML=`<tr><td colspan="14" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
+  if(!capData.length){ tbody.innerHTML=`<tr><td colspan="15" class="empty-state"><p>Configura la URL del Apps Script de capacitaciones para ver los datos.</p></td></tr>`; return; }
+  if(!capFilteredData.length){ tbody.innerHTML=`<tr><td colspan="15" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
   tbody.innerHTML=capFilteredData.map((row,i)=>{
     const orig=row._origIndex;
     const area=(row['Area']||'').trim();
@@ -1298,6 +1657,7 @@ function renderCapTable(){
     const est=row['Estado']||'Por Iniciar';
     const obs=row['Observaciones']||'';
     const mat=row['MaterialConsulta']||'';
+    const ev=row['Evidencia']||'';
     const pOpts=PRIORIDADES.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p}</option>`).join('');
     const eOpts=ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
@@ -1323,6 +1683,7 @@ function renderCapTable(){
         onmouseenter="showTooltip(event,'Observaciones','${escHtml(obs)}')"
         onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
       ><textarea class="obs-input" data-orig="${orig}" data-field="Observaciones" onchange="handleFieldChange(this,'capacitaciones')" oninput="autoGrow(this)" placeholder="Notas…">${escHtml(obs)}</textarea></td>
+      ${renderEvidenciaCell(orig, ev, 'capacitaciones')}
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="cap-ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -1376,8 +1737,8 @@ function reqPrioCls(p){ const pl=(p||'').toLowerCase(); if(pl==='alta') return '
 function reqEstadoCls(est){ const map={'No iniciado':'rs-No-iniciado','Cotizando':'rs-Cotizando','Aprobado':'rs-Aprobado','Comprado':'rs-Comprado','En tránsito':'rs-En-transito','Recibido':'rs-Recibido','Implementado':'rs-Implementado'}; return map[est]||'rs-No-iniciado'; }
 function renderReqTable(){
   const tbody=document.getElementById('reqTableBody');
-  if(!reqData.length){ tbody.innerHTML=`<tr><td colspan="12" class="empty-state"><p>Pega la URL de tu Apps Script en <strong>SCRIPT_URL_REQ</strong> para cargar los requerimientos.</p></td></tr>`; return; }
-  if(!reqFilteredData.length){ tbody.innerHTML=`<tr><td colspan="12" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
+  if(!reqData.length){ tbody.innerHTML=`<tr><td colspan="13" class="empty-state"><p>Pega la URL de tu Apps Script en <strong>SCRIPT_URL_REQ</strong> para cargar los requerimientos.</p></td></tr>`; return; }
+  if(!reqFilteredData.length){ tbody.innerHTML=`<tr><td colspan="13" class="empty-state"><p>Sin resultados.</p></td></tr>`; return; }
   const PRIOS_REQ=['alta','media','baja'];
   tbody.innerHTML=reqFilteredData.map((row,i)=>{
     const orig=row._origIndex;
@@ -1387,6 +1748,7 @@ function renderReqTable(){
     const com=row['COMENTARIOS']||'';
     const fIni=row['FECHA_INICIO']||'';
     const fFin=row['FECHA_FINAL']||'';
+    const ev=row['Evidencia']||'';
     const pOpts=PRIOS_REQ.map(p=>`<option value="${p}" ${p===prio?'selected':''}>${p.charAt(0).toUpperCase()+p.slice(1)}</option>`).join('');
     const eOpts=REQ_ESTADOS.map(s=>`<option value="${s}" ${s===est?'selected':''}>${s}</option>`).join('');
     return `<tr>
@@ -1414,6 +1776,7 @@ function renderReqTable(){
         onmouseenter="showTooltip(event,'Comentarios','${escHtml(com)}')"
         onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
       ><textarea class="obs-input" data-orig="${orig}" data-field="COMENTARIOS" onchange="handleFieldChange(this,'requerimientos')" oninput="autoGrow(this)" placeholder="Comentario…">${escHtml(com)}</textarea></td>
+      ${renderEvidenciaCell(orig, ev, 'requerimientos')}
       <td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="req-ind-${orig}"></span></td>
     </tr>`;
   }).join('');
@@ -1439,9 +1802,8 @@ function populateReqFilters(){
   if(selZona) document.getElementById('reqFilterZona').value=selZona;
 }
 
-// ══ BUREAU VERITAS RENDER ══════════════════════════════════════
+// ══ BUREAU VERITAS RENDER ══
 function renderBv(){ applyBvFilters(); updateBvKPIs(); updateBvUI(); }
-
 function applyBvFilters(){
   const q=document.getElementById('bvSearch').value.toLowerCase();
   const est=document.getElementById('bvFilterEstado').value;
@@ -1454,38 +1816,27 @@ function applyBvFilters(){
   document.getElementById('bvResultsCount').textContent=`${bvFilteredData.length} caso${bvFilteredData.length!==1?'s':''}`;
   renderBvTable();
 }
-
-function bvEstadoCls(est){
-  const map={'No iniciado':'bvs-No-iniciado','Revisado':'bvs-Revisado','Implementando':'bvs-Implementando','Cumplimos':'bvs-Cumplimos'};
-  return map[est]||'bvs-No-iniciado';
-}
-
+function bvEstadoCls(est){ const map={'No iniciado':'bvs-No-iniciado','Revisado':'bvs-Revisado','Implementando':'bvs-Implementando','Cumplimos':'bvs-Cumplimos'}; return map[est]||'bvs-No-iniciado'; }
 function renderBvTable(){
   const tbody=document.getElementById('bvTableBody');
   if(SCRIPT_URL_BV==='PEGA_AQUI_URL_BUREAUVERITAS'){
-    tbody.innerHTML=`<tr><td colspan="6" class="empty-state"><p>Pega la URL del Apps Script de Bureau Veritas en <strong>SCRIPT_URL_BV</strong> para cargar los casos.</p></td></tr>`;
-    return;
+    tbody.innerHTML=`<tr><td colspan="7" class="empty-state"><p>Pega la URL del Apps Script de Bureau Veritas en <strong>SCRIPT_URL_BV</strong> para cargar los casos.</p></td></tr>`; return;
   }
   if(!bvData.length){
-    const msg=isAdmin()
-      ? 'Sin casos registrados. Usa el botón <strong>Agregar caso</strong> para crear el primero.'
-      : 'Sin casos registrados aún.';
-    tbody.innerHTML=`<tr><td colspan="6" class="empty-state"><p>${msg}</p></td></tr>`;
-    return;
+    const msg=isAdmin()?'Sin casos registrados. Usa el botón <strong>Agregar caso</strong> para crear el primero.':'Sin casos registrados aún.';
+    tbody.innerHTML=`<tr><td colspan="7" class="empty-state"><p>${msg}</p></td></tr>`; return;
   }
-  if(!bvFilteredData.length){ tbody.innerHTML=`<tr><td colspan="6" class="empty-state"><p>Sin resultados para los filtros actuales.</p></td></tr>`; return; }
-
+  if(!bvFilteredData.length){ tbody.innerHTML=`<tr><td colspan="7" class="empty-state"><p>Sin resultados para los filtros actuales.</p></td></tr>`; return; }
   const eOpts=(currentEst)=>BV_ESTADOS.map(s=>`<option value="${s}" ${s===currentEst?'selected':''}>${s}</option>`).join('');
   const canEdit=isAdmin();
   const comDisAttr=canEdit?'':' disabled';
-
   tbody.innerHTML=bvFilteredData.map((row,i)=>{
     const orig=row._origIndex;
     const est=row['ESTADO']||'No iniciado';
     const caso=row['CASO_OBSERVADO']||'';
     const com=row['COMENTARIOS']||'';
     const fecha=row['FECHA_CREACION']||'';
-
+    const ev=row['Evidencia']||'';
     const deleteCol=canEdit
       ? `<td style="text-align:center;padding:8px 6px;">
            <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
@@ -1498,7 +1849,6 @@ function renderBvTable(){
            </div>
          </td>`
       : `<td style="text-align:center;padding:8px 6px;"><span class="save-indicator" id="bv-ind-${orig}"></span></td>`;
-
     return `<tr>
       <td class="td-num">${i+1}</td>
       <td class="expandable-cell" style="font-size:12.5px;font-weight:400;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"
@@ -1507,27 +1857,20 @@ function renderBvTable(){
         oncontextmenu="event.preventDefault();openTextModal('Caso Observado en Otro Hotel','Caso ${i+1}','${escHtml(caso)}')"
       >${escHtml(caso)}</td>
       <td style="width:148px;">
-        <select class="bv-status-select ${bvEstadoCls(est)}"
-          data-orig="${orig}" data-field="ESTADO"
-          onchange="handleFieldChange(this,'bureauveritas')">
-          ${eOpts(est)}
-        </select>
+        <select class="bv-status-select ${bvEstadoCls(est)}" data-orig="${orig}" data-field="ESTADO" onchange="handleFieldChange(this,'bureauveritas')">${eOpts(est)}</select>
       </td>
       <td class="td-obs expandable-cell"
         data-label="Comentarios" data-sub="Caso ${i+1}"
         oncontextmenu="event.preventDefault();openTextModalFromTd(this)"
         onmouseenter="showTooltip(event,'Comentarios','${escHtml(com)}')"
         onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"
-      ><textarea class="obs-input" data-orig="${orig}" data-field="COMENTARIOS"
-          onchange="handleFieldChange(this,'bureauveritas')"
-          oninput="autoGrow(this)"
-          placeholder="Comentarios…"${comDisAttr}>${escHtml(com)}</textarea></td>
+      ><textarea class="obs-input" data-orig="${orig}" data-field="COMENTARIOS" onchange="handleFieldChange(this,'bureauveritas')" oninput="autoGrow(this)" placeholder="Comentarios…"${comDisAttr}>${escHtml(com)}</textarea></td>
       <td><span class="bv-fecha-badge">${escHtml(fecha)}</span></td>
+      ${renderEvidenciaCell(orig, ev, 'bureauveritas')}
       ${deleteCol}
     </tr>`;
   }).join('');
 }
-
 function updateBvKPIs(){
   const total=bvData.length;
   const cumpl=bvData.filter(r=>(r['ESTADO']||'')==='Cumplimos').length;
@@ -1541,7 +1884,6 @@ function updateBvKPIs(){
   document.getElementById('bvKpi3').textContent=cumpl;
 }
 
-// ── Modal agregar caso BV ──────────────────────────────────────
 function openBvModal(){
   if(!isAdmin()) return;
   document.getElementById('bvNewCaso').value='';
@@ -1553,13 +1895,8 @@ function openBvModal(){
   document.getElementById('bvModalBg').classList.add('open');
   setTimeout(()=>document.getElementById('bvNewCaso').focus(),180);
 }
-function closeBvModal(){
-  document.getElementById('bvModalBg').classList.remove('open');
-}
-function closeBvModalOutside(e){
-  if(e.target===document.getElementById('bvModalBg')) closeBvModal();
-}
-
+function closeBvModal(){ document.getElementById('bvModalBg').classList.remove('open'); }
+function closeBvModalOutside(e){ if(e.target===document.getElementById('bvModalBg')) closeBvModal(); }
 async function saveBvNewRow(){
   if(!isAdmin()) return;
   const caso=document.getElementById('bvNewCaso').value.trim();
@@ -1578,20 +1915,10 @@ async function saveBvNewRow(){
     body.append('comentarios',com);
     const res=await fetch(SCRIPT_URL_BV,{method:'POST',body,mode:'cors'});
     const json=await res.json();
-    if(json.success){
-      statusEl.textContent='✓ Caso guardado'; statusEl.style.color='var(--green)';
-      setTimeout(()=>{ closeBvModal(); loadBvData(); },800);
-    } else {
-      statusEl.textContent='Error: '+(json.error||'Desconocido'); statusEl.style.color='var(--red)';
-      saveBtn.disabled=false;
-    }
-  } catch(e){
-    statusEl.textContent='Sin conexión al servidor'; statusEl.style.color='var(--red)';
-    saveBtn.disabled=false;
-  }
+    if(json.success){ statusEl.textContent='✓ Caso guardado'; statusEl.style.color='var(--green)'; setTimeout(()=>{ closeBvModal(); loadBvData(); },800); }
+    else { statusEl.textContent='Error: '+(json.error||'Desconocido'); statusEl.style.color='var(--red)'; saveBtn.disabled=false; }
+  } catch(e){ statusEl.textContent='Sin conexión al servidor'; statusEl.style.color='var(--red)'; saveBtn.disabled=false; }
 }
-
-// ── Eliminar fila BV ───────────────────────────────────────────
 function confirmDeleteBv(origIndex){
   if(!isAdmin()) return;
   const caso=(bvData[origIndex]||{})['CASO_OBSERVADO']||'este caso';
@@ -1607,13 +1934,8 @@ async function deleteBvRow(origIndex){
     body.append('action','delete'); body.append('row',origIndex+2);
     const res=await fetch(SCRIPT_URL_BV,{method:'POST',body,mode:'cors'});
     const json=await res.json();
-    if(json.success){
-      bvData.splice(origIndex,1);
-      applyBvFilters(); updateBvKPIs();
-      setSync('Eliminado · '+timeNow());
-    } else {
-      flash(indicator,'error','Error');
-    }
+    if(json.success){ bvData.splice(origIndex,1); applyBvFilters(); updateBvKPIs(); setSync('Eliminado · '+timeNow()); }
+    else { flash(indicator,'error','Error'); }
   } catch(e){ flash(indicator,'error','Sin conexión'); }
 }
 
@@ -1694,7 +2016,6 @@ function renderSummaryCards(act,cap){
   ];
   document.getElementById('dashSummary').innerHTML=cards.map(c=>`<div class="summary-card"><div class="summary-icon" style="background:${c.bg};"><svg viewBox="0 0 24 24" fill="none" stroke="${c.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${c.icon}/></svg></div><div><div class="summary-val" style="color:${c.color}">${c.val}</div><div class="summary-lbl">${c.lbl}</div></div></div>`).join('');
 }
-// ── Dashboard Requerimientos ───────────────────────────────────
 const REQ_ESTADO_COLORS={'No iniciado':'#94a3b8','Cotizando':'#f59e0b','Aprobado':'#3b82f6','Comprado':'#8b5cf6','En tránsito':'#f97316','Recibido':'#14b8a6','Implementado':'#22c55e'};
 function renderReqDashboard(){
   const labels=REQ_ESTADOS;
@@ -1722,7 +2043,6 @@ function renderReqDashboard(){
   const maxF=Math.max(...funnelSteps.map(s=>s.count),1);
   document.getElementById('ch-req-funnel').innerHTML=funnelSteps.map(({label,count,color})=>{ const pct=Math.round(count/maxF*100); return `<div class="hbar-row"><div class="hbar-label" title="${label}">${label}</div><div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:${color};">${pct>=20?`<span class="hbar-val">${count}</span>`:''}</div>${pct<20?`<span class="hbar-val-out">${count}</span>`:''}</div></div>`; }).join('');
 }
-// ── Dashboard Bureau Veritas ───────────────────────────────────
 const BV_ESTADO_COLORS={'No iniciado':'#94a3b8','Revisado':'#3b82f6','Implementando':'#f59e0b','Cumplimos':'#22c55e'};
 function renderBvDashboard(){
   const labels=BV_ESTADOS;
@@ -1773,7 +2093,7 @@ function renderDonutPrio(canvasId,centerId,legendId,data){
   destroyChart(canvasId);
   const ctx=document.getElementById(canvasId).getContext('2d');
   chartInstances[canvasId]=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data:counts,backgroundColor:colors,borderWidth:2,borderColor:'#fafaf8',hoverBorderWidth:3}]},options:{cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label(ctx){const v=ctx.parsed;const pct=total?Math.round(v/total*100):0;return ` ${ctx.label}: ${v} (${pct}%)`;}}}},animation:{animateRotate:true,duration:700}}});
-  document.getElementById(legendId).innerHTML=labels.map((l,i)=>{ const v=counts[i];const pct=total?Math.round(v/total*100):0; return `<div class="legend-item"><div class="legend-left"><span class="legend-dot" style="background:${colors[i]}"></span><span class="legend-name">${l}</span></div><div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div><span class="legend-count">${v}</span><span class="legend-pct">${pct}%</span></div>`; }).join('');
+  document.getElementById(legendId).innerHTML=labels.map((l,i)=>{ const v=counts[i];const pct=total?Math.round(v/total*100):0; return `<div class="legend-item"><div class="legend-left"><span class="legend-dot" style="background:${colors[i]}"></span><span class="legend-name">${l}</span></div><div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div><span class="legend-count">${v}</span><span class="legend-pct">${p}%</span></div>`; }).join('');
 }
 function renderDptoBars(containerId,data,groupField){
   const groups={};
@@ -1800,12 +2120,6 @@ function openTextModalFromTd(td){ const ta=td.querySelector('textarea'); const t
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ══ LOGIN ══
-// ─────────────────────────────────────────────────────────────────────────────
-// CAMBIO APLICADO: la comparación del usuario ahora es case-insensitive.
-// Se añade .toLowerCase() al valor de u.user al comparar, de modo que
-// "holiday", "HOLIDAY", "Holiday", "HoLiDaY", etc. sean equivalentes.
-// La contraseña SIGUE siendo sensible a mayúsculas/minúsculas (intencional).
-// ─────────────────────────────────────────────────────────────────────────────
 let loginAttempts=0, lockUntil=0, lockTimer=null;
 function doLogin(){
   const now=Date.now();
@@ -1814,7 +2128,6 @@ function doLogin(){
   if(now<lockUntil){ const secs=Math.ceil((lockUntil-now)/1000); lockedEl.textContent=`Acceso bloqueado. Intenta en ${secs}s.`; lockedEl.classList.add('show'); return; }
   const userInput=(userEl.value||'').trim().toLowerCase(), passInput=(passEl.value||'');
   let matchedRole=null;
-  // ── MODIFICACIÓN: comparar u.user en minúsculas para que el usuario sea case-insensitive ──
   for(const key of Object.keys(AUTH_USERS)){
     const u=AUTH_USERS[key];
     if(userInput===u.user.toLowerCase()&&passInput===u.pass){ matchedRole=u.role; break; }
@@ -1828,7 +2141,6 @@ function doLogin(){
     return;
   }
   loginAttempts++;
-  // ── Para el mensaje de error también comparamos en minúsculas ──
   let userOk=false;
   for(const key of Object.keys(AUTH_USERS)){ if(userInput===AUTH_USERS[key].user.toLowerCase()){ userOk=true; break; } }
   userEl.classList.toggle('err',!userOk); passEl.classList.toggle('err',true);
@@ -1850,7 +2162,15 @@ function togglePass(){
   if(input.type==='password'){ input.type='text'; icon.innerHTML='<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>'; }
   else { input.type='password'; icon.innerHTML='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'; }
 }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeTextModal(); closeBvModal(); } });
+
+// ══ KEYBOARD ══
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeTextModal();
+    closeBvModal();
+    closeEvModal();   // ← cierra modal de evidencia con ESC
+  }
+});
 
 // ══ TOOLTIP ══
 const tooltip=document.getElementById('cellTooltip');
